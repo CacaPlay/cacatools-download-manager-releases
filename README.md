@@ -46,7 +46,7 @@ Compara el resultado con la línea correspondiente del archivo <code>SHA256SUMS.
 
 En las primeras descargas Windows puede mostrar una alerta de SmartScreen porque la aplicación todavía está construyendo reputación. Esto no equivale a una detección de malware: SmartScreen evalúa la reputación del editor y del hash del archivo, y una versión nueva puede empezar con reputación desconocida incluso si está firmada.
 
-Descarga únicamente desde este repositorio, comprueba el hash de SHA-256 y revisa que el editor mostrado sea CacaPlay. Si los datos no coinciden, cancela la instalación. No desactives Microsoft Defender para ejecutar un archivo.
+Descarga únicamente desde este repositorio, comprueba el hash de SHA-256 y revisa la firma y el editor cuando Windows los muestre. La firma del actualizador Tauri protege las actualizaciones, pero no sustituye una firma Authenticode del instalador; por eso una instalación nueva puede mostrar “Editor desconocido”. Si los datos no coinciden, cancela la instalación. No desactives Microsoft Defender para ejecutar un archivo.
 
 Consulta la explicación oficial de [Microsoft sobre SmartScreen](https://learn.microsoft.com/es-es/windows/apps/package-and-deploy/smartscreen-reputation).
 
