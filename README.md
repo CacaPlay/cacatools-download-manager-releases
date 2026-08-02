@@ -1,34 +1,46 @@
-# CacaTools Download Manager
+<div align="center">
+  <img src="./logo.svg" width="112" alt="CacaTools Download Manager">
+  <h1>CacaTools Download Manager</h1>
+  <p>Descargas y actualizaciones firmadas para Windows.</p>
+  <p>
+    <a href="https://github.com/CacaPlay/cacatools-download-manager-releases/releases/latest"><strong>Descargar para Windows</strong></a>
+    &nbsp; · &nbsp;
+    <a href="https://github.com/CacaPlay/cacatools-download-manager-releases/releases">Ver versiones</a>
+    &nbsp; · &nbsp;
+    <a href="https://github.com/CacaPlay/cacatools-download-manager-releases/blob/main/SUPPORT.md">Soporte</a>
+  </p>
+  <p><a href="https://github.com/CacaPlay/cacatools-download-manager-releases/releases/latest"><img alt="Versión estable" src="https://img.shields.io/github/v/release/CacaPlay/cacatools-download-manager-releases?label=versi%C3%B3n%20estable&color=6366f1"></a></p>
+</div>
 
-<p align="center">
-  <img src="logo.svg" width="88" alt="CacaTools">
-</p>
+> Este repositorio contiene únicamente los instaladores y la documentación pública. El código fuente se mantiene en un repositorio privado.
 
-Descargas oficiales y actualizaciones firmadas de **CacaTools Download
-Manager** para Windows.
+## Instalar
 
-> Este repositorio contiene distribución binaria y documentación pública. El
-> código fuente se mantiene en un repositorio privado y no se publica aquí.
+1. Pulsa <strong>Descargar para Windows</strong>.
+2. Abre el instalador <code>.exe</code> y sigue el asistente.
+3. Mantén activada la comprobación de actualizaciones.
 
-## Descargar
+La aplicación valida criptográficamente cada actualización antes de instalarla.
 
-[**Descargar la última versión para Windows**](https://github.com/CacaPlay/cacatools-download-manager-releases/releases/latest)
+## Actualizar en el futuro
 
-Abre el instalador `.exe`, sigue el asistente y deja activada la comprobación
-de actualizaciones. Las actualizaciones se verifican criptográficamente antes
-de instalarse.
+No tienes que reemplazar archivos manualmente:
 
-## Verificar una descarga
+1. En el repositorio privado se prepara la nueva versión.
+2. GitHub Actions compila y firma el instalador.
+3. El instalador, su firma y <code>latest.json</code> se publican automáticamente aquí.
+4. CacaTools detecta la nueva versión y muestra la actualización.
+5. El usuario pulsa <strong>Instalar</strong> y la aplicación se reinicia ya actualizada.
 
-Cada Release incluye `SHA256SUMS.txt`. En PowerShell, desde la carpeta de la
-descarga:
+El flujo técnico queda preparado para publicar nuevas versiones sin volver a configurar el repositorio público.
 
-```powershell
-Get-FileHash .\CacaTools.Download.Manager_*_x64-setup.exe -Algorithm SHA256
-```
+## Comprobar una descarga
 
-Compara el valor con la línea del instalador en `SHA256SUMS.txt`. No ejecutes
-un archivo cuyo hash no coincida.
+Cada versión incluye <code>SHA256SUMS.txt</code>. En PowerShell, dentro de la carpeta de descarga:
+
+    Get-FileHash .\CacaTools.Download.Manager_*_x64-setup.exe -Algorithm SHA256
+
+Compara el resultado con la línea correspondiente del archivo <code>SHA256SUMS.txt</code>. Si no coincide, no ejecutes el instalador.
 
 ## Documentación
 
@@ -37,5 +49,10 @@ un archivo cuyo hash no coincida.
 - [Seguridad](SECURITY.md)
 - [Distribución y licencia](LICENSE-DISTRIBUTION.md)
 
-La extensión del navegador se publica y actualiza por separado en Chrome Web
-Store.
+La extensión del navegador se publica y actualiza por separado en Chrome Web Store.
+
+## Enlaces oficiales
+
+- [Última versión](https://github.com/CacaPlay/cacatools-download-manager-releases/releases/latest)
+- [Historial de versiones](https://github.com/CacaPlay/cacatools-download-manager-releases/releases)
+- [Repositorio de código fuente](https://github.com/CacaPlay/cacatools-download-manager) (privado)
