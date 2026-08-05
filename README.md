@@ -14,9 +14,6 @@
     <a href="https://github.com/CacaPlay/cacatools-download-manager-releases/releases/download/v0.23.4/CacaTools-Chrome-Extension-0.23.4-manual.zip"><img alt="Extensión Chrome manual" src="https://img.shields.io/badge/Chrome%20Extension-manual%20v0.23.4-4285F4?style=flat&logo=googlechrome&logoColor=white](https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp?utm_source=item-share-cb"></a>
   </p>
 </div>
-
-> Este repositorio contiene únicamente los instaladores y la documentación pública. El código fuente se mantiene en un repositorio privado.
-
 ## Instalar CacaTools
 
 1. Pulsa **Descargar para Windows**.
