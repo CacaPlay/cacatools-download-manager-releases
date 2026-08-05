@@ -5,7 +5,7 @@
   <p>
     <a href="https://github.com/CacaPlay/cacatools-download-manager-releases/releases/latest"><strong>Descargar para Windows</strong></a>
     &nbsp; · &nbsp;
-    <a href="https://github.com/CacaPlay/cacatools-download-manager-releases/releases/download/v0.23.4/CacaTools-Chrome-Extension-0.23.4-manual.zip"><strong>Descargar extensión Chrome</strong></a>
+    <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp?utm_source=item-share-cb"><strong>Descargar extensión Chrome</strong></a>
     &nbsp; · &nbsp;
     <a href="https://github.com/CacaPlay/cacatools-download-manager-releases/releases">Ver versiones</a>
     &nbsp; · &nbsp;
@@ -30,7 +30,7 @@ La aplicación valida criptográficamente cada actualización antes de instalarl
 ## Extensión de Chrome (manual y temporal)
 
 <div align="center">
-  <a href="https://github.com/CacaPlay/cacatools-download-manager-releases/releases/download/v0.23.4/CacaTools-Chrome-Extension-0.23.4-manual.zip">
+  <a href="https://github.com/CacaPlay/cacatools-download-manager-releases/releases/download/v0.23.4/CacaTools-Chrome-Extension-0.23.4-manual.zip](https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp?utm_source=item-share-cb">
     <img alt="Descargar extensión manual para Chrome" src="https://img.shields.io/badge/Descargar%20extensi%C3%B3n%20Chrome-0.23.4-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white">
   </a>
 </div>
