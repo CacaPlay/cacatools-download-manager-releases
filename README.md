@@ -31,7 +31,7 @@ La aplicación valida criptográficamente cada actualización antes de instalarl
 
 <div align="center">
   <a href="https://github.com/CacaPlay/cacatools-download-manager-releases/releases/download/v0.23.4/CacaTools-Chrome-Extension-0.23.4-manual.zip](https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp?utm_source=item-share-cb">
-    <img alt="Descargar extensión manual para Chrome" src="[https://img.shields.io/badge/Descargar%20extensi%C3%B3n%20Chrome-0.23.4-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white](https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp?utm_source=item-share-cb)">
+    <img alt="Descargar extensión manual para Chrome" src="https://img.shields.io/badge/Descargar%20extensi%C3%B3n%20Chrome-0.23.4-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white](https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp?utm_source=item-share-cb">
   </a>
 </div>
 
