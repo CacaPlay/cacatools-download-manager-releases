@@ -27,24 +27,6 @@
 
 La aplicación valida criptográficamente cada actualización antes de instalarla.
 
-## Extensión de Chrome (manual y temporal)
-
-<div align="center">
-  <a href="https://github.com/CacaPlay/cacatools-download-manager-releases/releases/download/v0.23.4/CacaTools-Chrome-Extension-0.23.4-manual.zip](https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp?utm_source=item-share-cb">
-    <img alt="Descargar extensión manual para Chrome" src="https://img.shields.io/badge/Descargar%20extensi%C3%B3n%20Chrome-0.23.4-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white](https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp?utm_source=item-share-cb">
-  </a>
-</div>
-
-Mientras Chrome Web Store termina la revisión, puedes instalar esta versión manual:
-
-1. Descarga el ZIP desde el botón azul.
-2. Descomprímelo en una carpeta permanente.
-3. Abre <code>chrome://extensions</code> y activa **Modo desarrollador**.
-4. Pulsa **Cargar descomprimida** y selecciona la carpeta que contiene <code>manifest.json</code>.
-5. Mantén CacaTools instalado y abierto para que funcione el puente local.
-
-Esta versión es temporal. Cuando la extensión oficial esté disponible en Chrome Web Store, reemplaza la versión manual por la publicada allí. No mantengas ambas instaladas al mismo tiempo para evitar detecciones duplicadas.
-
 ## Actualizar en el futuro
 
 No tienes que reemplazar archivos manualmente:
