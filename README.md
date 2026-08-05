@@ -1,8 +1,6 @@
 <div align="center">
   <img src="./logo.svg" width="112" alt="CacaTools Download Manager">
   <h1>CacaTools Download Manager</h1>
-  <p>Descargas y actualizaciones firmadas para Windows.</p>
-  <p>
     <a href="https://github.com/CacaPlay/cacatools-download-manager-releases/releases/latest"><strong>Descargar para Windows</strong></a>
     &nbsp; · &nbsp;
     <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp?utm_source=item-share-cb"><strong>Descargar extensión Chrome</strong></a>
@@ -13,7 +11,7 @@
   </p>
   <p>
     <a href="https://github.com/CacaPlay/cacatools-download-manager-releases/releases/latest"><img alt="Versión estable" src="https://img.shields.io/github/v/release/CacaPlay/cacatools-download-manager-releases?label=versi%C3%B3n%20estable&color=6366f1"></a>
-    <a href="https://github.com/CacaPlay/cacatools-download-manager-releases/releases/download/v0.23.4/CacaTools-Chrome-Extension-0.23.4-manual.zip"><img alt="Extensión Chrome manual" src="https://img.shields.io/badge/Chrome%20Extension-manual%20v0.23.4-4285F4?style=flat&logo=googlechrome&logoColor=white"></a>
+    <a href="https://github.com/CacaPlay/cacatools-download-manager-releases/releases/download/v0.23.4/CacaTools-Chrome-Extension-0.23.4-manual.zip"><img alt="Extensión Chrome manual" src="[https://img.shields.io/badge/Chrome%20Extension-manual%20v0.23.4-4285F4?style=flat&logo=googlechrome&logoColor=white](https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp?utm_source=item-share-cb)"></a>
   </p>
 </div>
 
