@@ -11,7 +11,7 @@
   </p>
   <p>
     <a href="https://github.com/CacaPlay/cacatools-download-manager-releases/releases/latest"><img alt="Versión estable" src="https://img.shields.io/github/v/release/CacaPlay/cacatools-download-manager-releases?label=versi%C3%B3n%20estable&color=6366f1"></a>
-    <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp"><img alt="Extensión Chrome manual" src="https://img.shields.io/badge/Chrome%20Extension-manual%20v0.23.4-4285F4?style=flat&logo=googlechrome&logoColor=white]([https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp?utm_source=item-share-cb](https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp?utm_source=item-share-cb)"></a>
+    <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp"><img alt="Extensión Chrome manual" src="https://img.shields.io/badge/Chrome%20Extension-manual%20v0.24.9-4285F4?style=flat&logo=googlechrome&logoColor=white]([https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp?utm_source=item-share-cb](https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp?utm_source=item-share-cb)"></a>
   </p>
 </div>
 ## Instalar CacaTools
