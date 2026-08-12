@@ -1,6 +1,13 @@
 <div align="center">
   <img src="./logo.svg" width="112" alt="CacaTools Download Manager">
-  <h1>CacaTools Download Manager</h1>
+  <h1>CacaTools Download Manager (CDM)</h1>
+  <p><strong>Gestor y descargador de videos, audio, archivos y enlaces para Windows.</strong></p>
+  <p>
+    <a href="https://tools.cacaplay.lat/descargas/"><strong>Página oficial</strong></a>
+    &nbsp; · &nbsp;
+    <a href="https://apps.microsoft.com/detail/9NSTJ7JXM843?hl=es-es&amp;gl=US&amp;ocid=pdpshare"><strong>Microsoft Store</strong></a>
+  </p>
+  <p>
     <a href="https://github.com/CacaPlay/cacatools-download-manager-releases/releases/latest"><strong>Descargar para Windows</strong></a>
     &nbsp; · &nbsp;
     <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp?utm_source=item-share-cb"><strong>Descargar extensión Chrome</strong></a>
@@ -11,9 +18,23 @@
   </p>
   <p>
     <a href="https://github.com/CacaPlay/cacatools-download-manager-releases/releases/latest"><img alt="Versión estable" src="https://img.shields.io/github/v/release/CacaPlay/cacatools-download-manager-releases?label=versi%C3%B3n%20estable&color=6366f1"></a>
-    <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp"><img alt="Extensión Chrome manual" src="https://img.shields.io/badge/Chrome%20Extension-manual%20v0.24.9-4285F4?style=flat&logo=googlechrome&logoColor=white]([https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp?utm_source=item-share-cb](https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp?utm_source=item-share-cb)"></a>
+    <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp"><img alt="Extensión Chrome" src="https://img.shields.io/badge/Chrome%20Web%20Store-extensi%C3%B3n-4285F4?style=flat&logo=googlechrome&logoColor=white"></a>
   </p>
 </div>
+
+# CacaTools Download Manager (CDM)
+
+CacaTools Download Manager, también conocido como **CDM**, es un **gestor de descargas para Windows** y un **descargador de videos** para reunir videos, audio, archivos, enlaces y playlists en una sola aplicación.
+
+También puedes encontrarlo como **CacaTools CDM**, **CacaTools Download Manager para Windows**, **Windows download manager** y **video downloader para Windows**.
+
+## Qué puedes descargar
+
+- Videos y audio desde enlaces compatibles.
+- Playlists y varios elementos en cola.
+- Archivos y enlaces directos.
+- Descargas organizadas con progreso, velocidad y estado.
+
 ## Instalar CacaTools
 
 1. Pulsa **Descargar para Windows**.
