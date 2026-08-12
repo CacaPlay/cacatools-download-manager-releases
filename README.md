@@ -28,6 +28,8 @@ CacaTools Download Manager, también conocido como **CDM**, es un **gestor de de
 
 También puedes encontrarlo como **CacaTools CDM**, **CacaTools Download Manager para Windows**, **Windows download manager** y **video downloader para Windows**.
 
+Este es el **repositorio GitHub oficial de CacaTools Download Manager (CDM)**, donde se publican las versiones descargables para Windows, sus notas de versión y los archivos de distribución.
+
 ## Qué puedes descargar
 
 - Videos y audio desde enlaces compatibles.
