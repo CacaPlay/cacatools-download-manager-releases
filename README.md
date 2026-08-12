@@ -8,6 +8,8 @@
     <a href="https://apps.microsoft.com/detail/9NSTJ7JXM843?hl=es-es&amp;gl=US&amp;ocid=pdpshare"><strong>Microsoft Store</strong></a>
   </p>
   <p>
+    <a href="https://github.com/CacaPlay/cacatools-download-manager-releases/releases/download/v0.30.0/CacaTools.Download.Manager_0.30.0_x64-setup.exe"><strong>Descarga directa</strong></a>
+    &nbsp; · &nbsp;
     <a href="https://github.com/CacaPlay/cacatools-download-manager-releases/releases/latest"><strong>Descargar para Windows</strong></a>
     &nbsp; · &nbsp;
     <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp?utm_source=item-share-cb"><strong>Descargar extensión Chrome</strong></a>
@@ -29,6 +31,8 @@ CacaTools Download Manager, también conocido como **CDM**, es un **gestor de de
 También puedes encontrarlo como **CacaTools CDM**, **CacaTools Download Manager para Windows**, **Windows download manager** y **video downloader para Windows**.
 
 Este es el **repositorio GitHub oficial de CacaTools Download Manager (CDM)**, donde se publican las versiones descargables para Windows, sus notas de versión y los archivos de distribución.
+
+La descarga principal es el instalador oficial de Windows. También puedes instalar la aplicación desde [Microsoft Store](https://apps.microsoft.com/detail/9NSTJ7JXM843?hl=es-es&gl=US&ocid=pdpshare) o complementar CDM con la [extensión oficial de Chrome](https://chromewebstore.google.com/detail/cacatools-download-manage/aonppfnabjnicjjeoofkfjofolfibggp).
 
 CDM forma parte del ecosistema **CacaTools**, un conjunto de herramientas web de CacaPlay. En la [página oficial de CacaTools](https://tools.cacaplay.lat/) también puedes abrir el [editor de documentos PDF](https://tools.cacaplay.lat/documentos/), el [buscador y editor de imágenes](https://tools.cacaplay.lat/imagenes/), las [utilidades online](https://tools.cacaplay.lat/utilidades/), el [generador de códigos QR](https://tools.cacaplay.lat/qr/), el [administrador de enlaces](https://tools.cacaplay.lat/enlaces/) y el [centro de enlaces y QR](https://tools.cacaplay.lat/enlaces-qr/).
 
@@ -91,5 +95,9 @@ La extensión oficial se publicará y actualizará por separado en Chrome Web St
 ## Enlaces oficiales
 
 - [Última versión](https://github.com/CacaPlay/cacatools-download-manager-releases/releases/latest)
+- [Descarga directa del instalador de Windows 0.30.0](https://github.com/CacaPlay/cacatools-download-manager-releases/releases/download/v0.30.0/CacaTools.Download.Manager_0.30.0_x64-setup.exe)
 - [Historial de versiones](https://github.com/CacaPlay/cacatools-download-manager-releases/releases)
+- [Página oficial de descarga](https://tools.cacaplay.lat/descargas/)
+- [Microsoft Store](https://apps.microsoft.com/detail/9NSTJ7JXM843?hl=es-es&gl=US&ocid=pdpshare)
+- [Extensión para Chrome](https://chromewebstore.google.com/detail/cacatools-download-manage/aonppfnabjnicjjeoofkfjofolfibggp)
 - [Repositorio de código fuente](https://github.com/CacaPlay/cacatools-download-manager) (privado)
