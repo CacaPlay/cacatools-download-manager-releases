@@ -30,6 +30,12 @@ También puedes encontrarlo como **CacaTools CDM**, **CacaTools Download Manager
 
 Este es el **repositorio GitHub oficial de CacaTools Download Manager (CDM)**, donde se publican las versiones descargables para Windows, sus notas de versión y los archivos de distribución.
 
+CDM forma parte del ecosistema **CacaTools**, un conjunto de herramientas web de CacaPlay. En la [página oficial de CacaTools](https://tools.cacaplay.lat/) también puedes abrir el [editor de documentos PDF](https://tools.cacaplay.lat/documentos/), el [buscador y editor de imágenes](https://tools.cacaplay.lat/imagenes/), las [utilidades online](https://tools.cacaplay.lat/utilidades/), el [generador de códigos QR](https://tools.cacaplay.lat/qr/), el [administrador de enlaces](https://tools.cacaplay.lat/enlaces/) y el [centro de enlaces y QR](https://tools.cacaplay.lat/enlaces-qr/).
+
+### Buscar CacaTools y CDM
+
+Los nombres oficiales del proyecto son **CacaTools Download Manager**, **CacaTools CDM** y **CDM para Windows**. También puede describirse como **descargador de videos**, **gestor de descargas multimedia**, **download manager para Windows**, **descargador de audio**, **descargador de playlists** y **descargador de archivos**. Estos términos describen el mismo producto; no son aplicaciones distintas.
+
 ## Qué puedes descargar
 
 - Videos y audio desde enlaces compatibles.
