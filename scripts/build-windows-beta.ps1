@@ -16,11 +16,29 @@ $ExtensionSourceManifest = Get-Content (Join-Path $Root "extension\manifest.json
 $ExtensionVersion = [string]$ExtensionSourceManifest.version
 $BuildId = "CDM-$Version-UI-BETA-20260910"
 $Output = Join-Path $Root "output\windows-beta"
-$TauriTargetRoot = if ([string]::IsNullOrWhiteSpace($env:CARGO_TARGET_DIR)) {
-  Join-Path $Root "src-tauri\target"
+$CargoTargetFromConfig = $null
+$CargoConfigPath = Join-Path $Root ".cargo\config.toml"
+if (Test-Path -LiteralPath $CargoConfigPath) {
+  $CargoConfigText = Get-Content -LiteralPath $CargoConfigPath -Raw
+  $TargetMatch = [regex]::Match($CargoConfigText, '(?m)^\s*target-dir\s*=\s*"([^"]+)"')
+  if ($TargetMatch.Success) {
+    $ConfiguredTarget = $TargetMatch.Groups[1].Value
+    $CargoTargetFromConfig = if ([IO.Path]::IsPathRooted($ConfiguredTarget)) {
+      [IO.Path]::GetFullPath($ConfiguredTarget)
+    }
+    else {
+      [IO.Path]::GetFullPath((Join-Path $Root $ConfiguredTarget))
+    }
+  }
+}
+$TauriTargetRoot = if (-not [string]::IsNullOrWhiteSpace($env:CARGO_TARGET_DIR)) {
+  [IO.Path]::GetFullPath($env:CARGO_TARGET_DIR)
+}
+elseif ($CargoTargetFromConfig) {
+  $CargoTargetFromConfig
 }
 else {
-  [IO.Path]::GetFullPath($env:CARGO_TARGET_DIR)
+  Join-Path $Root "src-tauri\target"
 }
 $BundleRoot = Join-Path $TauriTargetRoot "release\bundle"
 $BuildStarted = Get-Date
