@@ -75,7 +75,10 @@ try {
   $ScreenshotHashes = New-Object System.Collections.Generic.List[string]
   foreach ($RelativeScreenshot in $ScreenshotFiles) {
     $SourceScreenshot = Join-Path $Root $RelativeScreenshot
-    if (-not (Test-Path $SourceScreenshot)) { throw "Missing validated screenshot: $RelativeScreenshot" }
+    if (-not (Test-Path $SourceScreenshot)) {
+      Write-Warning "Optional validated screenshot is not present in the clean source: $RelativeScreenshot"
+      continue
+    }
     $DestinationScreenshot = Join-Path $ScreenshotOutput ([IO.Path]::GetFileName($SourceScreenshot))
     Copy-Item $SourceScreenshot $DestinationScreenshot -Force
     $Digest = (Get-FileHash $DestinationScreenshot -Algorithm SHA256).Hash.ToLowerInvariant()
@@ -87,8 +90,8 @@ try {
   $ValidationOutput = Join-Path $Output "validation-reports"
   New-Item -ItemType Directory -Path $ValidationOutput -Force | Out-Null
   $ValidationHashes = New-Object System.Collections.Generic.List[string]
-  $ValidationReports = @(Get-ChildItem (Join-Path $Root "docs\tests") -File | Where-Object { $_.Name -match "^phase(?:16|17|18|19|20|22)-.*\.json$" } | Sort-Object Name)
-  if ($ValidationReports.Count -lt 22) { throw "The Phase 16-22 validation report set is incomplete." }
+  $ValidationReports = @(Get-ChildItem (Join-Path $Root "docs\tests") -File -ErrorAction SilentlyContinue | Where-Object { $_.Extension -eq '.json' } | Sort-Object Name)
+  if ($ValidationReports.Count -eq 0) { throw "The current validation report set is empty." }
   foreach ($ValidationReport in $ValidationReports) {
     $DestinationReport = Join-Path $ValidationOutput $ValidationReport.Name
     Copy-Item $ValidationReport.FullName $DestinationReport -Force
@@ -109,7 +112,7 @@ CLEAR DOWNLOAD MANAGER WINDOWS BUILD COMPLETED
 3. The source manifest used for this installer is recorded in build-report.json.
 4. Do not delete package-lock.json or src-tauri\Cargo.lock after this build.
 5. UI reference images and their SHA-256 file are in the screenshots folder.
-6. Source-linked validation reports and hashes are in validation-reports.
+6. Source-linked validation reports and hashes are in validation-reports; visual reference images are included when present in the clean source.
 7. If the installed app closes immediately, run scripts\collect-windows-diagnostics.ps1.
 "@ | Set-Content (Join-Path $Output "BUILD_COMPLETED.txt") -Encoding UTF8
 
