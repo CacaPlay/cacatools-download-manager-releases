@@ -428,7 +428,7 @@ fn redirect_is_allowed(attempt: &Attempt<'_>, allowed_hosts: &[&str]) -> bool {
     url.scheme() == "https"
         && url
             .host_str()
-            .is_some_and(|host| allowed_hosts.iter().any(|allowed| host == *allowed))
+            .is_some_and(|host| allowed_hosts.contains(&host))
 }
 
 fn download_to_partial(

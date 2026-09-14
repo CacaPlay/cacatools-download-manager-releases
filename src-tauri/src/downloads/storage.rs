@@ -497,6 +497,7 @@ fn runtime_job_is_active(
         || external_processes_active(external_processes, id)
 }
 
+#[allow(clippy::too_many_arguments)]
 pub(crate) fn schedule_job_deletion_after_idle(
     id: i64,
     delete_storage: bool,

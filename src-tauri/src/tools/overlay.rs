@@ -439,7 +439,7 @@ fn select_overlay(
 ) -> Option<OverlayResolution> {
     match bundled_version {
         None => Some(overlay),
-        Some(version) if version.is_empty() => None,
+        Some("") => None,
         Some(version) => match classify_component_version(ToolId::YtDlp, version, &overlay.version)
         {
             Ok(VersionRelation::Newer) => Some(overlay),
@@ -598,10 +598,9 @@ fn promote_at(
     }
     // A second immediate probe detects a broken activation before callers can
     // observe it. Restore the old pointer if this technical check fails.
-    if probe_ytdlp_version(&promoted)
+    if !probe_ytdlp_version(&promoted)
         .map(|version| version == staged.version)
         .unwrap_or(false)
-        == false
     {
         if restore_previous_after_health_failure(root, &pointer).is_err() {
             let _ = fs::remove_file(active_path(root));

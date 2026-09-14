@@ -588,6 +588,7 @@ fn fetch_with_retries(
     request: &CatalogRequest,
     sleep: &mut dyn FnMut(Duration),
 ) -> Result<CatalogResponse, CatalogError> {
+    #[allow(clippy::needless_range_loop)]
     for attempt in 0..=RETRY_DELAYS.len() {
         match transport.fetch(request) {
             Ok(response) => return Ok(response),
@@ -608,7 +609,7 @@ fn now_seconds() -> i64 {
 }
 
 pub(crate) fn should_check(last_check: Option<i64>, now: i64, jitter_seconds: i64) -> bool {
-    if jitter_seconds < 0 || jitter_seconds >= PERIODIC_INTERVAL_SECONDS {
+    if !(0..PERIODIC_INTERVAL_SECONDS).contains(&jitter_seconds) {
         return false;
     }
     last_check
@@ -908,9 +909,7 @@ pub(crate) fn cached_tool_catalog_status(
 
 pub(crate) fn cached_catalog_checked_at(app: &AppHandle) -> Option<u64> {
     let trusted_keys = TrustedKeys::production();
-    if trusted_keys.key_ids().next().is_none() {
-        return None;
-    }
+    trusted_keys.key_ids().next()?;
     let root = app.path().app_data_dir().ok()?;
     read_lkg(&root, &trusted_keys, now_seconds())
         .ok()

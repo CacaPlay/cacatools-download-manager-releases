@@ -229,6 +229,7 @@ fn persist_segmented_progress(
     transaction.commit().map_err(|error| error.to_string())
 }
 
+#[allow(clippy::too_many_arguments)]
 pub(super) fn try_segmented_http_download(
     db_path: &Path,
     id: i64,

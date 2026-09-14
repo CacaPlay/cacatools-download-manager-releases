@@ -13,7 +13,6 @@ pub(crate) async fn check_tool_updates_now(app: AppHandle) -> ToolUpdateStatus {
         crate::tools::ipc::check_tool_updates_now(&worker_app)
     })
     .await
-    .map(|status| status)
     .unwrap_or_else(|_| crate::tools::ipc::get_tool_update_status(&app))
 }
 

@@ -1,3 +1,5 @@
+#![allow(clippy::items_after_test_module)]
+
 use crate::{
     chaos, configure_connection, downloads, media, DownloadConcurrencySettings,
     ExternalProcessRegistry, MediaRuntimePaths, WorkerCompletion,

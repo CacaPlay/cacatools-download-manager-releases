@@ -1,4 +1,5 @@
 #![allow(clippy::invisible_characters)]
+#![allow(clippy::items_after_test_module)]
 
 use super::{
     aria2, bytes_look_like_html, canonical_google_docs_export_url, complete_verified_http_job,
@@ -626,6 +627,7 @@ fn acquire_http_writer_lock(temp_path: &Path) -> Result<fs::File, String> {
     let lock_path = PathBuf::from(format!("{}.lock", temp_path.display()));
     let lock = OpenOptions::new()
         .create(true)
+        .truncate(false)
         .read(true)
         .write(true)
         .open(lock_path)
@@ -873,17 +875,12 @@ fn run_rust_http_worker(db_path: &Path, id: i64, lease: &super::HttpLease) -> Re
         if state
             .total_bytes
             .is_some_and(|total| facts.total.is_some_and(|remote| remote != total))
+            || response_representation_changed(
+                state.strong_etag.as_deref(),
+                state.last_modified.as_deref(),
+                &response,
+            )
         {
-            isolate_stale_partial(&temp_path)?;
-            existing = 0;
-            response = request_download_response_with_range_and_validator(
-                &client, &url, None, referrer, None,
-            )?;
-        } else if response_representation_changed(
-            state.strong_etag.as_deref(),
-            state.last_modified.as_deref(),
-            &response,
-        ) {
             isolate_stale_partial(&temp_path)?;
             existing = 0;
             response = request_download_response_with_range_and_validator(

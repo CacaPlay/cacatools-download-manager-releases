@@ -578,9 +578,7 @@ pub(crate) fn parse_utc_timestamp_seconds(value: &str) -> Option<i64> {
     let timestamp_end = match bytes[19] {
         b'Z' => 20,
         b'.' => {
-            let Some(zero_index) = bytes[20..].iter().position(|byte| *byte == b'Z') else {
-                return None;
-            };
+            let zero_index = bytes[20..].iter().position(|byte| *byte == b'Z')?;
             let fraction = &bytes[20..20 + zero_index];
             if fraction.is_empty() || !fraction.iter().all(|byte| byte.is_ascii_digit()) {
                 return None;

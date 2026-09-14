@@ -234,7 +234,7 @@ fn validate_development_override_path(id: ToolId, path: &Path) -> Option<PathBuf
     if !path.is_absolute() {
         return None;
     }
-    let metadata = fs::symlink_metadata(&path).ok()?;
+    let metadata = fs::symlink_metadata(path).ok()?;
     if !metadata.is_file()
         || metadata.file_type().is_symlink()
         || runtime_has_reparse_point(&metadata)

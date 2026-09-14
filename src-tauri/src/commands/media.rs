@@ -220,6 +220,7 @@ pub(crate) async fn player_window_action(action: String, app: AppHandle) -> Resu
 }
 
 #[tauri::command]
+#[allow(clippy::too_many_arguments)]
 pub(crate) fn queue_media_download(
     url: String,
     title: String,

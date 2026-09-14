@@ -1,5 +1,6 @@
 use std::process::Output;
 
+#[allow(clippy::too_many_arguments)]
 pub(super) fn run_analysis_attempt<F>(
     binary: &std::path::Path,
     parsed: &Url,
@@ -84,6 +85,7 @@ where
     )
 }
 
+#[allow(clippy::too_many_arguments)]
 pub(super) fn run_preview_attempt(
     binary: &std::path::Path,
     parsed: &Url,

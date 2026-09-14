@@ -166,6 +166,7 @@ pub(crate) fn mark_http_finalizing(
     Ok(())
 }
 
+#[allow(clippy::too_many_arguments)]
 pub(crate) fn persist_http_representation(
     db_path: &Path,
     id: i64,
