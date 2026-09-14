@@ -23,6 +23,6 @@ No se solicita `<all_urls>` ni acceso permanente a todos los sitios: solo se dec
 ## Publicación
 
 Genera el paquete con `npm.cmd run extension:build` y súbelo desde el panel de
-desarrollador. Añade las capturas requeridas y enlaza `PRIVACY_EXTENSION.md`
+desarrollador. Añade las capturas requeridas y enlaza `PRIVACY.md`
 como política pública. La aplicación no reemplaza una copia instalada desde la
 Web Store.

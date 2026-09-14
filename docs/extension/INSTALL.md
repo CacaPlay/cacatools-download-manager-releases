@@ -44,6 +44,6 @@ públicos automáticamente solo en YouTube, Spotify, Pinterest y TikTok;
    `nativeMessaging` comunica la selección con Clear Download Manager. No se leen cookies,
 contraseñas, tokens, cabeceras ni URLs `blob:` como descargas finales.
 
-Para publicar en Chrome Web Store usa el ZIP, `CHROME_WEB_STORE_SUBMISSION.md`
-y `PRIVACY_EXTENSION.md`. Chrome gestionará las actualizaciones de una
+Para publicar en Chrome Web Store usa el ZIP, `STORE-SUBMISSION.md`
+y `PRIVACY.md`. Chrome gestionará las actualizaciones de una
 extensión publicada; el ZIP local se recarga manualmente.
