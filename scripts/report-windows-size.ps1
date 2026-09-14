@@ -10,6 +10,31 @@ $Root = Split-Path -Parent $PSScriptRoot
 $Output = Join-Path $Root $OutputDirectory
 New-Item -ItemType Directory -Force -Path $Output | Out-Null
 
+$CargoTargetFromConfig = $null
+$CargoConfigPath = Join-Path $Root ".cargo\config.toml"
+if (Test-Path -LiteralPath $CargoConfigPath) {
+  $CargoConfigText = Get-Content -LiteralPath $CargoConfigPath -Raw
+  $TargetMatch = [regex]::Match($CargoConfigText, '(?m)^\s*target-dir\s*=\s*"([^"]+)"')
+  if ($TargetMatch.Success) {
+    $ConfiguredTarget = $TargetMatch.Groups[1].Value
+    $CargoTargetFromConfig = if ([IO.Path]::IsPathRooted($ConfiguredTarget)) {
+      [IO.Path]::GetFullPath($ConfiguredTarget)
+    }
+    else {
+      [IO.Path]::GetFullPath((Join-Path $Root $ConfiguredTarget))
+    }
+  }
+}
+$TauriTargetRoot = if (-not [string]::IsNullOrWhiteSpace($env:CARGO_TARGET_DIR)) {
+  [IO.Path]::GetFullPath($env:CARGO_TARGET_DIR)
+}
+elseif ($CargoTargetFromConfig) {
+  $CargoTargetFromConfig
+}
+else {
+  Join-Path $Root "src-tauri\target"
+}
+
 function File-Entry {
   param([string]$Path, [string]$Category)
   if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) { return $null }
@@ -26,18 +51,24 @@ function File-Entry {
 
 $Entries = New-Object System.Collections.Generic.List[object]
 $Candidates = @(
-  @{ Path = 'src-tauri\target\release\cacatools-desktop.exe'; Category = 'app' },
+  @{ Path = (Join-Path $TauriTargetRoot 'release\cacatools-desktop.exe'); Category = 'app' },
   @{ Path = 'src-tauri\resources\bin\aria2c.exe'; Category = 'runtime' },
   @{ Path = 'src-tauri\resources\bin\yt-dlp.exe'; Category = 'runtime' },
   @{ Path = 'src-tauri\resources\bin\ffmpeg.exe'; Category = 'runtime' },
   @{ Path = 'src-tauri\resources\bin\ffprobe.exe'; Category = 'runtime' }
 )
 foreach ($Candidate in $Candidates) {
-  $Entry = File-Entry -Path (Join-Path $Root $Candidate.Path) -Category $Candidate.Category
+  $CandidatePath = if ([IO.Path]::IsPathRooted([string]$Candidate.Path)) {
+    [IO.Path]::GetFullPath([string]$Candidate.Path)
+  }
+  else {
+    Join-Path $Root $Candidate.Path
+  }
+  $Entry = File-Entry -Path $CandidatePath -Category $Candidate.Category
   if ($null -ne $Entry) { [void]$Entries.Add($Entry) }
 }
 
-$BundleRoot = Join-Path $Root 'src-tauri\target\release\bundle'
+$BundleRoot = Join-Path $TauriTargetRoot 'release\bundle'
 if (Test-Path $BundleRoot) {
   Get-ChildItem $BundleRoot -Recurse -File -ErrorAction SilentlyContinue |
     Where-Object { $_.Extension -in '.exe', '.msi', '.zip' -or $_.Name -like '*.sig' } |
@@ -57,12 +88,11 @@ function Get-CategoryByteSum {
     [Parameter(Mandatory = $true)][string]$Category
   )
 
-  $Measurement = $Items |
-    Where-Object { $_.category -eq $Category } |
-    Measure-Object -Property bytes -Sum
-
-  if ($null -eq $Measurement.Sum) { return [int64]0 }
-  return [int64]$Measurement.Sum
+  [int64]$Total = 0
+  foreach ($Item in @($Items | Where-Object { $_.category -eq $Category })) {
+    if ($null -ne $Item) { $Total += [int64]$Item.bytes }
+  }
+  return $Total
 }
 
 $RuntimeBytes = Get-CategoryByteSum -Items $EntryArray -Category 'runtime'
