@@ -108,7 +108,7 @@ PUBLICACION DE CLEAR DOWNLOAD MANAGER $Version
    - $ArtifactAssetName
    - $SignatureAssetName
    - latest.json
-$(if ($SetupInstaller) { "   - $SetupAssetName (instalacion manual)" })
+$(if ($SetupInstaller -and $SetupAssetName -ne $ArtifactAssetName) { "   - $SetupAssetName (instalacion manual)" })
 3. Publica la Release, no la dejes como Draft.
 4. Comprueba esta direccion:
    https://github.com/$($UpdaterConfig.repository)/releases/latest/download/latest.json
