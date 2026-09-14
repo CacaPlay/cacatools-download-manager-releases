@@ -16,7 +16,13 @@ $ExtensionSourceManifest = Get-Content (Join-Path $Root "extension\manifest.json
 $ExtensionVersion = [string]$ExtensionSourceManifest.version
 $BuildId = "CDM-$Version-UI-BETA-20260910"
 $Output = Join-Path $Root "output\windows-beta"
-$BundleRoot = Join-Path $Root "src-tauri\target\release\bundle"
+$TauriTargetRoot = if ([string]::IsNullOrWhiteSpace($env:CARGO_TARGET_DIR)) {
+  Join-Path $Root "src-tauri\target"
+}
+else {
+  [IO.Path]::GetFullPath($env:CARGO_TARGET_DIR)
+}
+$BundleRoot = Join-Path $TauriTargetRoot "release\bundle"
 $BuildStarted = Get-Date
 Set-Location $Root
 
@@ -126,12 +132,16 @@ if (-not $SkipMediaRuntime) {
 # can still answer ping while silently routing the published extension to an
 # older protocol/app implementation.
 $NativeHostProject = Join-Path $Root "extension\native-host"
-$NativeHostArtifact = Join-Path $NativeHostProject "target\release\cacatools-native-host.exe"
+$NativeHostTargetRoot = Join-Path ([IO.Path]::GetDirectoryName($TauriTargetRoot)) (([IO.Path]::GetFileName($TauriTargetRoot)) + "-native-host")
+$NativeHostArtifact = Join-Path $NativeHostTargetRoot "release\cacatools-native-host.exe"
 $NativeHostResource = Join-Path $Root "src-tauri\resources\extension\cacatools-native-host.exe"
 Push-Location $NativeHostProject
+$PreviousCargoTargetDirectory = $env:CARGO_TARGET_DIR
 try {
+  $env:CARGO_TARGET_DIR = $NativeHostTargetRoot
   Invoke-Native "cargo.exe" @("build", "--release", "--locked")
 } finally {
+  $env:CARGO_TARGET_DIR = $PreviousCargoTargetDirectory
   Pop-Location
 }
 if (-not (Test-Path -LiteralPath $NativeHostArtifact)) {
@@ -169,9 +179,9 @@ Invoke-Native "npx.cmd" @("--no-install", "tauri", "build", "--bundles", $Bundle
 & (Join-Path $PSScriptRoot "report-windows-size.ps1")
 if ($LASTEXITCODE -ne 0 -or -not $?) { throw "The Windows size report could not be generated." }
 
-$RawExecutable = Join-Path $Root "src-tauri\target\release\cacatools-desktop.exe"
+$RawExecutable = Join-Path $TauriTargetRoot "release\cacatools-desktop.exe"
 if (-not (Test-Path $RawExecutable)) {
-  $RawExecutable = Join-Path $Root "src-tauri\target\release\cacatools.exe"
+  $RawExecutable = Join-Path $TauriTargetRoot "release\cacatools.exe"
 }
 if (Test-Path $RawExecutable) {
   # A cold first launch can spend several seconds initializing WebView2 and
