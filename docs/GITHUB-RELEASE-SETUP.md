@@ -12,7 +12,9 @@ Windows build. Configure these repository secrets in
 Keep the token and signing key out of commits, logs, artifacts, and pull
 requests. The workflow checks that the updater is enabled, publishes
 `latest.json`, and verifies the downloaded catalog and Windows asset before
-finishing.
+finishing. The publication target is resolved from the bundled updater
+configuration, so `latest.json` and the GitHub release cannot silently point
+to different repositories during the legacy bridge.
 
 The first 0.95.0 migration release is exceptional: it must be signed and
 published through the legacy releases repository so that CacaTools 0.45.4 can
