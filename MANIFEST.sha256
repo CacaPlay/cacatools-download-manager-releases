@@ -504,7 +504,7 @@ f8916dea28e7ca7acfdb6a67b08194e15af37f917b8751acc536e5c386fc7db8  src-tauri/reso
 93c8b4d9b4db68f32be56403985ad6aab877921db8fc9228d1edf42f3c6db487  src-tauri/resources/licenses/DENO-NOTICE.txt
 0a7844381edd4e61e726aec1482904e8391c6c01302c1cccd085bf0a7b1665fe  src-tauri/resources/licenses/README.txt
 194110d442ebdf82593ea2151eb439e94c269a0bad38eede7d1ae68531bc6a60  src-tauri/resources/licenses/SPOTDL-LICENSE-AGPL-3.0.txt
-2d58463827cb258385ce66e146baeb1e16753a2f0861030ad892f4ced9e1e26d  src-tauri/resources/updater/updater-config.json
+9c9e760523d03146f015cb4ee8f86bc0304d9c163c374fe1d0dce4f313a7cd75  src-tauri/resources/updater/updater-config.json
 771e994c1d7450ff24157e630c88e69c372da82d3828f25142fdddfc25fa96d0  src-tauri/src/app/bootstrap.rs
 9cbda6943348488c0044a2b8f7678a3a440af0b4927971c738c2a7fd6a64a639  src-tauri/src/app/mod.rs
 f9307eca2700037d0de0afcd8f32a96062ea0a78414a45d97cf4259fc7706e52  src-tauri/src/app/network.rs
@@ -592,7 +592,7 @@ c322b53f86cda3f24876b186689e0a48985881542cda039e154afde5849d1039  src-tauri/src/
 9b98d3b46b517f793e40596df328383008098154f6af21d2ef1d98454b54a09a  src-tauri/src/windows/backdrop.rs
 db5e66abaa9c0e118d7c4fb319a85b22bbcbe1bde83e668be6f93ddf54c1e86e  src-tauri/src/windows/mod.rs
 699c713b0cdc7d013077080334d335a6a2f4ab267d916eddd939fb4d994e0ed8  src-tauri/src/windows/player.rs
-05f8a23ddd824f16650f5a2933376837979d706f066199b43d607758a4e0be04  src-tauri/tauri.conf.json
+9af79fb04ba323596fe4a98c09a006b30931083c43f5fa0e4f9e38a50020ae54  src-tauri/tauri.conf.json
 35750e1875483cc3b263ecf7674ce4f0aefefbf9e862f59637e8b8a172a300a8  src-tauri/tools/catalog-test-vectors/v1/envelope.json
 0d626437ef9f85de2256321007225f0bb98171ab3bc722f75fe41f91c1435ddb  src-tauri/tools/catalog-test-vectors/v1/expected-verification.json
 7ae3d0a401e93db6ea5fbe209d715f25dcee814de704294e19dca58dc0fdd366  src-tauri/tools/catalog-test-vectors/v1/payload.canonical.json
