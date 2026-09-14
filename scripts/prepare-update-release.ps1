@@ -101,7 +101,7 @@ $Latest = [ordered]@{
 Write-Utf8NoBom -Path (Join-Path $OutputDirectory 'latest.json') -Content (($Latest | ConvertTo-Json -Depth 10) + [Environment]::NewLine)
 
 $Checklist = @"
-PUBLICACION DE CACATOOLS DOWNLOAD MANAGER $Version
+PUBLICACION DE CLEAR DOWNLOAD MANAGER $Version
 
 1. Crea una Release en GitHub con la etiqueta: $Tag
 2. Sube SIN RENOMBRAR:

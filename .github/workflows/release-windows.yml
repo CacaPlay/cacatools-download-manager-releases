@@ -11,8 +11,6 @@ permissions:
 jobs:
   release:
     runs-on: windows-latest
-    env:
-      RELEASES_REPO: CacaPlay/clear-download-manager-releases
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -26,6 +24,15 @@ jobs:
           npm run version:check
           npm run check:release
           npm run build:web
+      - name: Resolver repositorio de releases
+        shell: pwsh
+        run: |
+          $cfg = Get-Content src-tauri/resources/updater/updater-config.json -Raw | ConvertFrom-Json
+          if (-not $cfg.enabled -or [string]::IsNullOrWhiteSpace($cfg.repository)) {
+            throw 'El updater no tiene un repositorio de releases válido.'
+          }
+          "RELEASES_REPO=$($cfg.repository)" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          Write-Host "Repositorio de releases: $($cfg.repository)"
       - name: Gate Rust
         shell: pwsh
         run: |
