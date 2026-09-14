@@ -38,6 +38,8 @@ jobs:
       - name: Rust gates
         shell: pwsh
         run: |
+          npm run prepare:windows-binaries
+          npm run verify:binaries
           cargo fmt --manifest-path src-tauri/Cargo.toml --all -- --check
           cargo check --manifest-path src-tauri/Cargo.toml --locked --all-targets
           cargo test --manifest-path src-tauri/Cargo.toml --locked --lib

@@ -531,7 +531,9 @@ pub(crate) fn normalize_sha256(value: &str) -> Result<[u8; 32], String> {
         return Err("must be exactly 64 hexadecimal characters without whitespace".into());
     }
     let mut output = [0_u8; 32];
-    for (index, chunk) in value.as_bytes().chunks_exact(2).enumerate() {
+    let (chunks, remainder) = value.as_bytes().as_chunks::<2>();
+    debug_assert!(remainder.is_empty());
+    for (index, chunk) in chunks.iter().enumerate() {
         output[index] = (hex_value(chunk[0]) << 4) | hex_value(chunk[1]);
     }
     Ok(output)
