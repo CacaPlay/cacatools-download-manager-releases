@@ -55,7 +55,7 @@ $SourceResources = Join-Path $Root 'src-tauri\resources'
 $NativeHostProject = Join-Path $Root 'extension\native-host'
 $NativeHostTargetRoot = Join-Path ([IO.Path]::GetDirectoryName($TauriTargetRoot)) (([IO.Path]::GetFileName($TauriTargetRoot)) + '-native-host')
 $NativeHostSource = Join-Path $SourceResources 'extension\cacatools-native-host.exe'
-$ExtensionZip = Join-Path $Root ("CacaTools-Chrome-Extension-{0}.zip" -f $ExtensionVersion)
+$ExtensionZip = Join-Path $Root ("Clear-Download-Manager-Chrome-Extension-{0}.zip" -f $ExtensionVersion)
 if (-not $SkipBuild) {
   $PreviousCargoTargetDirectory = $env:CARGO_TARGET_DIR
   try {

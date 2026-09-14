@@ -150,7 +150,7 @@ if (-not (Test-Path -LiteralPath $NativeHostArtifact)) {
 Copy-Item -LiteralPath $NativeHostArtifact -Destination $NativeHostResource -Force
 Write-Host "OK: rebuilt and bundled Native Messaging host from extension/native-host." -ForegroundColor Green
 
-$ExtensionZip = Join-Path $Root ("CacaTools-Chrome-Extension-{0}.zip" -f $ExtensionVersion)
+$ExtensionZip = Join-Path $Root ("Clear-Download-Manager-Chrome-Extension-{0}.zip" -f $ExtensionVersion)
 $ExtensionManifestPath = Join-Path $Root "extension-dist\manifest.json"
 if (-not (Test-Path -LiteralPath $ExtensionZip) -or -not (Test-Path -LiteralPath $ExtensionManifestPath)) {
   throw "The synchronized extension package is missing after extension:build."
