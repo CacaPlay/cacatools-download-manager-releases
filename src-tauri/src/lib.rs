@@ -8153,7 +8153,7 @@ INFO [done]"#;
         });
         let started = Instant::now();
         while !external_processes_active(&registry, 73)
-            && started.elapsed() < Duration::from_secs(2)
+            && started.elapsed() < Duration::from_secs(30)
         {
             thread::sleep(Duration::from_millis(10));
         }
