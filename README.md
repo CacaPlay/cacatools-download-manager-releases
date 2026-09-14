@@ -1,5 +1,11 @@
 # Clear Download Manager Releases
 
+<p align="center">
+  <img src="logo-clear-download-manager.png" width="96" height="96" alt="Clear Download Manager">
+  <br><strong>Clear Download Manager</strong>
+  <br><sub>Official Windows releases and signed updater metadata</sub>
+</p>
+
 This is the official distribution repository for [Clear Download Manager](https://github.com/CacaPlay/clear-download-manager).
 It contains public Windows release assets and the small metadata files consumed
 by the signed updater.
