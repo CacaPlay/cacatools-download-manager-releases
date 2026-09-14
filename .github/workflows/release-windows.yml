@@ -31,6 +31,9 @@ jobs:
           if (-not $cfg.enabled -or [string]::IsNullOrWhiteSpace($cfg.repository)) {
             throw 'El updater no tiene un repositorio de releases válido.'
           }
+          if ($cfg.repository -eq 'CacaPlay/cacatools-download-manager-releases' -and '${{ vars.LEGACY_BRIDGE_READY }}' -ne 'true') {
+            throw 'Puente legacy bloqueado: falta validar la continuidad de firma de CacaTools 0.45.4.'
+          }
           "RELEASES_REPO=$($cfg.repository)" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
           Write-Host "Repositorio de releases: $($cfg.repository)"
       - name: Gate Rust
