@@ -1,8 +1,8 @@
-# CacaTools Download Manager
+# Clear Download Manager
 
 Copyright © 2026 CacaPlay. All rights reserved.
 
-CacaTools Download Manager es software propietario. Esta nota no constituye
+Clear Download Manager es software propietario. Esta nota no constituye
 asesoría legal: los términos definitivos deben ser revisados por el titular o
 por un profesional. Las licencias y avisos de las dependencias incluidas se
 conservan por separado en `src-tauri/resources/licenses/` y siguen aplicando.

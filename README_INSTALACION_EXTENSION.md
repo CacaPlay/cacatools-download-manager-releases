@@ -1,4 +1,4 @@
-# Instalar la extensión de CacaTools (Chrome/Edge)
+# Instalar la extensión de Clear Download Manager (Chrome/Edge)
 
 La extensión usa Manifest V3, captura directa de descargas, detección persistente
 de vídeo/audio, un panel lateral y Native Messaging. Detecta automáticamente en
@@ -21,7 +21,7 @@ cuando el usuario abre el panel o solicita la detección.
    temporalmente su ID con `CONFIGURAR_EXTENSION_WINDOWS.cmd
    -ChromiumExtensionIds aonppfnabjnicjjeoofkfjofolfibggp,<ID_LOCAL>`. El ID
    publicado seguirá incluido y tendrá prioridad.
-6. Abre una página con vídeo, audio o playlist, pulsa el icono de CacaTools y
+6. Abre una página con vídeo, audio o playlist, pulsa el icono de Clear Download Manager y
    abre el panel lateral. En YouTube, Spotify, Pinterest y TikTok la detección
    es automática; en otros sitios abre el panel o pulsa **Actualizar detección**.
    Selecciona elementos y pulsa **Enviar**.
@@ -41,7 +41,7 @@ públicos automáticamente solo en YouTube, Spotify, Pinterest y TikTok;
 `activeTab` y `scripting` cubren el análisis interactivo de cualquier pestaña;
 `storage` guarda preferencias locales;
 `sidePanel` muestra el panel; y
-`nativeMessaging` comunica la selección con CacaTools. No se leen cookies,
+   `nativeMessaging` comunica la selección con Clear Download Manager. No se leen cookies,
 contraseñas, tokens, cabeceras ni URLs `blob:` como descargas finales.
 
 Para publicar en Chrome Web Store usa el ZIP, `CHROME_WEB_STORE_SUBMISSION.md`

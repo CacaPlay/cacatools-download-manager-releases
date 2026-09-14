@@ -1,6 +1,6 @@
 # Privacidad de la extensión
 
-CacaTools procesa localmente la URL, el título, miniatura pública y metadatos
+Clear Download Manager procesa localmente la URL, el título, miniatura pública y metadatos
 visibles de las páginas permitidas para detectar reproductores multimedia. En
 YouTube, Spotify, Pinterest y TikTok el detector puede ejecutarse
 automáticamente; en otros sitios solo se inyecta cuando el usuario abre el
