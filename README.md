@@ -1,7 +1,7 @@
 # Clear Download Manager
 
 <p align="center">
-  <img src="app-ui/favicon.svg" width="72" height="72" alt="Clear Download Manager">
+  <img src="app-ui/assets/brand/clear-download-manager-celeste.png" width="72" height="72" alt="Clear Download Manager">
   <br><strong>Clear Download Manager</strong>
   <br><sub>Windows download manager and media downloader built with Tauri and Rust</sub><br><br>
   <a href="https://github.com/CacaPlay/clear-download-manager-releases/releases/latest"><img src="https://img.shields.io/badge/Windows%20release-Download-0ea5c9?style=for-the-badge&logo=windows&logoColor=white" alt="Download Clear Download Manager for Windows"></a>
