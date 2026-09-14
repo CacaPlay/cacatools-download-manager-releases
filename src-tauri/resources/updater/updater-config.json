@@ -1,0 +1,8 @@
+{
+    "enabled":  true,
+    "channel":  "stable",
+    "provider":  "github-releases",
+    "endpoint":  "https://github.com/CacaPlay/cacatools-download-manager-releases/releases/latest/download/latest.json",
+    "repository":  "CacaPlay/cacatools-download-manager-releases",
+    "configured_at":  "2026-08-02T14:21:48.7016327Z"
+}

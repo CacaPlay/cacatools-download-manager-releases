@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "chromiumExtensionIds": [
+    "aonppfnabjnicjjeoofkfjofolfibggp"
+  ],
+  "firefoxExtensionIds": [],
+  "browsers": [
+    "chrome",
+    "edge",
+    "brave",
+    "chromium"
+  ]
+}
