@@ -1,0 +1,20 @@
+{
+  "messages": [
+    {
+      "id": "clear-download-manager-v0-95-0-novedades",
+      "type": "release",
+      "platform": "windows",
+      "locale": "es",
+      "title": "Clear Download Manager 0.95.0 — Novedades",
+      "body": "Esta actualización incorpora mejoras de estabilidad y experiencia de uso:\n\n- Las descargas conservan el orden en que fueron añadidas.\n- El menú contextual permanece visible y correctamente posicionado.\n- Mejoras en formatos, iconos y sincronización entre la aplicación y la extensión.\n- Reproductor local y controles multimedia más consistentes.\n- Integración renovada con la extensión de Chrome.",
+      "priority": 100,
+      "dismissible": true,
+      "action_required": false,
+      "action": {
+        "type": "open-url",
+        "label": "Ver release",
+        "url": "https://github.com/CacaPlay/clear-download-manager-releases/releases/tag/v0.95.0"
+      }
+    }
+  ]
+}
