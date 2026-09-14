@@ -11,7 +11,31 @@ $Root = Split-Path -Parent $PSScriptRoot
 $TauriConfigPath = Join-Path $Root 'src-tauri\tauri.conf.json'
 $UpdaterConfigPath = Join-Path $Root 'src-tauri\resources\updater\updater-config.json'
 $OutputDirectory = Join-Path $Root 'output\update-release'
-$BundleRoot = Join-Path $Root 'src-tauri\target\release\bundle'
+$CargoTargetFromConfig = $null
+$CargoConfigPath = Join-Path $Root '.cargo\config.toml'
+if (Test-Path -LiteralPath $CargoConfigPath) {
+  $CargoConfigText = Get-Content -LiteralPath $CargoConfigPath -Raw
+  $TargetMatch = [regex]::Match($CargoConfigText, '(?m)^\s*target-dir\s*=\s*"([^"]+)"')
+  if ($TargetMatch.Success) {
+    $ConfiguredTarget = $TargetMatch.Groups[1].Value
+    $CargoTargetFromConfig = if ([IO.Path]::IsPathRooted($ConfiguredTarget)) {
+      [IO.Path]::GetFullPath($ConfiguredTarget)
+    }
+    else {
+      [IO.Path]::GetFullPath((Join-Path $Root $ConfiguredTarget))
+    }
+  }
+}
+$TauriTargetRoot = if (-not [string]::IsNullOrWhiteSpace($env:CARGO_TARGET_DIR)) {
+  [IO.Path]::GetFullPath($env:CARGO_TARGET_DIR)
+}
+elseif ($CargoTargetFromConfig) {
+  $CargoTargetFromConfig
+}
+else {
+  Join-Path $Root 'src-tauri\target'
+}
+$BundleRoot = Join-Path $TauriTargetRoot 'release\bundle'
 
 function Write-Utf8NoBom {
   param([Parameter(Mandatory = $true)][string]$Path, [Parameter(Mandatory = $true)][string]$Content)
