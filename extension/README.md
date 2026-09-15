@@ -1,7 +1,9 @@
 # Clear Download Manager Extension 0.45.12
 
-Compatibilidad con CDM 0.95.x: pendiente de certificación canary. Este paquete
-se publica como release candidate hasta completar esa comprobación.
+Compatibilidad con CDM 0.95.x: el release público de la aplicación está en
+`https://github.com/CacaPlay/clear-download-manager-releases/releases/tag/v0.95.0`.
+La extensión se distribuye exclusivamente mediante Chrome Web Store; este
+paquete se usa para actualizar la ficha existente.
 
 El build inyecta, únicamente en el paquete generado, la clave pública recuperada en `evidence/official-public-key.json`; así el unpacked conserva el ID oficial `aonppfnabjnicjjeoofkfjofolfibggp`. Es una clave de identidad pública, no una firma privada. El host oficial y el alias QA del equipo permanecen separados y no se sustituyen desde esta build.
 
@@ -29,4 +31,4 @@ Para producción hay que corregir el empaquetado/registro del puente antiguo y p
 
 ## Validación
 
-Ver ../RESULTADO-QA-0.45.3.md. Se separan tests simulados, conexión real y ejecución de acciones. No hay publicación ni checkpoint definitivo.
+Ver ../RESULTADO-QA-0.45.3.md. Se separan tests simulados, conexión real y ejecución de acciones. La certificación canary de la aplicación debe registrarse por separado.
