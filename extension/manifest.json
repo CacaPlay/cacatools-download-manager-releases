@@ -2,8 +2,8 @@
   "manifest_version": 3,
   "name": "Clear Download Manager",
   "description": "Detecta multimedia compatible en la pestaña activa y la prepara en Clear Download Manager.",
-  "version": "0.45.11",
-  "version_name": "0.45.11",
+  "version": "0.45.12",
+  "version_name": "0.45.12",
   "minimum_chrome_version": "116",
   "permissions": [
     "activeTab",

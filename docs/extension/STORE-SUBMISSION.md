@@ -1,4 +1,4 @@
-# Ficha de Chrome Web Store 0.45.11
+# Ficha de Chrome Web Store 0.45.12
 
 ## Nombre
 

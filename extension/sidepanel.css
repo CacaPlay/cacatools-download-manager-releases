@@ -329,7 +329,7 @@ html,body{overflow-x:hidden}
   .manual-link-thumb{width:64px;height:40px}
 }
 
-/* QA 0.45.11: quick controls align from the same top edge even when the
+/* 0.45.12: quick controls align from the same top edge even when the
    quality hint adds a second line below its select. */
 .quick-field{align-self:start;align-content:start}
 .quick-bar{align-items:start}

@@ -18,7 +18,7 @@ globalThis.chrome = {
     onInstalled: register('runtime.onInstalled'),
     onStartup: register('runtime.onStartup'),
     onUpdateAvailable: register('runtime.onUpdateAvailable'),
-    getManifest: () => ({ version: '0.45.11' }),
+    getManifest: () => ({ version: '0.45.12' }),
     reload() { reloadCalled = true; },
     sendNativeMessage(_host, message, callback) {
       nativeMessages.push(message);
@@ -120,9 +120,9 @@ assert.equal(nativeMessages.filter((message) => message.action === 'job_action')
 
 const updateListener = listeners.get('runtime.onUpdateAvailable');
 assert.equal(typeof updateListener, 'function');
-updateListener({ version: '0.45.11' });
+updateListener({ version: '0.45.12' });
 await new Promise((resolve) => setTimeout(resolve, 0));
-assert.equal(storage.pendingExtensionUpdate.version, '0.45.11');
+assert.equal(storage.pendingExtensionUpdate.version, '0.45.12');
 
 await new Promise((resolve, reject) => {
   const asyncResponse = messageListener({ type: 'GET_APP_STATUS' }, {}, (response) => {

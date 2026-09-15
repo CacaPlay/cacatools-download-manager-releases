@@ -2,7 +2,7 @@
 
 This source snapshot is based on the audited 0.95.0 functional and visual
 checkpoint. The application authority is `0.95.0`; the Chrome extension
-authority remains `0.45.11` and is released independently.
+authority remains `0.45.12` and is released independently.
 
 The release gate and Rust unit checks passed for this snapshot. A production
 signed update is not claimed here: the private signing key stays outside the

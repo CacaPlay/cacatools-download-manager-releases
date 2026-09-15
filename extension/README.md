@@ -1,6 +1,9 @@
-# Clear Download Manager Extension 0.45.11 QA local
+# Clear Download Manager Extension 0.45.12
 
-No publicar esta compilación. El build de QA inyecta, únicamente en el paquete generado, la clave pública recuperada en `evidence/official-public-key.json`; así el unpacked conserva el ID oficial `aonppfnabjnicjjeoofkfjofolfibggp`. Es una clave de identidad pública, no una firma privada. El host oficial y el alias QA del equipo permanecen separados y no se sustituyen desde esta build.
+Compatibilidad con CDM 0.95.x: pendiente de certificación canary. Este paquete
+se publica como release candidate hasta completar esa comprobación.
+
+El build inyecta, únicamente en el paquete generado, la clave pública recuperada en `evidence/official-public-key.json`; así el unpacked conserva el ID oficial `aonppfnabjnicjjeoofkfjofolfibggp`. Es una clave de identidad pública, no una firma privada. El host oficial y el alias QA del equipo permanecen separados y no se sustituyen desde esta build.
 
 ## Cambios
 
