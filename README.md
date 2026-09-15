@@ -27,12 +27,6 @@
   <a href="https://apps.microsoft.com/detail/9NSTJ7JXM843"><img src="docs/assets/download-cards/microsoft-store.svg?v=visual-harmony-20260915" width="32%" alt="Microsoft Store — Obtener en Microsoft Store"></a>&nbsp;
   <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp"><img src="docs/assets/download-cards/chrome-web-store.svg?v=visual-harmony-20260915" width="32%" alt="Chrome Web Store — Disponible en Chrome Web Store"></a>
 </p>
-<p align="center">
-  <a href="https://github.com/CacaPlay/clear-download-manager-releases/releases/download/v0.95.0/Clear.Download.Manager_0.95.0_x64-setup.exe">Descargar para Windows</a> ·
-  <a href="https://apps.microsoft.com/detail/9NSTJ7JXM843">Microsoft Store</a> ·
-  <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp">Chrome Web Store</a>
-</p>
-
 También puedes consultar el [release completo de Windows](https://github.com/CacaPlay/clear-download-manager-releases/releases/latest),
 incluidos sus hashes, firma y metadatos del updater.
 
