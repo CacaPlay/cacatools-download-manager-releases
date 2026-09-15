@@ -48,31 +48,6 @@ SHA-256 esperado:
 
 El manifiesto completo está en [`SHA256SUMS.txt`](https://github.com/CacaPlay/clear-download-manager-releases/releases/download/v0.95.0/SHA256SUMS.txt).
 
-## Estado de validación
-
-La validación manual de instalación, arranque y funcionamiento básico fue
-completada en un entorno Windows 11 limpio. Esta nota no afirma firma
-Authenticode, auditoría independiente ni compatibilidad universal.
-
-El artefacto se construyó desde el commit auditado
-[`117832b7f801841eb80065da839033793357b6be`](https://github.com/CacaPlay/clear-download-manager/commit/117832b7f801841eb80065da839033793357b6be).
-La procedencia completa está en
-[`BUILD-PROVENANCE.json`](https://github.com/CacaPlay/clear-download-manager-releases/releases/download/v0.95.0/BUILD-PROVENANCE.json).
-
-## Actualizaciones y compatibilidad
-
-- Las versiones nuevas de CDM usan este repositorio canónico y su `latest.json`.
-- Las instalaciones antiguas pueden depender temporalmente del repositorio
-  de actualización legacy; ese puente se conserva mientras sea necesario.
-- No se almacenan aquí claves privadas, datos de usuario, bases de datos, logs
-  ni perfiles de prueba.
-
-El instalador de `0.95.0` conserva su nombre versionado para no afectar al
-updater ni a la procedencia publicada. En una release futura se podrá añadir un
-alias byte-idéntico con nombre estable para habilitar un enlace
-`releases/latest/download/...`, siempre que el workflow verifique su hash y no
-se creen dos artefactos con contenido distinto.
-
 ## Repositorios
 
 - [Código fuente](https://github.com/CacaPlay/clear-download-manager)
