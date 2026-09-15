@@ -2,8 +2,8 @@
   <img src="logo-clear-download-manager.png" width="128" height="128" alt="Clear Download Manager">
 </p>
 
-<h3 align="center"><big>Clear Download Manager</big></h3>
-<p align="center"><strong>Releases oficiales para Windows</strong></p>
+<h3 align="center"><strong><font size="6">Clear Download Manager</font></strong></h3>
+<p align="center"><small><span style="color:#8b98a9">Releases oficiales para Windows</span></small></p>
 <p align="center">
   Este repositorio contiene únicamente las versiones públicas de Clear Download Manager:<br>
   instaladores, firmas, hashes, notas y metadatos del updater.

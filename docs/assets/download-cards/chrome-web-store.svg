@@ -1,11 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="250" viewBox="0 0 960 250" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="300" viewBox="0 0 960 300" role="img" aria-labelledby="title desc">
   <title id="title">Chrome Web Store</title>
   <desc id="desc">Instalar la extensión de Clear Download Manager desde Chrome Web Store.</desc>
-  <rect x="4" y="4" width="952" height="242" rx="20" fill="#111c29" stroke="#2b3b4d" stroke-width="2"/>
-  <image href="../chrome-web-store.png" x="42" y="80" width="90" height="90" preserveAspectRatio="xMidYMid meet"/>
-  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
-    <text x="164" y="111" fill="#f5f8fb" font-size="34" font-weight="650">Chrome Web Store</text>
-    <text x="164" y="146" fill="#a9b8c9" font-size="21">Disponible en Chrome Web Store</text>
+  <rect x="4" y="4" width="952" height="292" rx="20" fill="#111c29" stroke="#2b3b4d" stroke-width="2"/>
+  <g transform="translate(40 86)">
+    <path d="M60 7a54 54 0 0 1 46 26H60a27 27 0 0 0-23 13L23 30A54 54 0 0 1 60 7z" fill="#ea4335"/>
+    <path d="M106 33a54 54 0 0 1-1 55L82 48a27 27 0 0 0-22-14z" fill="#fbbc04"/>
+    <path d="M105 88a54 54 0 0 1-91-5l23-40a27 27 0 0 0 45 5z" fill="#34a853"/>
+    <circle cx="60" cy="61" r="27" fill="#fff"/>
+    <circle cx="60" cy="61" r="19" fill="#4285f4"/>
   </g>
-  <path d="M887 111l12 12-12 12" fill="none" stroke="#dfe8f0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+    <text x="176" y="133" fill="#f5f8fb" font-size="42" font-weight="650">Chrome Web Store</text>
+    <text x="176" y="174" fill="#a9b8c9" font-size="25">Disponible en Chrome Web Store</text>
+  </g>
+  <path d="M887 132l13 13-13 13" fill="none" stroke="#dfe8f0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
