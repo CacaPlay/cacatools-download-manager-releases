@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="250" viewBox="0 0 960 250" role="img" aria-labelledby="title desc">
+  <title id="title">Chrome Web Store</title>
+  <desc id="desc">Instalar la extensión de Clear Download Manager desde Chrome Web Store.</desc>
+  <rect x="4" y="4" width="952" height="242" rx="20" fill="#111c29" stroke="#2b3b4d" stroke-width="2"/>
+  <image href="../chrome-web-store.png" x="42" y="80" width="90" height="90" preserveAspectRatio="xMidYMid meet"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+    <text x="164" y="111" fill="#f5f8fb" font-size="34" font-weight="650">Chrome Web Store</text>
+    <text x="164" y="146" fill="#a9b8c9" font-size="21">Disponible en Chrome Web Store</text>
+  </g>
+  <path d="M887 111l12 12-12 12" fill="none" stroke="#dfe8f0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

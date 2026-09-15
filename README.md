@@ -2,7 +2,7 @@
   <img src="app-ui/assets/brand/clear-download-manager-celeste.png" width="128" height="128" alt="Clear Download Manager">
 </p>
 
-<h1 align="center">Clear Download Manager</h1>
+<h3 align="center"><big>Clear Download Manager</big></h3>
 <p align="center"><strong>Gestor de descargas y multimedia para Windows</strong></p>
 <p align="center">
   Clear Download Manager (CDM) es una aplicación local para Windows que organiza<br>
@@ -10,37 +10,20 @@
   Está construida con Tauri y Rust e incluye integración opcional con navegadores Chromium.
 </p>
 
-<table align="center" width="100%">
-  <tr>
-    <td align="center"><img src="docs/assets/feature-icons/download.svg" width="28" alt=""><br><strong>Descargas</strong></td>
-    <td align="center"><img src="docs/assets/feature-icons/video.svg" width="28" alt=""><br><strong>Vídeo y audio</strong></td>
-    <td align="center"><img src="docs/assets/feature-icons/package.svg" width="28" alt=""><br><strong>Torrents</strong></td>
-    <td align="center"><img src="docs/assets/feature-icons/link.svg" width="28" alt=""><br><strong>Enlaces directos</strong></td>
-    <td align="center"><img src="docs/assets/chrome-web-store.png" width="28" height="28" alt=""><br><strong>Integración Chromium</strong></td>
-  </tr>
-</table>
+<p align="center">
+  <img src="docs/assets/feature-pills.svg" width="100%" alt="Descargas · Vídeo y audio · Torrents · Enlaces directos · Integración Chromium">
+</p>
 
-## Descargar
+<hr>
 
-<table align="center" width="100%">
-  <tr>
-    <td align="center" width="33%">
-      <a href="https://github.com/CacaPlay/clear-download-manager-releases/releases/download/v0.95.0/Clear.Download.Manager_0.95.0_x64-setup.exe">
-        <img src="docs/assets/download-cards/windows.png" width="100%" alt="Descargar para Windows — Instalador para Windows">
-      </a>
-    </td>
-    <td align="center" width="33%">
-      <a href="https://apps.microsoft.com/detail/9NSTJ7JXM843">
-        <img src="docs/assets/download-cards/microsoft-store.png" width="100%" alt="Microsoft Store — Obtener en Microsoft Store">
-      </a>
-    </td>
-    <td align="center" width="33%">
-      <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp">
-        <img src="docs/assets/download-cards/chrome-web-store.png" width="100%" alt="Chrome Web Store — Disponible en Chrome Web Store">
-      </a>
-    </td>
-  </tr>
-</table>
+<h3><big>Descargar</big></h3>
+<p>Elige la opción que prefieras para comenzar.</p>
+
+<p align="center">
+  <a href="https://github.com/CacaPlay/clear-download-manager-releases/releases/download/v0.95.0/Clear.Download.Manager_0.95.0_x64-setup.exe"><img src="docs/assets/download-cards/windows.svg" width="31%" alt="Descargar para Windows — Instalador para Windows"></a>&nbsp;
+  <a href="https://apps.microsoft.com/detail/9NSTJ7JXM843"><img src="docs/assets/download-cards/microsoft-store.svg" width="31%" alt="Microsoft Store — Obtener en Microsoft Store"></a>&nbsp;
+  <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp"><img src="docs/assets/download-cards/chrome-web-store.svg" width="31%" alt="Chrome Web Store — Disponible en Chrome Web Store"></a>
+</p>
 
 También puedes consultar el [release completo de Windows](https://github.com/CacaPlay/clear-download-manager-releases/releases/latest),
 incluidos sus hashes, firma y metadatos del updater.
