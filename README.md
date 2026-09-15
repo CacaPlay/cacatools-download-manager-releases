@@ -1,4 +1,4 @@
-# Clear Download Manager Releases
+# Clear Download Manager (CDM)
 
 <p align="center">
   <img src="logo-clear-download-manager.png" width="96" height="96" alt="Clear Download Manager">
