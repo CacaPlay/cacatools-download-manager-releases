@@ -2,26 +2,29 @@
   <img src="logo-clear-download-manager.png" width="128" height="128" alt="Clear Download Manager">
 </p>
 
-<h3 align="center"><img src="docs/assets/hero-title.svg" width="70%" alt="Clear Download Manager"></h3>
-<p align="center"><small><span style="color:#8b98a9">Releases oficiales para Windows</span></small></p>
+<h1 align="center">Clear Download Manager</h1>
+<p align="center"><span style="color:#8b98a9">Releases oficiales para Windows</span></p>
 <p align="center">
-  Este repositorio contiene únicamente las versiones públicas de Clear Download Manager:<br>
+  Este repositorio contiene únicamente las versiones públicas de Clear Download Manager:
   instaladores, firmas, hashes, notas y metadatos del updater.
 </p>
 
 <p align="center">
-  <img src="docs/assets/feature-pills.svg" width="100%" alt="Descargas · Vídeo y audio · Torrents · Enlaces directos · Integración Chromium">
+  <picture>
+    <source media="(max-width: 700px)" srcset="docs/assets/feature-pills-narrow.svg?v=visual-harmony-20260915">
+    <img src="docs/assets/feature-pills.svg?v=visual-harmony-20260915" width="100%" alt="Descargas · Vídeo y audio · Torrents · Enlaces directos · Integración Chromium">
+  </picture>
 </p>
 
-<hr>
+<p align="center"><img src="docs/assets/section-divider.svg?v=visual-harmony-20260915" width="100%" height="2" alt=""></p>
 
 <h3><big>Descargar</big></h3>
 <p>Elige la opción que prefieras para comenzar.</p>
 
 <p align="center">
-  <a href="https://github.com/CacaPlay/clear-download-manager-releases/releases/download/v0.95.0/Clear.Download.Manager_0.95.0_x64-setup.exe"><img src="docs/assets/download-cards/windows.svg?v=8596570" width="32%" alt="Descargar para Windows — Instalador para Windows"></a>&nbsp;
-  <a href="https://apps.microsoft.com/detail/9NSTJ7JXM843"><img src="docs/assets/download-cards/microsoft-store.svg?v=8596570" width="32%" alt="Microsoft Store — Obtener en Microsoft Store"></a>&nbsp;
-  <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp"><img src="docs/assets/download-cards/chrome-web-store.svg?v=8596570" width="32%" alt="Chrome Web Store — Disponible en Chrome Web Store"></a>
+  <a href="https://github.com/CacaPlay/clear-download-manager-releases/releases/download/v0.95.0/Clear.Download.Manager_0.95.0_x64-setup.exe"><img src="docs/assets/download-cards/windows.svg?v=visual-harmony-20260915" width="32%" alt="Descargar para Windows — Instalador para Windows"></a>&nbsp;
+  <a href="https://apps.microsoft.com/detail/9NSTJ7JXM843"><img src="docs/assets/download-cards/microsoft-store.svg?v=visual-harmony-20260915" width="32%" alt="Microsoft Store — Obtener en Microsoft Store"></a>&nbsp;
+  <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp"><img src="docs/assets/download-cards/chrome-web-store.svg?v=visual-harmony-20260915" width="32%" alt="Chrome Web Store — Disponible en Chrome Web Store"></a>
 </p>
 
 También puedes abrir el [release completo de CDM 0.95.0](https://github.com/CacaPlay/clear-download-manager-releases/releases/tag/v0.95.0)
