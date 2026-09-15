@@ -26,3 +26,11 @@ Genera el paquete con `npm.cmd run extension:build` y súbelo desde el panel de
 desarrollador. Añade las capturas requeridas y enlaza `PRIVACY.md`
 como política pública. La aplicación no reemplaza una copia instalada desde la
 Web Store.
+
+## Enlaces públicos
+
+- Sitio de la extensión y descarga del paquete: `https://github.com/CacaPlay/clear-download-manager-releases/releases/tag/extension-v0.45.12`
+- Repositorio de versiones de la aplicación: `https://github.com/CacaPlay/clear-download-manager-releases/releases/latest`
+
+El `homepage_url` del manifest apunta al primer enlace para que el usuario pueda
+acceder al paquete y desde allí a la aplicación Clear Download Manager.
