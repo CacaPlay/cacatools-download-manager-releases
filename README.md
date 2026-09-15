@@ -2,8 +2,8 @@
   <img src="app-ui/assets/brand/clear-download-manager-celeste.png" width="128" height="128" alt="Clear Download Manager">
 </p>
 
-<h3 align="center"><big>Clear Download Manager</big></h3>
-<p align="center"><strong>Gestor de descargas y multimedia para Windows</strong></p>
+<h3 align="center"><strong><font size="6">Clear Download Manager</font></strong></h3>
+<p align="center"><small><span style="color:#8b98a9">Gestor de descargas y multimedia para Windows</span></small></p>
 <p align="center">
   Clear Download Manager (CDM) es una aplicación local para Windows que organiza<br>
   descargas HTTP/HTTPS, vídeo, audio, playlists, torrents y enlaces directos.<br>
