@@ -29,8 +29,9 @@ Web Store.
 
 ## Enlaces públicos
 
-- Sitio de la extensión y descarga del paquete: `https://github.com/CacaPlay/clear-download-manager-releases/releases/tag/extension-v0.45.12`
-- Repositorio de versiones de la aplicación: `https://github.com/CacaPlay/clear-download-manager-releases/releases/latest`
+- Release público de la aplicación: `https://github.com/CacaPlay/clear-download-manager-releases/releases/tag/v0.95.0`
+- La extensión se distribuye exclusivamente mediante Chrome Web Store; el ZIP
+  local se usa solo para actualizar la ficha existente.
 
-El `homepage_url` del manifest apunta al primer enlace para que el usuario pueda
-acceder al paquete y desde allí a la aplicación Clear Download Manager.
+El `homepage_url` del manifest apunta al release de la aplicación para que el
+usuario pueda instalar Clear Download Manager desde la ficha de la extensión.
