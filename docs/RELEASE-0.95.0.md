@@ -6,9 +6,10 @@ authority remains `0.45.12` and is released independently.
 
 The release gate and Rust unit checks passed for this snapshot. A production
 signed update is not claimed here: the private signing key stays outside the
-repository and is injected only into the protected build workflow, while the
-0.45.4 legacy-to-0.95.0 updater bridge still requires a real-machine
-migration test before publication.
+repository and is injected only into the protected build workflow. Manual
+clean-environment validation of installation, startup and basic functionality
+was completed on Windows 11. This does not claim Authenticode, independent
+security certification or universal compatibility.
 
 Keep this file factual when the release state changes. The release-only
 repository is the authority for downloadable assets and `news.json`.

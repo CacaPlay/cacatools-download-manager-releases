@@ -8,7 +8,7 @@ cuando el usuario abre el panel o solicita la detección.
 ## Prueba local para principiantes
 
 1. Ejecuta `npm.cmd run extension:build` en la carpeta del proyecto. Se crea
-   El ZIP y `extension-dist` son artefactos temporales; no se suben al
+   un paquete local; el ZIP y `extension-dist` son artefactos temporales y no se suben al
    repositorio.
 2. Abre `chrome://extensions` (en Edge: `edge://extensions`) y activa
    **Modo de desarrollador**.
@@ -26,7 +26,7 @@ cuando el usuario abre el panel o solicita la detección.
    es automática; en otros sitios abre el panel o pulsa **Actualizar detección**.
    Selecciona elementos y pulsa **Enviar**.
 
-7. Las descargas normales de Chrome/Edge se capturan automáticamente aunque el panel esté cerrado. La extensión las pausa durante un máximo de 3 segundos; solo las cancela después de recibir `accepted` desde CacaTools. Si CacaTools no responde, la descarga se reanuda en el navegador.
+7. Las descargas normales de Chrome/Edge se capturan automáticamente aunque el panel esté cerrado. La extensión las pausa durante un máximo de 3 segundos; solo las cancela después de recibir `accepted` desde Clear Download Manager. Si CDM no responde, la descarga se reanuda en el navegador.
 
    Puedes cambiar el modo en el panel: **Automático**, **Avisar sin transferir** o **Desactivado**.
 

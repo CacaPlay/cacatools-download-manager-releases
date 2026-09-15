@@ -33,10 +33,12 @@ GitHub Actions.
 
 La primera publicación de Clear Download Manager 0.95.0 salió como puente por
 el repositorio legacy para que los usuarios 0.45.4 puedan actualizar. El
-artefacto ya contiene el endpoint canónico para las versiones posteriores. La
-transición completa en una máquina separada y la comprobación de configuración,
-historial, SQLite, extensión y Native Messaging siguen siendo una validación
-operativa independiente.
+cliente 0.95.0 conserva el endpoint legacy para mantener la continuidad del
+puente, mientras el `latest.json` publicado identifica el artefacto canónico.
+La validación manual de instalación, arranque y funcionamiento básico en un
+entorno Windows 11 limpio fue completada por el mantenedor. El cambio definitivo
+al endpoint canónico queda reservado para una versión posterior y una prueba
+separada de configuración, historial, SQLite, extensión y Native Messaging.
 
 ## No publicar
 
