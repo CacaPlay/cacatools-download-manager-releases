@@ -17,6 +17,15 @@ registration, Native Messaging, rollback behavior, and a signed catalog. No
 production signing key is stored in this repository, and no unsigned catalog
 is treated as a release.
 
+## Feed de novedades
+
+Los builds nuevos de Clear Download Manager leen `news.json` desde el
+repositorio canónico `CacaPlay/clear-download-manager-releases`. Mientras el
+puente siga activo, el repositorio legacy mantiene una copia de la noticia
+actual para que las instalaciones anteriores no vuelvan a mostrar el aviso
+obsoleto de CacaTools 0.45.3. El cliente identifica la fuente de su caché y
+descarta cualquier contenido guardado antes de esta migración.
+
 ## Estado actual del puente
 
 El puente firmado `v0.95.0` ya está publicado en
