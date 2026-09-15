@@ -19,9 +19,9 @@
 <p>Elige la opción que prefieras para comenzar.</p>
 
 <p align="center">
-  <a href="https://github.com/CacaPlay/clear-download-manager-releases/releases/download/v0.95.0/Clear.Download.Manager_0.95.0_x64-setup.exe"><img src="docs/assets/download-cards/windows.svg" width="32%" alt="Descargar para Windows — Instalador para Windows"></a>&nbsp;
-  <a href="https://apps.microsoft.com/detail/9NSTJ7JXM843"><img src="docs/assets/download-cards/microsoft-store.svg" width="32%" alt="Microsoft Store — Obtener en Microsoft Store"></a>&nbsp;
-  <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp"><img src="docs/assets/download-cards/chrome-web-store.svg" width="32%" alt="Chrome Web Store — Disponible en Chrome Web Store"></a>
+  <a href="https://github.com/CacaPlay/clear-download-manager-releases/releases/download/v0.95.0/Clear.Download.Manager_0.95.0_x64-setup.exe"><img src="docs/assets/download-cards/windows.svg?v=8596570" width="32%" alt="Descargar para Windows — Instalador para Windows"></a>&nbsp;
+  <a href="https://apps.microsoft.com/detail/9NSTJ7JXM843"><img src="docs/assets/download-cards/microsoft-store.svg?v=8596570" width="32%" alt="Microsoft Store — Obtener en Microsoft Store"></a>&nbsp;
+  <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp"><img src="docs/assets/download-cards/chrome-web-store.svg?v=8596570" width="32%" alt="Chrome Web Store — Disponible en Chrome Web Store"></a>
 </p>
 
 También puedes abrir el [release completo de CDM 0.95.0](https://github.com/CacaPlay/clear-download-manager-releases/releases/tag/v0.95.0)
