@@ -31,11 +31,12 @@ GitHub Actions.
 5. Verificar el endpoint, los hashes, la firma y una instalación limpia antes
    de marcar el release como estable.
 
-La primera publicación de Clear Download Manager 0.95.0 sigue una excepción:
-debe salir por el repositorio legacy para que los usuarios 0.45.4 puedan
-actualizar. El cambio al endpoint canónico solo se hace después de probar esa
-transición en una máquina separada y comprobar que sobreviven configuración,
-historial, SQLite, extensión y Native Messaging.
+La primera publicación de Clear Download Manager 0.95.0 salió como puente por
+el repositorio legacy para que los usuarios 0.45.4 puedan actualizar. El
+artefacto ya contiene el endpoint canónico para las versiones posteriores. La
+transición completa en una máquina separada y la comprobación de configuración,
+historial, SQLite, extensión y Native Messaging siguen siendo una validación
+operativa independiente.
 
 ## No publicar
 

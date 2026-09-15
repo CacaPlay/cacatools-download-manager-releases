@@ -19,9 +19,10 @@ is treated as a release.
 
 ## Estado actual del puente
 
-El updater de CacaTools 0.45.4 contiene una clave pública legacy distinta de
-la clave nueva preparada para Clear Download Manager 0.95.0. Mientras no se
-recupere la clave privada legacy y se pruebe la transición en una máquina
-separada, el workflow bloquea cualquier publicación dirigida al repositorio
-legacy. La instalación manual de 0.95.0 sí puede verificarse con la clave
-nueva; eso no equivale a una actualización automática desde 0.45.4.
+El puente firmado `v0.95.0` ya está publicado en
+`CacaPlay/cacatools-download-manager-releases` y su `latest.json` anuncia la
+migración desde 0.45.4. El release legacy `v0.45.4` permanece intacto. La
+transición completa en una máquina separada (configuración, historial, SQLite,
+extensión y Native Messaging) sigue siendo una comprobación operativa
+pendiente; publicar el puente no equivale a haber observado esa migración en
+tiempo de ejecución.
