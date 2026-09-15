@@ -189,8 +189,8 @@ function updateMessage(update, releaseMetadata = null) {
   return {
     id: `release:v${version.replace(/^v/i, '')}`,
     type: 'update',
-    title: boundedText(metadata.name || `CacaTools ${version} disponible`, 180),
-    body: boundedText(metadata.body || update.notes || 'Nueva versión firmada disponible para CacaTools.', 1200),
+    title: boundedText(metadata.name || `Clear Download Manager ${version} disponible`, 180),
+    body: boundedText(metadata.body || update.notes || 'Nueva versión firmada disponible para Clear Download Manager.', 1200),
     publishedAt: normalizeDate(metadata.publishedAt || metadata.published_at || update.date) || new Date().toISOString(),
     thumbnail: safeRemoteThumbnail(metadata.thumbnail),
     priority: 100,
@@ -207,7 +207,7 @@ function extensionMessage() {
   return {
     id: 'local:extension-invitation',
     type: 'extension',
-    title: 'Extensión de CacaTools',
+    title: 'Extensión de Clear Download Manager',
     body: 'Envía enlaces al gestor y consulta tus descargas directamente desde el navegador.',
     publishedAt: new Date().toISOString(),
     thumbnail: '',
