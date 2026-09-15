@@ -11,7 +11,9 @@ instaladores, firmas, hashes, notas y metadatos de cada release.
 
 ## Descargar
 
-Consulta la [última versión estable](https://github.com/CacaPlay/clear-download-manager-releases/releases/latest).
+Consulta el [release de Clear Download Manager 0.95.0](https://github.com/CacaPlay/clear-download-manager-releases/releases/tag/v0.95.0).
+La publicación está marcada como *pre-release* mientras se completa la
+validación canary en un entorno Windows desechable.
 
 Antes de ejecutar un instalador, verifica su SHA-256:
 
