@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-labelledby="title desc">
+  <title id="title">Chrome Web Store</title>
+  <desc id="desc">Minimal browser mark for the Chrome Web Store link</desc>
+  <circle cx="16" cy="16" r="13" fill="#fff" stroke="#d9e2ec" stroke-width="1.5"/>
+  <path d="M16 16 8.8 4.4A13 13 0 0 1 28.3 12H16Z" fill="#DB4437"/>
+  <path d="M16 16h12.3A13 13 0 0 1 11.1 27.3L16 16Z" fill="#F4B400"/>
+  <path d="M16 16 11.1 27.3A13 13 0 0 1 8.8 4.4L16 16Z" fill="#0F9D58"/>
+  <circle cx="16" cy="16" r="5.2" fill="#4285F4" stroke="#fff" stroke-width="1.5"/>
+</svg>

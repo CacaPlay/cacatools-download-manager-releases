@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-labelledby="title desc">
+  <title id="title">Microsoft Store</title>
+  <desc id="desc">Minimal shopping bag mark for the Microsoft Store link</desc>
+  <rect x="3" y="5" width="26" height="24" rx="6" fill="#0078D4"/>
+  <path d="M10 12.5h12v11H10z" fill="#fff" opacity=".96"/>
+  <path d="M12.5 12.5v-1.25a3.5 3.5 0 0 1 7 0v1.25" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+  <path d="M11 16h10M11 19.5h10" stroke="#0078D4" stroke-width="1.5" stroke-linecap="round" opacity=".75"/>
+</svg>
