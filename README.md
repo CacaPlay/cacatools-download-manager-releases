@@ -9,13 +9,6 @@
   instaladores, firmas, hashes, notas y metadatos del updater.
 </p>
 
-<p align="center">
-  <picture>
-    <source media="(max-width: 700px)" srcset="docs/assets/feature-pills-narrow.svg?v=visual-harmony-20260915">
-    <img src="docs/assets/feature-pills.svg?v=visual-harmony-20260915" width="100%" alt="Descargas · Vídeo y audio · Torrents · Enlaces directos · Integración Chromium">
-  </picture>
-</p>
-
 <p align="center"><img src="docs/assets/section-divider.svg?v=visual-harmony-20260915" width="100%" height="2" alt=""></p>
 
 <h3><big>Descargar</big></h3>
@@ -26,11 +19,12 @@
   <a href="https://apps.microsoft.com/detail/9NSTJ7JXM843"><img src="docs/assets/download-cards/microsoft-store.svg?v=visual-harmony-20260915" width="32%" alt="Microsoft Store — Obtener en Microsoft Store"></a>&nbsp;
   <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp"><img src="docs/assets/download-cards/chrome-web-store.svg?v=visual-harmony-20260915" width="32%" alt="Chrome Web Store — Disponible en Chrome Web Store"></a>
 </p>
-<p align="center">
-  <a href="https://github.com/CacaPlay/clear-download-manager-releases/releases/download/v0.95.0/Clear.Download.Manager_0.95.0_x64-setup.exe">Descargar para Windows</a> ·
+<p align="center"><sub>
+  Enlaces directos:
+  <a href="https://github.com/CacaPlay/clear-download-manager-releases/releases/download/v0.95.0/Clear.Download.Manager_0.95.0_x64-setup.exe">Windows</a> ·
   <a href="https://apps.microsoft.com/detail/9NSTJ7JXM843">Microsoft Store</a> ·
   <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp">Chrome Web Store</a>
-</p>
+</sub></p>
 
 También puedes abrir el [release completo de CDM 0.95.0](https://github.com/CacaPlay/clear-download-manager-releases/releases/tag/v0.95.0)
 para consultar todos sus archivos.
