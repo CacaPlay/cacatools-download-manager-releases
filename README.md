@@ -21,13 +21,13 @@ Manager: instaladores, firmas, hashes, notas y metadatos del updater.
     </td>
     <td align="center">
       <a href="https://apps.microsoft.com/detail/9NSTJ7JXM843">
-        <img src="docs/assets/microsoft-store.svg" width="36" height="36" alt="Microsoft Store"><br>
+        <img src="docs/assets/microsoft-store.png" width="36" height="36" alt="Microsoft Store"><br>
         <strong>Microsoft Store</strong>
       </a>
     </td>
     <td align="center">
       <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp">
-        <img src="docs/assets/chrome-web-store.svg" width="36" height="36" alt="Chrome Web Store"><br>
+        <img src="docs/assets/chrome-web-store.png" width="36" height="36" alt="Chrome Web Store"><br>
         <strong>Chrome Web Store</strong>
       </a>
     </td>
