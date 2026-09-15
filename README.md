@@ -11,13 +11,21 @@ descargas HTTP/HTTPS, vídeo, audio, playlists, torrents y enlaces directos.
 Está construida con Tauri y Rust e incluye integración opcional con navegadores
 Chromium.
 
+<p align="center">
+  <code>⇩ Descargas</code>&nbsp;&nbsp;
+  <code>▷ Vídeo y audio</code>&nbsp;&nbsp;
+  <code>◈ Torrents</code>&nbsp;&nbsp;
+  <code>↗ Enlaces directos</code>&nbsp;&nbsp;
+  <code>▦ Integración Chromium</code>
+</p>
+
 ## Descargar
 
 <table>
   <tr>
     <td align="center">
       <a href="https://github.com/CacaPlay/clear-download-manager-releases/releases/download/v0.95.0/Clear.Download.Manager_0.95.0_x64-setup.exe">
-        <img src="app-ui/assets/brand/clear-download-manager-celeste.png" width="36" height="36" alt="Logo de Clear Download Manager"><br>
+        <img src="docs/assets/windows-11-logo.png" width="36" height="36" alt="Windows 11"><br>
         <strong>Descargar para Windows</strong>
       </a>
     </td>
