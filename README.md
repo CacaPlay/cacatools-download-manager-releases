@@ -9,6 +9,13 @@
   instaladores, firmas, hashes, notas y metadatos del updater.
 </p>
 
+<p align="center">
+  <picture>
+    <source media="(max-width: 700px)" srcset="docs/assets/feature-pills-narrow.svg?v=visual-harmony-20260915">
+    <img src="docs/assets/feature-pills.svg?v=visual-harmony-20260915" width="100%" alt="Descargas · Vídeo y audio · Torrents · Enlaces directos · Integración Chromium">
+  </picture>
+</p>
+
 <p align="center"><img src="docs/assets/section-divider.svg?v=visual-harmony-20260915" width="100%" height="2" alt=""></p>
 
 <h3><big>Descargar</big></h3>
