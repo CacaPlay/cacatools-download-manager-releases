@@ -124,10 +124,3 @@ reglas de seguridad están en [`SECURITY.md`](SECURITY.md) y la licencia en
 El código se publica para facilitar la revisión y la colaboración técnica. La
 licencia sigue siendo propietaria; revisa [`LICENSE.md`](LICENSE.md) antes de
 redistribuir o modificar cualquier componente.
-
-## Compatibilidad de versiones anteriores
-
-Las instalaciones antiguas pueden utilizar temporalmente un repositorio de
-actualización legacy como puente. No se debe eliminar ese puente mientras siga
-habiendo usuarios que dependan de él. Las versiones nuevas se distribuyen
-desde el repositorio canónico de releases.
