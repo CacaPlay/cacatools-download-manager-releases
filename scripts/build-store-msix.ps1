@@ -22,7 +22,7 @@ $TauriTargetRoot = if ([string]::IsNullOrWhiteSpace($TauriTargetDirectory)) {
 } else { [IO.Path]::GetFullPath($TauriTargetDirectory) }
 $TauriRelease = Join-Path $TauriTargetRoot 'release'
 $Stage = Join-Path $OutputRoot 'stage'
-$PackagePath = Join-Path $OutputRoot ("CacaTools-Download-Manager-$PackageVersion.msix")
+$PackagePath = Join-Path $OutputRoot ("Clear-Download-Manager-$PackageVersion.msix")
 $ManifestPath = Join-Path $Stage 'AppxManifest.xml'
 
 function Invoke-Native {
@@ -121,7 +121,7 @@ $ManifestXml = @"
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" IgnorableNamespaces="uap rescap">
   <Identity Name="$IdentityName" Publisher="$Publisher" Version="$PackageVersion" ProcessorArchitecture="x64" />
   <Properties>
-    <DisplayName>CacaTools Download Manager</DisplayName>
+    <DisplayName>Clear Download Manager</DisplayName>
     <PublisherDisplayName>CacaPlay</PublisherDisplayName>
     <Description>Gestor local de descargas, torrents, vídeo, audio y playlists.</Description>
     <Logo>Assets\StoreLogo.png</Logo>
@@ -138,7 +138,7 @@ $ManifestXml = @"
   </Capabilities>
   <Applications>
     <Application Id="CacaTools" Executable="cacatools-desktop.exe" EntryPoint="Windows.FullTrustApplication">
-      <uap:VisualElements AppListEntry="default" DisplayName="CacaTools Download Manager" Description="CacaTools Download Manager" BackgroundColor="#0B1522" Square44x44Logo="Assets\Square44x44Logo.png" Square150x150Logo="Assets\Square150x150Logo.png" />
+      <uap:VisualElements AppListEntry="default" DisplayName="Clear Download Manager" Description="Clear Download Manager" BackgroundColor="#0B1522" Square44x44Logo="Assets\Square44x44Logo.png" Square150x150Logo="Assets\Square150x150Logo.png" />
     </Application>
   </Applications>
 </Package>
