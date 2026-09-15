@@ -1,42 +1,41 @@
-# Clear Download Manager (CDM)
-
 <p align="center">
-  <img src="logo-clear-download-manager.png" width="96" height="96" alt="Clear Download Manager">
-  <br><strong>Clear Download Manager</strong>
-  <br><sub>Releases oficiales para Windows</sub>
+  <img src="logo-clear-download-manager.png" width="128" height="128" alt="Clear Download Manager">
 </p>
 
-Este repositorio contiene únicamente las versiones públicas de Clear Download
-Manager: instaladores, firmas, hashes, notas y metadatos del updater.
-
+<h1 align="center">Clear Download Manager</h1>
+<p align="center"><strong>Releases oficiales para Windows</strong></p>
 <p align="center">
-  <code>⇩ Descargas</code>&nbsp;&nbsp;
-  <code>▷ Vídeo y audio</code>&nbsp;&nbsp;
-  <code>◈ Torrents</code>&nbsp;&nbsp;
-  <code>↗ Enlaces directos</code>&nbsp;&nbsp;
-  <code>▦ Integración Chromium</code>
+  Este repositorio contiene únicamente las versiones públicas de Clear Download Manager:<br>
+  instaladores, firmas, hashes, notas y metadatos del updater.
 </p>
+
+<table align="center" width="100%">
+  <tr>
+    <td align="center"><img src="docs/assets/feature-icons/download.svg" width="28" alt=""><br><strong>Descargas</strong></td>
+    <td align="center"><img src="docs/assets/feature-icons/video.svg" width="28" alt=""><br><strong>Vídeo y audio</strong></td>
+    <td align="center"><img src="docs/assets/feature-icons/package.svg" width="28" alt=""><br><strong>Torrents</strong></td>
+    <td align="center"><img src="docs/assets/feature-icons/link.svg" width="28" alt=""><br><strong>Enlaces directos</strong></td>
+    <td align="center"><img src="docs/assets/chrome-web-store.png" width="28" height="28" alt=""><br><strong>Integración Chromium</strong></td>
+  </tr>
+</table>
 
 ## Descargar
 
-<table>
+<table align="center" width="100%">
   <tr>
-    <td align="center">
+    <td align="center" width="33%">
       <a href="https://github.com/CacaPlay/clear-download-manager-releases/releases/download/v0.95.0/Clear.Download.Manager_0.95.0_x64-setup.exe">
-        <img src="docs/assets/windows-11-logo.png" width="36" height="36" alt="Windows 11"><br>
-        <strong>Descargar para Windows</strong>
+        <img src="docs/assets/download-cards/windows.png" width="100%" alt="Descargar para Windows — Instalador para Windows">
       </a>
     </td>
-    <td align="center">
+    <td align="center" width="33%">
       <a href="https://apps.microsoft.com/detail/9NSTJ7JXM843">
-        <img src="docs/assets/microsoft-store.png" width="36" height="36" alt="Microsoft Store"><br>
-        <strong>Microsoft Store</strong>
+        <img src="docs/assets/download-cards/microsoft-store.png" width="100%" alt="Microsoft Store — Obtener en Microsoft Store">
       </a>
     </td>
-    <td align="center">
+    <td align="center" width="33%">
       <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp">
-        <img src="docs/assets/chrome-web-store.png" width="36" height="36" alt="Chrome Web Store"><br>
-        <strong>Chrome Web Store</strong>
+        <img src="docs/assets/download-cards/chrome-web-store.png" width="100%" alt="Chrome Web Store — Disponible en Chrome Web Store">
       </a>
     </td>
   </tr>
