@@ -3,7 +3,12 @@ const MAX_DISMISSED_IDS = 64;
 const MAX_RELEASES = 12;
 const MAX_REMOTE_MESSAGES = 32;
 const MAX_CACHE_BYTES = 256 * 1024;
-const NEWS_FEED_URL = 'https://raw.githubusercontent.com/CacaPlay/cacatools-download-manager-releases/main/news.json';
+const NEWS_FEED_URL = 'https://raw.githubusercontent.com/CacaPlay/clear-download-manager-releases/main/news.json';
+// This marker prevents an installation that previously cached the legacy
+// CacaTools feed from treating that content as current after the repository
+// migration. It is deliberately independent from the app version so a future
+// feed can invalidate the cache without changing the desktop version.
+export const NEWS_FEED_CACHE_KEY = 'clear-download-manager-releases/news-v1';
 const ALLOWED_THUMBNAIL_HOSTS = new Set([
   'raw.githubusercontent.com',
   'github.com',
@@ -33,6 +38,7 @@ export const DEFAULT_EXPERIENCE_SETTINGS = Object.freeze({
   updateSeenVersions: [],
   pendingUpdateVersion: '',
   newsCacheJson: '',
+  newsCacheSource: '',
   newsCacheEtag: '',
   newsCacheLastModified: '',
   newsCacheFetchedAt: 0,
@@ -97,6 +103,7 @@ export function normalizeExperienceSettings(value = {}) {
     updateSeenVersions: boundedIds(source.updateSeenVersions, MAX_RELEASES),
     pendingUpdateVersion: boundedText(source.pendingUpdateVersion, 80),
     newsCacheJson: boundedText(source.newsCacheJson, MAX_CACHE_BYTES),
+    newsCacheSource: boundedText(source.newsCacheSource, 120),
     newsCacheEtag: boundedText(source.newsCacheEtag, 300),
     newsCacheLastModified: boundedText(source.newsCacheLastModified, 120),
     newsCacheFetchedAt: Math.max(0, Number(source.newsCacheFetchedAt) || 0),
@@ -169,6 +176,7 @@ export function validateRemoteNewsFeed(payload, options = {}) {
 }
 
 export function parseCachedNews(experience, options = {}) {
+  if (String(experience?.newsCacheSource || '') !== NEWS_FEED_CACHE_KEY) return [];
   const raw = String(experience?.newsCacheJson || '');
   if (!raw || raw.length > MAX_CACHE_BYTES) return [];
   try { return validateRemoteNewsFeed(JSON.parse(raw), options); } catch { return []; }
@@ -252,6 +260,7 @@ export function newsCachePatch(response, messages = []) {
   if (json.length > MAX_CACHE_BYTES) return {};
   return {
     newsCacheJson: json,
+    newsCacheSource: NEWS_FEED_CACHE_KEY,
     newsCacheEtag: boundedText(response?.etag, 300),
     newsCacheLastModified: boundedText(response?.lastModified || response?.last_modified, 120),
     newsCacheFetchedAt: Date.now()

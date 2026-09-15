@@ -16,7 +16,7 @@ export function sectionTitle(section) {
     categories: ['Categorías', 'Organiza y filtra archivos por tipo.'],
     scheduler: ['Programación', 'Inicia, pausa o cancela trabajos automáticamente.'],
     settings: ['Ajustes', 'Diseño, modo visual y colores del gestor.'],
-    news: ['Novedades', 'Actualizaciones, información y soporte de CacaTools.']
+    news: ['Novedades', 'Actualizaciones, información y soporte de Clear Download Manager.']
   })[section] || ['Descargas', 'Gestor local de archivos y multimedia.'];
 }
 

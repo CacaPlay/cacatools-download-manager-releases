@@ -29,6 +29,7 @@ import {
   DEFAULT_EXPERIENCE_SETTINGS,
   buildNewsInbox,
   markNewsViewed,
+  NEWS_FEED_CACHE_KEY,
   newsAttention,
   newsCachePatch,
   normalizeExperienceSettings,
@@ -883,14 +884,17 @@ async function refreshNewsFeed({ force = false } = {}) {
   if (previewMode || appState.experienceSettings?.receiveNews === false) return [];
   const settings = normalizeExperienceSettings(appState.experienceSettings);
   const ttl = 6 * 60 * 60 * 1000;
-  if (!force && settings.newsCacheFetchedAt && Date.now() - settings.newsCacheFetchedAt < ttl) {
+  const cacheIsCurrent = settings.newsCacheSource === NEWS_FEED_CACHE_KEY;
+  if (!force && cacheIsCurrent && settings.newsCacheFetchedAt && Date.now() - settings.newsCacheFetchedAt < ttl) {
     appState.remoteNewsMessages = parseCachedNews(settings, { appVersion: APP_VERSION });
     return appState.remoteNewsMessages;
   }
   try {
     const response = await invoke('fetch_remote_news_feed', {
-      etag: settings.newsCacheEtag || null,
-      lastModified: settings.newsCacheLastModified || null
+      // Do not send validators from the retired feed. A fresh canonical fetch
+      // must replace that cache instead of accepting a legacy 304 response.
+      etag: cacheIsCurrent ? settings.newsCacheEtag || null : null,
+      lastModified: cacheIsCurrent ? settings.newsCacheLastModified || null : null
     });
     if (response?.notModified) {
       appState.remoteNewsMessages = parseCachedNews(settings, { appVersion: APP_VERSION });

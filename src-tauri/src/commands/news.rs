@@ -6,7 +6,7 @@ use serde_json::Value;
 use std::time::Duration;
 
 const NEWS_FEED_URL: &str =
-    "https://raw.githubusercontent.com/CacaPlay/cacatools-download-manager-releases/main/news.json";
+    "https://raw.githubusercontent.com/CacaPlay/clear-download-manager-releases/main/news.json";
 const RELEASE_API_BASE: &str =
     "https://api.github.com/repos/CacaPlay/cacatools-download-manager-releases/releases/tags/v";
 const MAX_NEWS_BYTES: u64 = 256 * 1024;

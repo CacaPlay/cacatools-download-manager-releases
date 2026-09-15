@@ -169,6 +169,8 @@ pub(crate) struct ExperienceSettings {
     #[serde(default)]
     pub(crate) news_cache_json: String,
     #[serde(default)]
+    pub(crate) news_cache_source: String,
+    #[serde(default)]
     pub(crate) news_cache_etag: String,
     #[serde(default)]
     pub(crate) news_cache_last_modified: String,
@@ -207,6 +209,7 @@ impl Default for ExperienceSettings {
             update_seen_versions: Vec::new(),
             pending_update_version: String::new(),
             news_cache_json: String::new(),
+            news_cache_source: String::new(),
             news_cache_etag: String::new(),
             news_cache_last_modified: String::new(),
             news_cache_fetched_at: 0,
@@ -259,6 +262,7 @@ impl ExperienceSettings {
             .take(80)
             .collect();
         self.news_cache_json = self.news_cache_json.chars().take(256 * 1024).collect();
+        self.news_cache_source = self.news_cache_source.trim().chars().take(120).collect();
         self.news_cache_etag = self.news_cache_etag.trim().chars().take(300).collect();
         self.news_cache_last_modified = self
             .news_cache_last_modified
