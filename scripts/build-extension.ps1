@@ -2,7 +2,7 @@ param([string]$Version = '')
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 $Root = Split-Path -Parent $PSScriptRoot
-$Manifest = Get-Content (Join-Path $Root 'extension\manifest.json') -Raw | ConvertFrom-Json
+$Manifest = Get-Content (Join-Path $Root 'extension\manifest.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 if ([string]::IsNullOrWhiteSpace($Version)) { $Version = [string]$Manifest.version }
 if ($Version -notmatch '^\d+\.\d+\.\d+$') { throw "Versión de extensión inválida: $Version" }
 
