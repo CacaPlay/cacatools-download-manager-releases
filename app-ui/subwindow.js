@@ -2,6 +2,8 @@ import { lucideIcon, playlistPrepLogo } from './assets/icons/lucide.js';
 import { applyAppearance, iconVariantForColor, loadStoredAppearance, storeAppearanceLocally } from './modules/appearance/index.js?v=0.95.0-verify-20260911-r4';
 import { bindAppearanceSync } from './modules/appearance/sync.js?v=0.95.0-verify-20260911-r4';
 import { bindDestinationPickerState, chooseDestinationDirectory } from './modules/downloads/destination-picker.js?v=0.45.1';
+import { loadLocale, resolveLocale } from './modules/i18n/index.js';
+import { localizeDom } from './modules/i18n/runtime.js';
 
 const query = new URLSearchParams(window.location.search);
 const requestedKind = query.get('kind') === 'playlist'
@@ -615,6 +617,7 @@ function render() {
   } else {
     const footerStatus = state.busy ? 'Analizando contenido' : state.error ? 'No se puede confirmar esta fuente' : 'Listo para confirmar';
     root.innerHTML = `<section class="app-window" data-window-type="${isPlaylist ? 'playlist' : 'multimedia'}" aria-labelledby="window-title">${titlebar}<section class="page-header"><div class="header-icon" data-role="header-icon">${isPlaylist ? playlistPrepLogo(24) : icon('download', 20)}</div><div class="header-copy"><div class="eyebrow">CLEAR DOWNLOAD MANAGER · CENTRO DE DESCARGAS</div><h1 id="window-title">${title}</h1></div></section><form class="url-row" data-role="source-form"><div>${platformLogo(state.source)}</div><input class="url-input" data-role="url" value="${escapeHtml(state.source)}" placeholder="Pega un enlace multimedia, playlist o archivo directo" aria-label="Enlace de descarga"><button type="submit" class="btn" data-action="analyze" ${state.busy ? 'disabled' : ''}>${state.busy ? 'Analizando…' : 'Analizar'}</button></form><main class="content" style="position:relative">${body}<div class="loading-overlay" data-role="loading-overlay" ${state.busy ? '' : 'hidden'}><div class="loading-card"><div class="spinner"></div><strong data-role="loading-title">${escapeHtml(state.phase)}</strong><span data-role="loading-detail">Espera a que termine el análisis para confirmar la descarga.</span></div></div></main><footer class="footer"><div class="status"><span class="status-dot"></span><span>${footerStatus}</span></div><div class="actions"><button type="button" class="btn" data-action="close">Cerrar</button><button type="button" class="btn primary strong" data-action="download" ${confirmBlocked ? 'disabled' : ''}>${confirmLabel}</button></div></footer></section>`;
+    localizeDom(root, resolveLocale(loadLocale()));
   }
   root.querySelector('.app-dot')?.remove();
   bindSubwindowThumbnailLifecycle();

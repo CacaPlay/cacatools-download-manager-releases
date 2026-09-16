@@ -40,6 +40,7 @@ const refreshNewsFeed = (...args) => contextValue('refreshNewsFeed', async () =>
 const startSnapshotRefreshLoop = (...args) => contextValue('startSnapshotRefreshLoop', () => {})(...args);
 const runProgressAcceptanceAutopilot = (...args) => contextValue('runProgressAcceptanceAutopilot', async () => null)(...args);
 const clearFloatingLayer = (...args) => contextValue('clearFloatingLayer', () => {})(...args);
+const localizeDom = (...args) => contextValue('localizeDom', () => {})(...args);
 
 export function configureComposition(context = {}) {
   compositionContext = context;
@@ -77,6 +78,11 @@ function renderUnsafe() {
   app.dataset.motionNavigation = (!themeTransitioning && navigationChanged) ? 'true' : 'false';
   app.dataset.motionSection = activeSection;
   app.innerHTML = `${activeWorkspaceMarkup()}<div class="toast-region" aria-live="polite"></div>`;
+  // Legacy templates still contain a small set of literal UI phrases. Apply
+  // the central locale pass after every render so switching language updates
+  // the complete visible surface without touching internal values or user
+  // content.
+  localizeDom(app, contextValue('locale', () => 'es')());
   document.body.classList.add('app-ready');
   document.body.classList.toggle('download-manager-standalone', activeSection === 'Descargas');
   document.body.classList.remove('download-workspace-window');

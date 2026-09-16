@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { LOCALE_CATALOGS } from '../../app-ui/modules/i18n/index.js';
+import { RUNTIME_TRANSLATION_TERMS } from '../../app-ui/modules/i18n/runtime.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const es = LOCALE_CATALOGS.es;
@@ -27,9 +28,28 @@ for (const relative of ['app-ui/main.js', 'app-ui/download-manager/view/sections
   const file = path.join(root, relative);
   if (!fs.existsSync(file)) errors.push(`missing required surface: ${relative}`);
 }
+const runtimeFiles = [
+  'app-ui/main.js',
+  'app-ui/modules/composition/index.js',
+  'app-ui/modules/settings/index.js',
+  'app-ui/download-manager/view/unified.js',
+  'app-ui/download-manager/view/dialogs.js',
+  'app-ui/download-manager/view/shared.js',
+  'app-ui/download-manager/view/sections.js',
+  'app-ui/subwindow.js'
+];
+const sourceText = runtimeFiles.map((relative) => {
+  const file = path.join(root, relative);
+  if (!fs.existsSync(file)) { errors.push(`missing runtime surface: ${relative}`); return ''; }
+  return fs.readFileSync(file, 'utf8');
+}).join('\n');
+const coreTerms = ['Pegar', 'Torrent', 'Archivo o enlace', 'Playlist', 'Seleccionar', 'Analizar', 'Todas las categorías', 'Activas', 'Completadas', 'Velocidad', 'Ajustes', 'Descargas', 'Novedades', 'Apariencia', 'Integraciones', 'Más detalles', 'Ver release', 'Detalles avanzados', 'Copiar diagnóstico'];
+const uncovered = coreTerms.filter((term) => sourceText.includes(term) && !RUNTIME_TRANSLATION_TERMS.includes(term) && !Object.hasOwn(es, term));
+if (uncovered.length) errors.push(`hardcoded core UI terms lack localization coverage: ${uncovered.join(', ')}`);
+if (!sourceText.includes('localizeDom')) errors.push('runtime localization hook is not connected');
 if (errors.length) {
   console.error(`i18n check failed (${errors.length})`);
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log(`i18n check passed: ${esKeys.length} shared ES/EN keys; required UI surfaces present`);
+console.log(`i18n check passed: ${esKeys.length} shared ES/EN keys; ${RUNTIME_TRANSLATION_TERMS.length} runtime UI terms covered; required UI surfaces present`);

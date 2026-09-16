@@ -48,6 +48,7 @@ import {
 } from './modules/composition/index.js?v=0.95.0-verify-20260911-r3';
 import { runThemeTransition } from './modules/motion/coordinator.js';
 import { formatLocaleDate, loadLocale, messagesFor, resolveLocale, saveLocale, translate } from './modules/i18n/index.js';
+import { localizeDom } from './modules/i18n/runtime.js';
 const qs = new URLSearchParams(window.location.search);
 const previewMode = qs.has('preview');
 const previewSlide = Math.max(0, Number(qs.get('slide') || 0));
@@ -692,7 +693,9 @@ configureComposition({
   checkForAppUpdate,
   startSnapshotRefreshLoop,
   runProgressAcceptanceAutopilot,
-  clearFloatingLayer
+  clearFloatingLayer,
+  localizeDom,
+  locale: currentLocale
 });
 
 function formatBytes(bytes) {
