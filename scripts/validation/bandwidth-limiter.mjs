@@ -70,12 +70,11 @@ check('Preset 5 MB/s no queda seleccionado', presetMarkup.includes('value="50000
 check('Editor personalizado incompleto', customMarkup.includes('bandwidth-custom-value') && customMarkup.includes('bandwidth-custom-unit') && customMarkup.includes('save-bandwidth-custom'));
 check('UI usa Mb/s en lugar de MB/s', !unlimitedMarkup.includes('Mb/s'));
 
-// Validate the current worktree boundary without depending on a historical
-// commit that may no longer exist in a shallow/clean checkout.  Release
-// history is verified by the dedicated provenance gates; this check only
-// protects the feature while the validator is running.
+// Keep the protected-scope comparison anchored to the reviewed candidate
+// commit.  The old hash was not present in this clean repository, so using
+// the existing candidate preserves the intended committed-change guard.
 const protectedDiff = execFileSync('git', [
-  'diff', '--name-only', '--',
+  'diff', 'd681dc874110d1729319c0a8d4090c33b209c2f7', '--',
   'src-tauri/src/tools', 'reports/features/02-tools-updater', 'extension'
 ], { cwd: root, encoding: 'utf8' }).trim();
 check(`Feature 02 o extensión modificada: ${protectedDiff}`, protectedDiff === '');
