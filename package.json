@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "python -m http.server 4173 --bind 127.0.0.1",
     "build:web": "node scripts/build.mjs",
+    "guard": "powershell -ExecutionPolicy Bypass -File scripts/dev/cdm-execution-guard.ps1 -RequireClean",
     "check": "node scripts/check.mjs",
     "check:catalog-tooling": "node scripts/validation/catalog-tooling-cross-process.mjs",
     "check:catalog-safety": "node scripts/validation/catalog-tooling-safety.mjs",

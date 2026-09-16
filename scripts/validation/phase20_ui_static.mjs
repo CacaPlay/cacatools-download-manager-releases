@@ -96,7 +96,7 @@ const files={
 };
 const assertions=[
   [`version ${expectedVersion}`,Boolean(expectedVersion)&&tauri.version===expectedVersion&&files.cargo.includes(`version = "${expectedVersion}"`)],
-  [`CDM ${expectedVersion} UI build id`,files.main.includes(`CDM-${expectedVersion}-UI-`)],
+  [`CDM ${expectedVersion} UI build id`,files.main.includes(`const BUILD_ID = 'CDM-${expectedVersion}-`)],
  ['Spotify spotDL boundary and metadata sanitizer',files.rust.includes('spotdl_save_metadata')&&files.rust.includes('verify_spotdl_binary')&&files.rust.includes('selected_source_url')],
  ['Spotify provider fallback contract',files.rust.includes('"youtube-music"')&&files.rust.includes('"youtube"')&&files.rust.includes('"piped"')&&files.rust.includes('"soundcloud"')&&files.rust.includes('"bandcamp"')&&files.rust.includes('simple-tui')&&files.rust.includes('audio_best')&&files.rust.includes('"native"')],
  ['Spotify official API and YouTube matcher boundary',files.rust.includes('fn resolve_spotify_source')&&files.rust.includes('spotify_api_source')&&files.rust.includes('resolve_spotify_track')&&files.main.includes("invoke('resolve_spotify_source'")&&files.main.includes("invoke('queue_spotify_download'")],
@@ -131,7 +131,7 @@ const assertions=[
  ['updater guarded',files.rust.includes('if update_manager::updater_plugin_is_configured()')&&files.updater.includes('pub fn updater_plugin_is_configured()')],
  ['extension bridge preserved',(files.bridge.match(/\.truncate\(false\)/g)||[]).length===2&&files.bridge.includes('ensure_extension_host_registration')],
  ['stable release profile',files.cargo.includes('lto = true')&&files.cargo.includes('opt-level = "s"')&&files.cargo.includes('strip = true')&&!files.cargo.includes('trim-paths')],
- ['PowerShell size report safe',files.size.includes('Measure-Object -Property bytes -Sum')&&files.size.includes('Sort-Object -Property bytes -Descending')],
+ ['PowerShell size report safe',files.size.includes('Get-FileHash -LiteralPath')&&files.size.includes('Sort-Object -Property bytes -Descending')],
  ['startup diagnostics preserved',files.smoke.includes('RedirectStandardError')&&files.smoke.includes('RUST_BACKTRACE')],
  ['dedicated playlist and file-type logos',files.icons.includes('data-icon="playlist-logo"')&&files.main.includes('playlist-prep-logo')&&files.unified.includes('dmPlaylistLogo(11)')&&files.unified.includes('dmFileAsset(type.visualType')&&files.main.includes('playlistPrepLogo(24)')&&files.main.includes('./assets/file-types/playlist-prep-neutral.png')&&files.subwindowCss.includes('.header-icon .playlist-prep-logo{width:calc(40px * var(--ui-scale))!important;height:calc(27px * var(--ui-scale))!important}')&&files.subwindowCss.includes('.playlist-cover .playlist-prep-logo{width:calc(52px * var(--ui-scale))!important;height:calc(35px * var(--ui-scale))!important}')&&files.main.includes('./assets/playlist-logo.png')],
  ['playlist workspaces avoid library icon',!files.main.includes("isPlaylistQueue ? 'library'")&&!files.main.includes("mode === 'playlist' ? 'library'")],
