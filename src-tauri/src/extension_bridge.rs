@@ -15,6 +15,8 @@ use std::{
 };
 
 #[cfg(windows)]
+use sha2::{Digest, Sha256};
+#[cfg(windows)]
 use std::os::windows::process::CommandExt;
 
 const BRIDGE_PROTOCOL_VERSION: u32 = 1;
@@ -25,6 +27,7 @@ const MAX_STATE_BYTES: usize = 768 * 1024;
 const CAPTURE_RESPONSE_TIMEOUT_MS: u64 = 3_000;
 const HOST_NAME: &str = "lat.cacaplay.cacatools.downloadmanager";
 const PUBLISHED_CHROMIUM_EXTENSION_ID: &str = "aonppfnabjnicjjeoofkfjofolfibggp";
+const STORE_APP_USER_MODEL_ID: &str = "CacaPlay.CacaToolsDownloadManager_b9fexpwkvxe1m!CacaTools";
 const SPOTIFY_DIRECT_CAPTURE_MESSAGE: &str =
     "Las capturas directas de Spotify no se tratan como archivos HTTP.";
 const WINDOWS_STARTUP_KEY: &str = r"HKCU\Software\Microsoft\Windows\CurrentVersion\Run";
@@ -43,6 +46,8 @@ struct ExtensionBridgeConfig {
     firefox_extension_ids: Vec<String>,
     #[serde(default = "default_browsers")]
     browsers: Vec<String>,
+    #[serde(default)]
+    store_app_user_model_id: Option<String>,
 }
 
 #[derive(Clone, Deserialize, Serialize)]
@@ -72,6 +77,7 @@ fn extension_config() -> ExtensionBridgeConfig {
         chromium_extension_ids: Vec::new(),
         firefox_extension_ids: Vec::new(),
         browsers: default_browsers(),
+        store_app_user_model_id: None,
     })
 }
 
@@ -228,6 +234,91 @@ fn add_registry_manifest(registry_key: &str, manifest_path: &str) -> Result<(), 
 }
 
 #[cfg(windows)]
+fn is_windows_apps_path(path: &PathBuf) -> bool {
+    path.to_string_lossy()
+        .replace('/', "\\")
+        .to_ascii_lowercase()
+        .contains("\\windowsapps\\")
+}
+
+#[cfg(windows)]
+fn sha256_file(path: &PathBuf) -> Result<String, String> {
+    let bytes = fs::read(path).map_err(|error| error.to_string())?;
+    Ok(format!("{:x}", Sha256::digest(bytes)))
+}
+
+#[cfg(windows)]
+fn stage_store_native_host(source: &PathBuf) -> Result<PathBuf, String> {
+    let source_hash = sha256_file(source)?;
+    let stage_directory = bridge_root().join("native-host").join(&source_hash);
+    fs::create_dir_all(&stage_directory).map_err(|error| error.to_string())?;
+    let file_name = source
+        .file_name()
+        .unwrap_or_else(|| std::ffi::OsStr::new("cacatools-native-host.exe"));
+    let target = stage_directory.join(file_name);
+
+    if target.is_file() {
+        let staged_hash = sha256_file(&target)?;
+        if staged_hash != source_hash {
+            return Err(
+                "El host nativo externo existe, pero no coincide con el host empaquetado".into(),
+            );
+        }
+        return Ok(target);
+    }
+
+    let temporary = stage_directory.join(format!(
+        ".{}.{}.tmp",
+        file_name.to_string_lossy(),
+        std::process::id()
+    ));
+    let _ = fs::remove_file(&temporary);
+    fs::copy(source, &temporary).map_err(|error| error.to_string())?;
+    let copied_hash = sha256_file(&temporary)?;
+    if copied_hash != source_hash {
+        let _ = fs::remove_file(&temporary);
+        return Err("No se pudo verificar la copia externa del host nativo".into());
+    }
+    if let Err(error) = fs::rename(&temporary, &target) {
+        if target.is_file() && sha256_file(&target).ok().as_deref() == Some(source_hash.as_str()) {
+            let _ = fs::remove_file(&temporary);
+        } else {
+            let _ = fs::remove_file(&temporary);
+            return Err(error.to_string());
+        }
+    }
+    Ok(target)
+}
+
+#[cfg(windows)]
+fn valid_store_app_user_model_id(value: &str) -> bool {
+    !value.is_empty()
+        && value.len() <= 256
+        && value
+            .bytes()
+            .all(|byte| byte.is_ascii_alphanumeric() || matches!(byte, b'.' | b'_' | b'!' | b'-'))
+}
+
+#[cfg(windows)]
+fn write_store_launch_config(host_path: &PathBuf, app_user_model_id: &str) -> Result<(), String> {
+    let Some(parent) = host_path.parent() else {
+        return Err("No se pudo determinar la carpeta del host nativo".into());
+    };
+    let config_path = parent.join("store-launch.json");
+    let body = serde_json::to_vec_pretty(&json!({
+        "storeAppUserModelId": app_user_model_id
+    }))
+    .map_err(|error| error.to_string())?;
+    if fs::read(&config_path).ok().as_deref() == Some(body.as_slice()) {
+        return Ok(());
+    }
+    let temporary = config_path.with_extension(format!("{}.tmp", std::process::id()));
+    fs::write(&temporary, body).map_err(|error| error.to_string())?;
+    let _ = fs::remove_file(&config_path);
+    fs::rename(&temporary, &config_path).map_err(|error| error.to_string())
+}
+
+#[cfg(windows)]
 fn ensure_extension_host_registration() -> Result<bool, String> {
     let config = extension_config();
     let marker_path = registration_marker_path();
@@ -268,8 +359,22 @@ fn ensure_extension_host_registration() -> Result<bool, String> {
         })
         .or_else(|| env::current_exe().ok())
         .ok_or_else(|| "No se pudo localizar el host nativo de CacaTools".to_string())?;
+    let executable = if is_windows_apps_path(&executable) {
+        let staged = stage_store_native_host(&executable)?;
+        let configured_id = config
+            .store_app_user_model_id
+            .as_deref()
+            .filter(|value| valid_store_app_user_model_id(value.trim()))
+            .map(str::trim)
+            .unwrap_or(STORE_APP_USER_MODEL_ID);
+        write_store_launch_config(&staged, configured_id)?;
+        staged
+    } else {
+        executable
+    };
     let executable_text = executable.to_string_lossy().into_owned();
     let mut registered_browsers = Vec::new();
+    let mut registration_errors = Vec::new();
 
     if !chromium_ids.is_empty() {
         let manifest_path = host_directory.join(format!("{HOST_NAME}.chromium.json"));
@@ -308,8 +413,10 @@ fn ensure_extension_host_registration() -> Result<bool, String> {
                 .iter()
                 .any(|value| value.eq_ignore_ascii_case(browser))
             {
-                add_registry_manifest(&format!(r"{root}\{HOST_NAME}"), &manifest_text)?;
-                registered_browsers.push(browser.to_string());
+                match add_registry_manifest(&format!(r"{root}\{HOST_NAME}"), &manifest_text) {
+                    Ok(()) => registered_browsers.push(browser.to_string()),
+                    Err(error) => registration_errors.push(format!("{browser}: {error}")),
+                }
             }
         }
     }
@@ -329,11 +436,13 @@ fn ensure_extension_host_registration() -> Result<bool, String> {
         )
         .map_err(|error| error.to_string())?;
         let manifest_text = manifest_path.to_string_lossy().into_owned();
-        add_registry_manifest(
+        match add_registry_manifest(
             &format!(r"HKCU\Software\Mozilla\NativeMessagingHosts\{HOST_NAME}"),
             &manifest_text,
-        )?;
-        registered_browsers.push("firefox".to_string());
+        ) {
+            Ok(()) => registered_browsers.push("firefox".to_string()),
+            Err(error) => registration_errors.push(format!("firefox: {error}")),
+        }
     }
 
     let marker = json!({
@@ -341,6 +450,7 @@ fn ensure_extension_host_registration() -> Result<bool, String> {
         "protocolVersion": BRIDGE_PROTOCOL_VERSION,
         "executable": executable_text,
         "registeredBrowsers": registered_browsers,
+        "registrationErrors": registration_errors,
         "registeredAt": unix_timestamp_secs()
     });
     fs::write(
@@ -957,6 +1067,7 @@ mod tests {
             ],
             firefox_extension_ids: Vec::new(),
             browsers: default_browsers(),
+            store_app_user_model_id: None,
         };
         let ids = clean_chromium_extension_ids(&config);
         assert_eq!(

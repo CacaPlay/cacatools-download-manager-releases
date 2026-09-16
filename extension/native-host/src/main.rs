@@ -39,6 +39,28 @@ fn response_path() -> PathBuf {
 fn state_path() -> PathBuf {
     bridge_root().join("extension-state.json")
 }
+
+fn store_launch_config_path() -> Option<PathBuf> {
+    env::current_exe()
+        .ok()
+        .and_then(|path| path.parent().map(|parent| parent.join("store-launch.json")))
+}
+
+fn valid_store_app_user_model_id(value: &str) -> bool {
+    !value.is_empty()
+        && value.len() <= 256
+        && value
+            .bytes()
+            .all(|byte| byte.is_ascii_alphanumeric() || matches!(byte, b'.' | b'_' | b'!' | b'-'))
+}
+
+fn store_app_user_model_id() -> Option<String> {
+    let path = store_launch_config_path()?;
+    let body = fs::read_to_string(path).ok()?;
+    let value = serde_json::from_str::<Value>(&body).ok()?;
+    let id = value.get("storeAppUserModelId")?.as_str()?.trim();
+    valid_store_app_user_model_id(id).then(|| id.to_string())
+}
 fn read_extension_state() -> Value {
     fs::read(state_path())
         .ok()
@@ -102,6 +124,14 @@ fn app_running() -> bool {
 fn launch_app(background: bool) -> Result<bool, String> {
     if app_running() {
         return Ok(false);
+    }
+    if let Some(app_user_model_id) = store_app_user_model_id() {
+        let target = format!("shell:AppsFolder\\{app_user_model_id}");
+        Command::new("explorer.exe")
+            .arg(target)
+            .spawn()
+            .map_err(|error| format!("No se pudo abrir Clear Download Manager desde Microsoft Store: {error}"))?;
+        return Ok(true);
     }
     let executable = env::var_os("CACATOOLS_APP_EXE")
         .map(PathBuf::from)
