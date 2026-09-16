@@ -73,6 +73,7 @@
     "check:browser-capture": "node scripts/validation/browser-capture-smoke.mjs",
     "check:video-detector": "node scripts/validation/video-detector-smoke.mjs",
     "check:encoding": "node scripts/validation/scan-mojibake.mjs",
+    "check:i18n": "node scripts/validation/i18n-check.mjs",
     "check:0.24.1:baseline": "node scripts/validation/phase24_1_baseline_audit.mjs",
     "check:0.24.1:window": "node scripts/validation/phase24_1_window_lifecycle.mjs",
     "check:0.24.1:process": "node scripts/validation/phase24_1_process_safety.mjs",

@@ -220,7 +220,14 @@ export function bindDownloadManagerEvents(context = {}, options = {}) {
   });
   root.addEventListener('contextmenu', (event) => {
     const row = event.target.closest('[data-dm-select-job]');
-    if (!row) return;
+    if (!row) {
+      const blankMain = event.target === root || Boolean(event.target.closest?.('.dm-zen-main,.dm-zen-content,.dm-download-area,.dm-news-page'));
+      if (blankMain) {
+        syncPreferences({ selectedJobId: null });
+        patchVisualSelection(root);
+      }
+      return;
+    }
     event.preventDefault();
     event.stopPropagation();
     event.stopImmediatePropagation();
@@ -634,6 +641,16 @@ export function bindDownloadManagerEvents(context = {}, options = {}) {
     }
   };
   root.addEventListener('click', handleDownloadAreaClick);
+  // A genuine click on empty Main content clears the focused row.  Controls,
+  // rows, sidebars and overlays are intentionally excluded.
+  root.addEventListener('click', (event) => {
+    if (event.target.closest?.('[data-dm-select-job],button,input,select,textarea,a,.dm-row-menu,.dm-inspector,.dm-settings-popover,.dm-category-menu')) return;
+    const blankMain = event.target === root || Boolean(event.target.closest?.('.dm-zen-main,.dm-zen-content,.dm-download-area'));
+    if (!blankMain || runtimeState.preferences.selectedJobId === null) return;
+    syncPreferences({ selectedJobId: null });
+    patchVisualSelection(root);
+    rerenderNow();
+  });
   // Floating row menus live outside .dm-host to avoid clipped panels, so
   // their actions must be handled at document level as well.
   // Keep the document listener scoped to detached floating UI.  Events from

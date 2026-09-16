@@ -65,7 +65,10 @@ const FILE_TYPE_ASSETS = Object.freeze({
   video: { neutral: './app-ui/assets/file-types/video-neutral.png', accent: './app-ui/assets/file-types/video-accent.png' },
   pdf: { neutral: './app-ui/assets/file-types/pdf-neutral.png', accent: './app-ui/assets/file-types/pdf-accent.png' },
   presentation: { neutral: './app-ui/assets/file-types/presentation-neutral.png', accent: './app-ui/assets/file-types/presentation-accent.png' },
-  generic: { neutral: './app-ui/assets/file-types/generic-neutral.png', accent: './app-ui/assets/file-types/generic-accent.png' },
+  // Unknown files use the supplied rounded image geometry instead of the old
+  // generic document glyph.  Real image thumbnails still take precedence in
+  // fileGlyph and are not replaced by this fallback.
+  generic: { neutral: './app-ui/assets/news/Imagenes.png', accent: './app-ui/assets/news/Imagenes.png' },
   'playlist-prep': { neutral: './app-ui/assets/file-types/playlist-prep-neutral.png', accent: './app-ui/assets/file-types/playlist-prep-accent.png' }
 });
 const iconMarkupCache = new Map();

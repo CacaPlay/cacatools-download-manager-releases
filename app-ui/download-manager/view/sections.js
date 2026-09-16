@@ -22,9 +22,9 @@ export function sectionTitle(section) {
   })[section] || ['Descargas', 'Gestor local de archivos y multimedia.'];
 }
 
-export function sectionHeading(section, count = null) {
+export function sectionHeading(section, count = null, actions = '') {
   const [title, description] = sectionTitle(section);
-  return `<header class="dm-section-heading"><div><span>${dmIcon(section === 'scheduler' ? 'calendar' : section === 'categories' ? 'folder' : section === 'settings' ? 'settings' : section === 'news' ? 'bell' : section === 'media' ? 'video' : 'download', 26)}</span><div><h2>${escapeHtml(title)}</h2><p>${escapeHtml(description)}</p></div></div>${count === null ? '' : `<b>${count}</b>`}</header>`;
+  return `<header class="dm-section-heading"><div><span>${dmIcon(section === 'scheduler' ? 'calendar' : section === 'categories' ? 'folder' : section === 'settings' ? 'settings' : section === 'news' ? 'bell' : section === 'media' ? 'video' : 'download', 26)}</span><div><h2>${escapeHtml(title)}</h2><p>${escapeHtml(description)}</p></div></div><div class="dm-section-heading-actions">${actions}${count === null ? '' : `<b>${count}</b>`}</div></header>`;
 }
 
 export function categoriesPanel(jobs) {
@@ -65,6 +65,12 @@ export function newsPanel(context = {}) {
       : message.type === 'manual'
         ? './app-ui/assets/news/Imagenes.png'
         : '';
+  const semanticIcon = (asset, mode = 'green') => {
+    if (!asset) return '';
+    const matrix = mode === 'blue' ? '0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 1 0 0' : '0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 2 -1 0 0';
+    const id = `dm-semantic-${mode}`;
+    return `<svg class="dm-news-semantic-icon" viewBox="0 0 1254 1254" aria-hidden="true"><defs><filter id="${id}" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="${matrix}" result="accentMask"/><feFlood style="flood-color:var(--dm-accent)" result="accentColor"/><feComposite in="accentColor" in2="accentMask" operator="in"/></filter></defs><image href="${asset}" width="1254" height="1254" preserveAspectRatio="xMidYMid meet"/><image href="${asset}" width="1254" height="1254" preserveAspectRatio="xMidYMid meet" filter="url(#${id})"/></svg>`;
+  };
   const englishNews = String(context.locale?.() || context.locale || '').toLowerCase().startsWith('en');
   const actionsFor = (message) => {
     if (message.type === 'update') return `<button type="button" data-dm-news-action="open-update-modal">${t('update', 'Actualizar')}</button><button type="button" data-dm-news-action="open-news-details" data-news-id="${escapeHtml(message.id)}">${t('details', 'Más detalles')}</button>`;
@@ -77,7 +83,7 @@ export function newsPanel(context = {}) {
   const markup = filtered.map((message) => {
     const image = message.image || message.thumbnail;
     const asset = assetFor(message);
-    const media = asset ? `<img class="dm-news-label-icon" src="${asset}" alt="" loading="eager" decoding="async">` : dmIcon(iconFor(message), 22);
+    const media = asset ? semanticIcon(asset, message.type === 'manual' ? 'blue' : 'green') : dmIcon(iconFor(message), 22);
     const promo = image ? `<button class="dm-news-image-button dm-news-promo" type="button" data-dm-news-action="open-news-image" data-news-image="${escapeHtml(image)}"><img class="dm-news-thumbnail" src="${escapeHtml(image)}" alt="" loading="lazy" decoding="async"></button>` : '';
     const date = localeDate(message.publishedAt);
     const versionMatch = String(message.title || '').match(/(\d+\.\d+(?:\.\d+)?)/);
@@ -89,8 +95,9 @@ export function newsPanel(context = {}) {
   }).join('');
   const historyMarkup = history.filter((entry) => !(context.experienceSettings?.dismissedHistoryIds || []).includes(entry.id)).map((entry) => `<article class="dm-news-history-row"><span>${dmIcon('check', 20)}</span><div><small>${t('installed', 'Instalada')} · ${escapeHtml(localeDate(entry.installedAt))}</small><strong>Clear Download Manager ${escapeHtml(entry.version)}</strong><small>${escapeHtml(entry.summary || '')}</small></div><button type="button" aria-label="${t('close', 'Cerrar')}" data-dm-news-action="dismiss-history" data-history-id="${escapeHtml(entry.id)}">×</button></article>`).join('');
   const content = filter === 'history' ? (historyMarkup || `<div class="dm-section-empty dm-news-empty">${dmIcon('history', 42)}<strong>${t('historyTitle', 'Actualizaciones anteriores')}</strong><span>${t('noNewsDescription', 'Las actualizaciones y avisos aparecerán aquí.')}</span></div>`) : (markup || `<div class="dm-section-empty dm-news-empty">${dmIcon('bell', 42)}<strong>${t('noNews', 'No hay novedades nuevas')}</strong><span>${t('noNewsDescription', 'Las actualizaciones y avisos aparecerán aquí.')}</span></div>`);
-  const support = filter === 'history' ? '' : `<aside class="dm-news-support"><span class="dm-news-support-media"><img class="dm-news-label-icon" src="./app-ui/assets/news/Apoyo.png" alt="" loading="eager" decoding="async"></span><div><strong>${t('support', 'Apoya el proyecto')}</strong><small>${t('supportDescription', 'Tu apoyo ayuda a mantener Clear Download Manager en desarrollo.')}</small></div><button type="button" data-dm-news-action="support">${t('supportAction', 'Apoyar')}</button></aside>`;
-  return `<section class="dm-section-page dm-news-page">${sectionHeading('news')}<nav class="dm-news-filters" aria-label="${t('news', 'Novedades')}"><button type="button" class="${filter === 'all' ? 'is-active' : ''}" data-dm-news-filter="all">${t('all', 'Todas')}</button><button type="button" class="${filter === 'updates' ? 'is-active' : ''}" data-dm-news-filter="updates">${t('updates', 'Actualizaciones')}</button><button type="button" class="${filter === 'extension' ? 'is-active' : ''}" data-dm-news-filter="extension">${t('extension', 'Extensión')}</button><button type="button" class="${filter === 'history' ? 'is-active' : ''}" data-dm-news-filter="history">${t('history', 'Historial')}</button></nav><div class="dm-news-list">${content}</div>${support}<footer class="dm-news-footer"><button type="button" data-dm-news-action="check-update">${dmIcon('retry', 16)} ${t('checkUpdates', 'Buscar actualizaciones')}</button><button type="button" data-dm-news-action="feedback">${dmIcon('clipboard', 16)} ${t('feedback', 'Comentarios y sugerencias')}</button></footer></section>`;
+  const support = filter === 'history' ? '' : `<aside class="dm-news-support"><span class="dm-news-support-media">${semanticIcon('./app-ui/assets/news/Apoyo.png')}</span><div><strong>${t('support', 'Apoya el proyecto')}</strong><small>${t('supportDescription', 'Tu apoyo ayuda a mantener Clear Download Manager en desarrollo.')}</small></div><button type="button" data-dm-news-action="support">${t('supportAction', 'Apoyar')}</button></aside>`;
+  const headerActions = `<div class="dm-news-header-actions"><button type="button" data-dm-news-action="check-update" title="${t('checkUpdates', 'Buscar actualizaciones')}">${dmIcon('retry', 16)}<span>${t('checkUpdates', 'Buscar actualizaciones')}</span></button><button type="button" data-dm-news-action="feedback" title="${t('feedback', 'Comentarios y sugerencias')}">${dmIcon('clipboard', 16)}<span>${t('feedback', 'Comentarios y sugerencias')}</span></button></div>`;
+  return `<section class="dm-section-page dm-news-page">${sectionHeading('news', null, headerActions)}<nav class="dm-news-filters" aria-label="${t('news', 'Novedades')}"><button type="button" class="${filter === 'all' ? 'is-active' : ''}" data-dm-news-filter="all">${t('all', 'Todas')}</button><button type="button" class="${filter === 'updates' ? 'is-active' : ''}" data-dm-news-filter="updates">${t('updates', 'Actualizaciones')}</button><button type="button" class="${filter === 'extension' ? 'is-active' : ''}" data-dm-news-filter="extension">${t('extension', 'Extensión')}</button><button type="button" class="${filter === 'history' ? 'is-active' : ''}" data-dm-news-filter="history">${t('history', 'Historial')}</button></nav><div class="dm-news-list">${content}</div>${support}</section>`;
 }
 
 export function mediaOverview(jobs) {

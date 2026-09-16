@@ -30,6 +30,10 @@ const MESSAGES = Object.freeze({
   }
 });
 
+// Exposed read-only for the repository i18n gate; application code should use
+// translate()/messagesFor() so locale resolution remains centralized.
+export const LOCALE_CATALOGS = MESSAGES;
+
 export function normalizeLocale(value) {
   const locale = String(value || '').toLowerCase();
   return SUPPORTED_LOCALES.includes(locale) ? locale : 'system';

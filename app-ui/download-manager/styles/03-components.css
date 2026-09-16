@@ -1784,6 +1784,19 @@
   .dm-host .dm-news-support button{grid-column:2!important;justify-self:start!important;margin-top:.25rem!important}
 }
 
+/* Final news hierarchy and accessible contrast. */
+.dm-host .dm-section-heading-actions{display:flex;align-items:center;justify-content:flex-end;gap:.45rem;margin-left:auto;min-width:0}
+.dm-host .dm-news-header-actions{display:flex;align-items:center;gap:.4rem}
+.dm-host .dm-news-header-actions button{display:inline-flex;align-items:center;gap:.35rem;min-height:2rem;padding:.32rem .58rem;border:1px solid var(--dm-border-soft);border-radius:.55rem;color:var(--dm-muted);background:var(--dm-surface);font-size:.68rem;font-weight:650}
+.dm-host .dm-news-header-actions button:hover,.dm-host .dm-news-header-actions button:focus-visible{color:var(--dm-text);border-color:var(--dm-accent-detail);background:var(--dm-surface-2)}
+.dm-host .dm-news-header-actions svg{color:var(--dm-accent-detail)}
+.dm-host .dm-news-semantic-icon{display:block;width:88%;height:88%;overflow:visible}
+.dm-host .dm-news-support-media .dm-news-semantic-icon{width:88%;height:88%}
+.dm-host[data-dm-theme="dark"] .dm-news-filters button.is-active{color:#fff!important}
+.dm-host[data-dm-theme="light"] .dm-news-filters button.is-active{color:#07111d!important}
+.dm-host .dm-news-page>.dm-news-footer{display:none!important}
+@media (max-width:520px){.dm-host .dm-section-heading-actions{width:100%;justify-content:flex-start;margin:0}.dm-host .dm-news-header-actions button span{display:none}.dm-host .dm-news-header-actions button{width:2.25rem;justify-content:center;padding:.32rem}}
+
 /* Compact informational dialogs share the existing modal shell, controls and
    semantic surfaces. They stay content-led instead of becoming dashboards. */
 .dm-host .dm-info-dialog {
