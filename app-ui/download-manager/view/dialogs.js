@@ -80,10 +80,10 @@ export function bulkDeleteDialog(state, jobs = []) {
 export function updateDialog(context = {}) {
   const update = context.availableUpdate || {};
   const version = String(update.version || 'nueva versión');
-  const notes = String(update.notes || 'Incluye mejoras de estabilidad y experiencia en CacaTools.');
+  const notes = String(update.notes || 'Incluye mejoras de estabilidad y experiencia en Clear Download Manager.');
   const body = `<section class="dm-info-dialog">
     <div class="dm-info-dialog-icon">${dmIcon('download', 30)}</div>
-    <div class="dm-info-dialog-copy"><span class="dm-info-dialog-kicker">ACTUALIZACIÓN DISPONIBLE</span><h3>CacaTools ${escapeHtml(version)}</h3><p>${escapeHtml(notes)}</p><small>La instalación no comienza automáticamente y se mantiene bloqueada mientras haya descargas activas.</small></div>
+    <div class="dm-info-dialog-copy"><span class="dm-info-dialog-kicker">ACTUALIZACIÓN DISPONIBLE</span><h3>Clear Download Manager ${escapeHtml(version)}</h3><p>${escapeHtml(notes)}</p><small>La instalación no comienza automáticamente y se mantiene bloqueada mientras haya descargas activas.</small></div>
   </section>`;
   const footer = `<button data-dm-modal-close>Más tarde</button><button class="dm-primary-button" data-dm-modal-action="install-update" ${context.updaterInstallBusy ? 'disabled' : ''}>${context.updaterInstallBusy ? 'Preparando…' : 'Instalar ahora'}</button>`;
   return dialogShell('update', 'Actualización disponible', body, footer);
@@ -119,10 +119,10 @@ export function clipboardPreviewDialog(prompt = {}) {
 export function extensionDialog() {
   const body = `<section class="dm-info-dialog">
     <div class="dm-info-dialog-icon">${dmIcon('link', 30)}</div>
-    <div class="dm-info-dialog-copy"><span class="dm-info-dialog-kicker">EXTENSIÓN DE CACATOOLS</span><h3>Envía enlaces desde tu navegador</h3><p>Envía enlaces al gestor y consulta tus descargas directamente desde el navegador.</p><small>La extensión no se instala automáticamente. Solo se abrirá la Chrome Web Store si eliges continuar.</small></div>
+    <div class="dm-info-dialog-copy"><span class="dm-info-dialog-kicker">EXTENSIÓN DE CLEAR DOWNLOAD MANAGER</span><h3>Envía enlaces desde tu navegador</h3><p>Envía enlaces al gestor y consulta tus descargas directamente desde el navegador.</p><small>La extensión no se instala automáticamente. Solo se abrirá la Chrome Web Store si eliges continuar.</small></div>
   </section>`;
   const footer = `<button data-dm-modal-action="decline-extension">No gracias</button><button class="dm-primary-button" data-dm-modal-action="open-extension">Ver extensión</button>`;
-  return dialogShell('extension', 'Extensión de CacaTools', body, footer);
+  return dialogShell('extension', 'Extensión de Clear Download Manager', body, footer);
 }
 
 export function feedbackDialog() {

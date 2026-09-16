@@ -12,10 +12,11 @@ function zenSidebar(jobs, preferences, activeSection, context = {}) {
     ? Boolean(context.newsHasAttention)
     : Boolean(context.availableUpdate?.version) || experience.extensionPromptDecision !== 'declined';
   const brandIconVariant = context.brandIconVariant || 'celeste';
+  const t = (key, fallback) => context.translate?.(key) || fallback;
   return `<aside class="dm-zen-nav ${preferences.sidebarCollapsed ? 'is-collapsed' : ''}">
     <header><img class="dm-brand-logo dm-brand-mark" data-cdm-brand-logo data-brand-icon-base="./app-ui/assets/brand" src="./app-ui/assets/brand/clear-download-manager-${brandIconVariant}.png" alt="Clear Download Manager"><div><strong>Clear Download</strong><small>Manager</small></div><button data-dm-toggle="sidebar" aria-label="Alternar barra lateral">${dmIcon('collapse')}</button></header>
     <nav aria-label="Navegación principal">${ZEN_NAV_ITEMS.map(([id, label, icon]) => `<button title="${escapeHtml(label)}" class="${id === activeSection ? 'is-active' : ''}" data-dm-section="${id}">${dmIcon(icon)}<span>${label}</span>${id === 'running' && counts.running ? `<b>${counts.running}</b>` : id === 'queue' && counts.queued ? `<b>${counts.queued}</b>` : id === 'completed' && counts.completed ? `<b>${counts.completed}</b>` : ''}</button>`).join('')}</nav>
-    <footer><button data-dm-section="news" title="Novedades" class="dm-news-entry ${activeSection === 'news' ? 'is-active' : ''}">${dmIcon('bell')}${newsUnread ? '<i class="dm-news-dot" aria-label="Hay novedades sin leer"></i>' : ''}</button><button data-dm-open-settings title="Ajustes" class="dm-settings-entry">${dmIcon('settings')}</button><button data-dm-theme-toggle title="Cambiar tema">${dmIcon('moon')}</button></footer>
+    <footer><button data-dm-section="news" title="${t('news', 'Novedades')}" class="dm-news-entry ${activeSection === 'news' ? 'is-active' : ''}">${dmIcon('bell')}${newsUnread ? `<i class="dm-news-dot" aria-label="${t('unreadNews', 'Hay novedades sin leer')}"></i>` : ''}</button><button data-dm-open-settings title="${t('settings', 'Ajustes')}" class="dm-settings-entry">${dmIcon('settings')}</button><button data-dm-theme-toggle title="${t('themeToggle', 'Cambiar tema')}">${dmIcon('moon')}</button></footer>
   </aside>`;
 }
 
@@ -42,11 +43,12 @@ export function renderZenSidebar(context) {
   const selected = context.inspectorJob || selectedJob(visible.length ? visible : jobs, preferences);
   const special = specialSectionPanel(activeSection, { ...context, schedules });
   const content = special || zenDownloads(context, visible, context.visualSelectedId ?? null);
-  return `<section class="dm-root dm-zen-sidebar ${preferences.sidebarCollapsed ? 'has-collapsed-sidebar' : ''} ${preferences.inspectorCollapsed ? 'has-collapsed-inspector' : ''} ${preferences.compactRows ? 'is-compact' : ''} ${mobileSidebarOpen ? 'dm-mobile-sidebar-open' : ''} ${mobileInspectorOpen ? 'dm-mobile-inspector-open' : ''}">
+  const isNews = activeSection === 'news';
+  return `<section class="dm-root dm-zen-sidebar ${isNews ? 'is-news-surface' : ''} ${preferences.sidebarCollapsed ? 'has-collapsed-sidebar' : ''} ${preferences.inspectorCollapsed ? 'has-collapsed-inspector' : ''} ${preferences.compactRows ? 'is-compact' : ''} ${mobileSidebarOpen ? 'dm-mobile-sidebar-open' : ''} ${mobileInspectorOpen ? 'dm-mobile-inspector-open' : ''}">
     ${zenSidebar(jobs, preferences, activeSection, context)}
     <main class="dm-zen-main">
-       <header class="dm-zen-top"><button class="dm-mobile-menu" data-dm-toggle="sidebar" aria-label="Abrir navegación">${dmIcon('queue')}</button>${unifiedSearchMarkup(context, 'zen')}<div class="dm-zen-head-actions">${compactStatsMarkup(jobs)}<button data-dm-open-settings aria-label="Ajustes">${dmIcon('settings', 19)}</button></div><div class="dm-zen-secondary-row"><div class="dm-zen-secondary-actions">${helperChipsMarkup()}</div><div class="dm-zen-toolbar-actions">${selectionControlsMarkup({ ...context, visible, categoryMenuOpen: context.categoryMenuOpen })}</div></div></header>
-      <div class="dm-zen-content">${activeSection === 'downloads' || activeSection === 'queue' || activeSection === 'running' || activeSection === 'completed' || activeSection === 'history' || activeSection === 'news' ? '' : sectionHeading(activeSection, visible.length)}${content}</div>
+       ${isNews ? '' : `<header class="dm-zen-top"><button class="dm-mobile-menu" data-dm-toggle="sidebar" aria-label="Abrir navegación">${dmIcon('queue')}</button>${unifiedSearchMarkup(context, 'zen')}<div class="dm-zen-head-actions">${compactStatsMarkup(jobs)}<button data-dm-open-settings aria-label="Ajustes">${dmIcon('settings', 19)}</button></div><div class="dm-zen-secondary-row"><div class="dm-zen-secondary-actions">${helperChipsMarkup()}</div><div class="dm-zen-toolbar-actions">${selectionControlsMarkup({ ...context, visible, categoryMenuOpen: context.categoryMenuOpen })}</div></div></header>`}
+      <div class="dm-zen-content ${isNews ? 'dm-news-content' : ''}">${activeSection === 'downloads' || activeSection === 'queue' || activeSection === 'running' || activeSection === 'completed' || activeSection === 'history' || activeSection === 'news' ? '' : sectionHeading(activeSection, visible.length)}${content}</div>
     </main>
     ${preferences.inspectorCollapsed && !mobileInspectorOpen ? '' : selectedInspector(selected, preferences)}
     ${settingsPopover(preferences, settingsOpen, context)}
