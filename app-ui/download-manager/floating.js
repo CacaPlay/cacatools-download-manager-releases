@@ -41,6 +41,10 @@ export function clearFloatingLayer() {
 export function mountFloatingMenus(root) {
   if (!root) return;
   const layer = ensureFloatingLayer();
+  // A rerender replaces the host but leaves the shared fixed layer mounted.
+  // Remove stale menu nodes before adopting the current render so a single
+  // context-menu action cannot accumulate duplicate overlays.
+  layer.replaceChildren();
   root.querySelectorAll('.dm-row-menu-floating').forEach((menu) => {
     // The overlay intentionally lives outside .dm-host. Capture the resolved
     // theme variables before detaching the menu so var(--dm-*) declarations

@@ -26,6 +26,7 @@ const context={snapshot,pendingJobs:[],schedules:[],runtimeStatus:{mode:'local'}
    {title:query+' audio oficial',source_url:'https://example.com/'+encodeURIComponent(query)+'/3'}
  ]);},wait));
 },onRefresh:async()=>{},onToast:()=>{},onAnalyzeSource:async()=>{},onPreferencesChange:()=>{},onSection:()=>{},onOpenDownload:()=>{}};
+context.onRerender=()=>{const host=document.querySelector('.dm-host');if(host)host.outerHTML=renderDownloadManager(context);bindDownloadManager(context);};
 document.querySelector('#app').innerHTML=renderDownloadManager(context);bindDownloadManager(context);window.phase20Patch=(next)=>patchDownloadManagerLive({...context,snapshot:next});`;
-const html=`<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>html,body,#app{width:100%;height:100%;margin:0;overflow:hidden}${css}</style></head><body><div id="app"></div><script type="module">${script}</script></body></html>`;
+const html=`<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/app-ui/download-manager/styles.css"><style>html,body,#app{width:100%;height:100%;margin:0;overflow:hidden}</style><style>${css}</style></head><body><div id="app"></div><script type="module">${script}</script></body></html>`;
 if(output)fs.writeFileSync(output,html);else process.stdout.write(html);

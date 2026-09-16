@@ -404,6 +404,23 @@ export function bindDownloadManagerEvents(context = {}, options = {}) {
     const floatingMenu = target.closest?.('.dm-row-menu-floating');
     const inspector = target.closest?.('.dm-inspector');
     if (!area && !floatingMenu && !inspector) return;
+    const clickedRow = target.closest?.('[data-dm-select-job]');
+    const interactive = target.closest?.('button,input,select,textarea,a,[data-dm-row-menu],.dm-row-select');
+    // A click on the empty download surface is an explicit deselect gesture.
+    // Keep controls, inspector content, and row actions out of this branch so
+    // their delegated handlers retain their existing behavior.
+    if (area && !clickedRow && !interactive && !floatingMenu && !inspector) {
+      const hadSelection = runtimeState.preferences.selectedJobId !== null || runtimeState.selectedJobIds.size > 0;
+      if (hadSelection) {
+        syncPreferences({ selectedJobId: null });
+        runtimeState.selectedJobIds.clear();
+        runtimeState.selectionMode = false;
+        runtimeState.rowMenuJobId = null;
+        runtimeState.rowMenuPosition = null;
+        rerenderNow();
+      }
+      return;
+    }
     const currentJobs = runtimeState.liveJobs || [];
     const priorityButton = target.closest('[data-dm-set-priority]');
     if (priorityButton) {
