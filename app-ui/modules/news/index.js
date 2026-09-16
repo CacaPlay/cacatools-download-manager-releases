@@ -3,6 +3,7 @@ const MAX_DISMISSED_IDS = 64;
 const MAX_RELEASES = 12;
 const MAX_REMOTE_MESSAGES = 32;
 const MAX_CACHE_BYTES = 256 * 1024;
+const MAX_HISTORY = 32;
 const NEWS_FEED_URL = 'https://raw.githubusercontent.com/CacaPlay/clear-download-manager-releases/main/news.json';
 // This marker prevents an installation that previously cached the legacy
 // CacaTools feed from treating that content as current after the repository
@@ -42,7 +43,10 @@ export const DEFAULT_EXPERIENCE_SETTINGS = Object.freeze({
   newsCacheEtag: '',
   newsCacheLastModified: '',
   newsCacheFetchedAt: 0,
-  lastUpdateCheckAt: 0
+  lastUpdateCheckAt: 0,
+  locale: 'system',
+  installedUpdateHistory: [],
+  dismissedHistoryIds: []
 });
 
 function boundedText(value, limit) {
@@ -53,6 +57,15 @@ function boundedIds(value, limit) {
   return [...new Set((Array.isArray(value) ? value : [])
     .map((item) => boundedText(item, 120))
     .filter(Boolean))].slice(-limit);
+}
+
+function boundedHistory(value) {
+  return (Array.isArray(value) ? value : []).map((item) => {
+    if (!item || typeof item !== 'object') return null;
+    const version = boundedText(item.version, 80);
+    if (!version) return null;
+    return { id: boundedText(item.id || `installed:v${version}`, 120), version, installedAt: normalizeDate(item.installedAt || item.installed_at || item.date) || new Date(0).toISOString(), summary: boundedText(item.summary || item.body, 600) };
+  }).filter(Boolean).slice(-MAX_HISTORY);
 }
 
 function versionParts(value) {
@@ -107,7 +120,10 @@ export function normalizeExperienceSettings(value = {}) {
     newsCacheEtag: boundedText(source.newsCacheEtag, 300),
     newsCacheLastModified: boundedText(source.newsCacheLastModified, 120),
     newsCacheFetchedAt: Math.max(0, Number(source.newsCacheFetchedAt) || 0),
-    lastUpdateCheckAt: Math.max(0, Number(source.lastUpdateCheckAt) || 0)
+    lastUpdateCheckAt: Math.max(0, Number(source.lastUpdateCheckAt) || 0),
+    locale: ['system', 'es', 'en'].includes(String(source.locale || '').toLowerCase()) ? String(source.locale).toLowerCase() : 'system',
+    installedUpdateHistory: boundedHistory(source.installedUpdateHistory),
+    dismissedHistoryIds: boundedIds(source.dismissedHistoryIds, MAX_HISTORY)
   };
   return result;
 }
@@ -139,8 +155,10 @@ export function normalizeNewsMessage(value, { appVersion = '0.45.4', platform = 
   if (!value || typeof value !== 'object') return null;
   const id = boundedText(value.id, 120);
   const type = boundedText(value.type || 'manual', 30).toLowerCase();
-  const title = boundedText(value.title, 180);
-  const body = boundedText(value.body || value.description, 1200);
+  const translation = value.translations && typeof value.translations === 'object'
+    ? (value.translations[locale] || value.translations[String(locale).split('-')[0]] || {}) : {};
+  const title = boundedText(translation.title || value.title, 180);
+  const body = boundedText(translation.summary || value.summary || value.body || value.description, 1200);
   if (!id || !title || !body || !ALLOWED_TYPES.has(type)) return null;
   const targetPlatform = boundedText(value.platform || 'windows', 30).toLowerCase();
   const targetLocale = boundedText(value.locale || '', 20).toLowerCase();
@@ -150,13 +168,19 @@ export function normalizeNewsMessage(value, { appVersion = '0.45.4', platform = 
   const expiresAt = normalizeDate(value.expires_at || value.expiresAt);
   if (expiresAt && Date.parse(expiresAt) <= Date.now()) return null;
   const publishedAt = normalizeDate(value.published_at || value.publishedAt) || new Date(0).toISOString();
+  const detailsSource = translation.details || value.details || value.changelog || [];
+  const details = (Array.isArray(detailsSource) ? detailsSource : String(detailsSource || '').split(/\r?\n/)).map((entry) => boundedText(entry, 400)).filter(Boolean).slice(0, 32);
   return {
     id,
     type,
     title,
     body,
+    summary: body,
+    details,
     publishedAt,
-    thumbnail: safeRemoteThumbnail(value.thumbnail),
+    thumbnail: safeRemoteThumbnail(value.image || value.thumbnail),
+    image: safeRemoteThumbnail(value.image || value.thumbnail),
+    translations: value.translations && typeof value.translations === 'object' ? value.translations : null,
     priority: Math.max(0, Math.min(100, Number(value.priority) || 0)),
     dismissible: value.dismissible !== false,
     actionRequired: Boolean(value.action_required ?? value.actionRequired),
@@ -208,18 +232,20 @@ function extensionMessage() {
     id: 'local:extension-invitation',
     type: 'extension',
     title: 'Extensión de Clear Download Manager',
-    body: 'Envía enlaces al gestor y consulta tus descargas directamente desde el navegador.',
+    body: 'Envía enlaces, vídeos y playlists del navegador directamente a CDM.',
+    summary: 'Envía enlaces, vídeos y playlists del navegador directamente a CDM.',
+    details: [],
     publishedAt: new Date().toISOString(),
     thumbnail: '',
     priority: 30,
-    dismissible: true,
+    dismissible: false,
     actionRequired: false,
     action: { type: 'open-extension', label: 'Ver extensión' },
     source: 'local'
   };
 }
 
-export function buildNewsInbox({ update = null, releaseMetadata = null, remoteMessages = [], experience = {}, appVersion = '0.45.4', includeExtension = true } = {}) {
+export function buildNewsInbox({ update = null, releaseMetadata = null, remoteMessages = [], experience = {}, appVersion = '0.45.4', includeExtension = true, locale = 'es' } = {}) {
   const settings = normalizeExperienceSettings(experience);
   const candidates = [
     updateMessage(update, releaseMetadata),
@@ -228,7 +254,7 @@ export function buildNewsInbox({ update = null, releaseMetadata = null, remoteMe
   ].filter(Boolean);
   const seen = new Set();
   return candidates
-    .map((message) => normalizeNewsMessage(message, { appVersion }) || message)
+    .map((message) => normalizeNewsMessage(message, { appVersion, locale: String(locale || 'es').split('-')[0] }) || message)
     .filter((message) => {
       if (!message?.id || seen.has(message.id) || settings.newsDismissedIds.includes(message.id)) return false;
       seen.add(message.id);
@@ -242,6 +268,15 @@ export function buildNewsInbox({ update = null, releaseMetadata = null, remoteMe
     .sort((left, right) => Number(right.actionRequired) - Number(left.actionRequired)
       || Number(right.priority || 0) - Number(left.priority || 0)
       || Date.parse(right.publishedAt || 0) - Date.parse(left.publishedAt || 0));
+}
+
+export function recordInstalledUpdate(experience = {}, version, summary = '') {
+  const settings = normalizeExperienceSettings(experience);
+  const normalized = boundedText(version, 80);
+  if (!normalized) return settings;
+  const history = settings.installedUpdateHistory.filter((entry) => entry.version !== normalized);
+  history.push({ id: `installed:v${normalized.replace(/^v/i, '')}`, version: normalized, installedAt: new Date().toISOString(), summary: boundedText(summary, 600) });
+  return normalizeExperienceSettings({ ...settings, installedUpdateHistory: history });
 }
 
 export function newsAttention(messages = [], experience = {}) {

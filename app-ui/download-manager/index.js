@@ -1,11 +1,12 @@
 import { jobsForSection, normalizeJobs, normalizePreferences, resolveTheme, sectionForLayout, selectedJob } from './core/model.js';
 import { APPEARANCE_REVISION, DEFAULT_PROGRESS_ACTIVE_COLOR, DEFAULT_PROGRESS_COMPLETED_COLOR } from './core/constants.js';
 import { renderZenSidebar } from './view/zen-sidebar.js?v=0.95.0-verify-20260911-r5';
-import { bulkDeleteDialog, cancelDialog, clipboardPreviewDialog, deleteDialog, extensionDialog, feedbackDialog, recoveryDialog, scheduleDialog, torrentDialog, updateDialog, videoSearchDialog } from './view/dialogs.js';
+import { bulkDeleteDialog, cancelDialog, clipboardPreviewDialog, deleteDialog, extensionDialog, feedbackDialog, newsDetailsDialog, newsImageDialog, recoveryDialog, scheduleDialog, torrentDialog, updateDialog, videoSearchDialog } from './view/dialogs.js';
 import { applyOptimisticJobStatuses, createVirtualizationDescriptor, runtimeState } from './state.js';
 import { patchDownloadManagerLiveCore, scheduleVirtualListUpdate } from './live.js';
 import { bindDownloadManagerEvents } from './events.js?v=0.95.0-verify-20260911-r5';
 import { iconVariantForColor } from '../modules/appearance/index.js?v=0.95.0-verify-20260911-r4';
+import { setSectionLocale } from './view/sections.js';
 
 export { clearDownloadManagerSearchState, getDownloadManagerPreferences, setOptimisticJobPriority, setOptimisticJobStatus } from './state.js';
 export { isTransientUiOpen } from './state.js';
@@ -77,6 +78,8 @@ function renderModal(jobs, context = {}) {
   if (runtimeState.modal === 'schedule') return scheduleDialog(job);
   if (runtimeState.modal === 'recovery') return recoveryDialog(runtimeState, job);
   if (runtimeState.modal === 'update') return updateDialog(context);
+  if (runtimeState.modal === 'news-details') return newsDetailsDialog({ ...context, newsId: runtimeState.modalNewsId, t: context.translate });
+  if (runtimeState.modal === 'news-image') return newsImageDialog({ ...context, newsImage: runtimeState.modalNewsImage });
   if (runtimeState.modal === 'extension') return extensionDialog();
   if (runtimeState.modal === 'feedback') return feedbackDialog();
   if (context.clipboardPrompt) return clipboardPreviewDialog(context.clipboardPrompt);
@@ -84,6 +87,7 @@ function renderModal(jobs, context = {}) {
 }
 
 export function renderDownloadManager(context = {}) {
+  setSectionLocale(context.locale?.() || context.locale || context.experienceSettings?.locale || 'es');
   const inheritedAppearance = context.appearance || {};
   runtimeState.preferences = normalizePreferences({
     ...runtimeState.preferences,

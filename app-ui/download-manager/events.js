@@ -804,6 +804,10 @@ export function bindDownloadManagerEvents(context = {}, options = {}) {
     const action = button.dataset.dmNewsAction;
     if (action === 'check-update') context.onCheckUpdate?.();
     if (action === 'open-update-modal') { runtimeState.modal = 'update'; rerenderNow(); }
+    if (action === 'open-news-details') { runtimeState.modalNewsId = button.dataset.newsId || ''; runtimeState.modal = 'news-details'; rerenderNow(); }
+    if (action === 'open-news-image') { runtimeState.modalNewsImage = button.dataset.newsImage || ''; runtimeState.modal = 'news-image'; rerenderNow(); }
+    if (action === 'support') context.onSupport?.();
+    if (action === 'dismiss-history') context.onDismissHistory?.(button.dataset.historyId || '');
     if (action === 'install-update') context.onInstallUpdate?.();
     if (action === 'dismiss-update') context.onDismissUpdate?.();
     if (action === 'open-extension-modal') { runtimeState.modal = 'extension'; rerenderNow(); }
@@ -814,6 +818,11 @@ export function bindDownloadManagerEvents(context = {}, options = {}) {
       const url = button.dataset.newsUrl || '';
       if (url) context.onOpenNewsUrl?.(url);
     }
+  }));
+  root.querySelectorAll('[data-dm-news-filter]').forEach((button) => button.addEventListener('click', (event) => {
+    event.preventDefault();
+    runtimeState.newsFilter = button.dataset.dmNewsFilter || 'all';
+    rerenderNow();
   }));
   root.querySelectorAll('[data-dm-clipboard-action]').forEach((button) => button.addEventListener('click', async (event) => {
     event.preventDefault();
@@ -930,6 +939,8 @@ export function bindDownloadManagerEvents(context = {}, options = {}) {
     }
     runtimeState.modal = '';
     runtimeState.modalJobId = null;
+    runtimeState.modalNewsId = '';
+    runtimeState.modalNewsImage = '';
     runtimeState.deletePreview = null;
     runtimeState.deletePreviewBusy = false;
     runtimeState.deleteBusy = false;

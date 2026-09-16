@@ -2,6 +2,7 @@ use serde::{Deserialize, Serialize};
 use std::{fs, path::PathBuf, time::Duration};
 use tauri::{AppHandle, Manager};
 use tauri_plugin_updater::UpdaterExt;
+use tauri_plugin_notification::NotificationExt;
 
 const BUNDLED_CONFIG: &str = include_str!("../resources/updater/updater-config.json");
 
@@ -42,6 +43,20 @@ pub struct AppUpdateInfo {
     current_version: String,
     notes: Option<String>,
     date: Option<String>,
+}
+
+#[tauri::command]
+pub fn notify_app_update(app: AppHandle, version: String) -> Result<(), String> {
+    let version = version.trim();
+    if version.is_empty() || version.len() > 80 || !version.chars().all(|c| c.is_ascii_alphanumeric() || matches!(c, '.' | '-' | '_')) {
+        return Err("La versión de actualización no es válida".into());
+    }
+    app.notification()
+        .builder()
+        .title("Clear Download Manager")
+        .body(format!("La versión {version} está disponible."))
+        .show()
+        .map_err(|error| format!("No se pudo mostrar la notificación: {error}"))
 }
 
 fn default_channel() -> String {

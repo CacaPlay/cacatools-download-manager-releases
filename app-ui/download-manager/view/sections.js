@@ -3,6 +3,8 @@ import { dmIcon } from './icons.js';
 import { fileGlyph, infrastructureSettings, progressMarkup, settingsFields, statusLabel } from './shared.js';
 
 const actionLabels = { resume: 'Iniciar o reanudar', pause: 'Pausar', cancel: 'Cancelar' };
+let sectionLocale = 'es';
+export function setSectionLocale(value) { sectionLocale = String(value || '').toLowerCase().startsWith('en') ? 'en' : 'es'; }
 
 export function sectionTitle(section) {
   return ({
@@ -16,7 +18,7 @@ export function sectionTitle(section) {
     categories: ['Categorías', 'Organiza y filtra archivos por tipo.'],
     scheduler: ['Programación', 'Inicia, pausa o cancela trabajos automáticamente.'],
     settings: ['Ajustes', 'Diseño, modo visual y colores del gestor.'],
-    news: ['Novedades', 'Actualizaciones, información y soporte de Clear Download Manager.']
+    news: sectionLocale === 'en' ? ["What's new", 'Updates, information and support for Clear Download Manager.'] : ['Novedades', 'Actualizaciones, información y soporte de Clear Download Manager.']
   })[section] || ['Descargas', 'Gestor local de archivos y multimedia.'];
 }
 
@@ -51,17 +53,29 @@ export function settingsPanel(preferences) {
 
 export function newsPanel(context = {}) {
   const messages = Array.isArray(context.newsMessages) ? context.newsMessages : [];
+  const t = (key, fallback, ...args) => context.translate?.(key, ...args) || fallback;
+  const localeDate = (value) => context.formatDate?.(value) || (value ? new Date(value).toLocaleDateString() : '');
+  const filter = ['all', 'updates', 'extension', 'history'].includes(context.newsFilter) ? context.newsFilter : 'all';
+  const history = Array.isArray(context.experienceSettings?.installedUpdateHistory) ? context.experienceSettings.installedUpdateHistory : [];
   const iconFor = (message) => message.type === 'update' ? 'download' : message.type === 'extension' ? 'link' : message.type === 'release' ? 'sparkles' : message.type === 'manual' ? 'globe' : 'shield';
   const actionsFor = (message) => {
-    if (message.type === 'update') return `<button type="button" data-dm-news-action="open-update-modal">Actualizar</button><button type="button" data-dm-news-action="dismiss-update">Más tarde</button>`;
-    if (message.type === 'extension') return `<button type="button" data-dm-news-action="open-extension-modal">Ver extensión</button><button type="button" data-dm-news-action="decline-extension">No gracias</button>`;
+    if (message.type === 'update') return `<button type="button" data-dm-news-action="open-update-modal">${t('update', 'Actualizar')}</button><button type="button" data-dm-news-action="open-news-details" data-news-id="${escapeHtml(message.id)}">${t('details', 'Más detalles')}</button>`;
+    if (message.type === 'extension') return `<button type="button" data-dm-news-action="open-extension-modal">${t('extension', 'Extensión')}</button>`;
     if (message.action?.type === 'open-feedback') return `<button type="button" data-dm-news-action="feedback">Comentarios y sugerencias</button>`;
     if (message.action?.type === 'open-url') return `<button type="button" data-dm-news-action="open-news-url" data-news-url="${escapeHtml(message.action.url || '')}">${escapeHtml(message.action.label || 'Abrir')}</button>`;
     return '';
   };
-  const markup = messages.map((message) => `<article class="dm-news-item ${message.actionRequired ? 'dm-news-action' : ''} ${message.read ? 'is-read' : ''}" data-news-id="${escapeHtml(message.id)}"><span>${message.thumbnail ? `<img class="dm-news-thumbnail" src="${escapeHtml(message.thumbnail)}" alt="" loading="lazy" decoding="async">` : dmIcon(iconFor(message), 22)}</span><div><strong>${escapeHtml(message.title)}</strong><small>${escapeHtml(message.body)}</small>${actionsFor(message) ? `<div class="dm-news-actions">${actionsFor(message)}</div>` : ''}</div></article>`).join('');
-  const empty = `<div class="dm-section-empty dm-news-empty">${dmIcon('bell', 42)}<strong>No hay novedades nuevas</strong><span>Las actualizaciones, avisos y soporte aparecerán aquí.</span></div>`;
-  return `<section class="dm-section-page dm-news-page">${sectionHeading('news', messages.filter((message) => !message.read || message.actionRequired).length || null)}<div class="dm-news-list">${markup || empty}</div><footer class="dm-news-footer"><button type="button" data-dm-news-action="check-update">${dmIcon('retry', 16)} Buscar actualizaciones</button><button type="button" data-dm-news-action="feedback">${dmIcon('clipboard', 16)} Comentarios y sugerencias</button></footer></section>`;
+  const filtered = filter === 'updates' ? messages.filter((item) => item.type === 'update' || item.type === 'release') : filter === 'extension' ? messages.filter((item) => item.type === 'extension') : filter === 'history' ? [] : messages;
+  const markup = filtered.map((message) => {
+    const image = message.image || message.thumbnail;
+    const media = image ? `<button class="dm-news-image-button" type="button" data-dm-news-action="open-news-image" data-news-image="${escapeHtml(image)}"><img class="dm-news-thumbnail" src="${escapeHtml(image)}" alt="" loading="lazy" decoding="async"></button>` : dmIcon(iconFor(message), 22);
+    const date = localeDate(message.publishedAt);
+    return `<article class="dm-news-item ${message.actionRequired ? 'dm-news-action' : ''} ${message.read ? 'is-read' : ''}" data-news-id="${escapeHtml(message.id)}"><span>${media}</span><div><small class="dm-news-meta">${message.type === 'update' ? t('updateCategory', 'ACTUALIZACIÓN') : message.type === 'extension' ? t('extensionCategory', 'EXTENSIÓN') : ''}${date ? ` · ${escapeHtml(date)}` : ''}</small><strong>${escapeHtml(message.title)}</strong><small>${escapeHtml(message.summary || message.body)}</small>${actionsFor(message) ? `<div class="dm-news-actions">${actionsFor(message)}</div>` : ''}</div></article>`;
+  }).join('');
+  const historyMarkup = history.filter((entry) => !(context.experienceSettings?.dismissedHistoryIds || []).includes(entry.id)).map((entry) => `<article class="dm-news-history-row"><span>${dmIcon('check', 20)}</span><div><small>${t('installed', 'Instalada')} · ${escapeHtml(localeDate(entry.installedAt))}</small><strong>Clear Download Manager ${escapeHtml(entry.version)}</strong><small>${escapeHtml(entry.summary || '')}</small></div><button type="button" aria-label="${t('close', 'Cerrar')}" data-dm-news-action="dismiss-history" data-history-id="${escapeHtml(entry.id)}">×</button></article>`).join('');
+  const content = filter === 'history' ? (historyMarkup || `<div class="dm-section-empty dm-news-empty">${dmIcon('history', 42)}<strong>${t('historyTitle', 'Actualizaciones anteriores')}</strong><span>${t('noNewsDescription', 'Las actualizaciones y avisos aparecerán aquí.')}</span></div>`) : (markup || `<div class="dm-section-empty dm-news-empty">${dmIcon('bell', 42)}<strong>${t('noNews', 'No hay novedades nuevas')}</strong><span>${t('noNewsDescription', 'Las actualizaciones y avisos aparecerán aquí.')}</span></div>`);
+  const support = filter === 'history' ? '' : `<aside class="dm-news-support"><span>${dmIcon('sparkles', 22)}</span><div><strong>${t('support', 'Apoya el proyecto')}</strong><small>${t('supportDescription', 'Tu apoyo ayuda a mantener Clear Download Manager en desarrollo.')}</small></div><button type="button" data-dm-news-action="support">${t('supportAction', 'Apoyar')}</button></aside>`;
+  return `<section class="dm-section-page dm-news-page">${sectionHeading('news')}<nav class="dm-news-filters" aria-label="${t('news', 'Novedades')}"><button type="button" class="${filter === 'all' ? 'is-active' : ''}" data-dm-news-filter="all">${t('all', 'Todas')}</button><button type="button" class="${filter === 'updates' ? 'is-active' : ''}" data-dm-news-filter="updates">${t('updates', 'Actualizaciones')}</button><button type="button" class="${filter === 'extension' ? 'is-active' : ''}" data-dm-news-filter="extension">${t('extension', 'Extensión')}</button><button type="button" class="${filter === 'history' ? 'is-active' : ''}" data-dm-news-filter="history">${t('history', 'Historial')}</button></nav><div class="dm-news-list">${content}</div>${support}<footer class="dm-news-footer"><button type="button" data-dm-news-action="check-update">${dmIcon('retry', 16)} Buscar actualizaciones</button><button type="button" data-dm-news-action="feedback">${dmIcon('clipboard', 16)} Comentarios y sugerencias</button></footer></section>`;
 }
 
 export function mediaOverview(jobs) {

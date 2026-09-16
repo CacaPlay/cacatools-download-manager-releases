@@ -34,6 +34,7 @@ import {
   newsCachePatch,
   normalizeExperienceSettings,
   parseCachedNews,
+  recordInstalledUpdate,
   validateRemoteNewsFeed
 } from './modules/news/index.js';
 import {
@@ -45,6 +46,7 @@ import {
   configureComposition, render, bindThumbnailFallbacks, start
 } from './modules/composition/index.js?v=0.95.0-verify-20260911-r3';
 import { runThemeTransition } from './modules/motion/coordinator.js';
+import { formatLocaleDate, loadLocale, messagesFor, resolveLocale, saveLocale, translate } from './modules/i18n/index.js';
 const qs = new URLSearchParams(window.location.search);
 const previewMode = qs.has('preview');
 const previewSlide = Math.max(0, Number(qs.get('slide') || 0));
@@ -53,6 +55,7 @@ const previewAccent = qs.get('accent') || '';
 const previewPreset = qs.get('preset') || '';
 configureAppearance({ previewAccent, previewPreset, getAppState: () => appState, onDownloadManagerAppearance: patchDownloadManagerAppearance });
 const APP_VERSION = '0.95.0';
+const initialLocale = loadLocale();
 const SPOTIFY_DISABLED_MESSAGE = 'Spotify está desactivado temporalmente. Esta versión de CacaTools no puede procesar enlaces de Spotify.';
 const SPOTIFY_RESTRICTED_CODE = 'spotify_authenticated_restricted';
 const SPOTIFY_RESTRICTED_MESSAGE = 'Spotify autenticado · API no disponible. Spotify requiere una suscripción Premium activa en la cuenta propietaria de la aplicación para permitir estas consultas. CacaTools no puede eliminar esa restricción; YouTube y el resto de la aplicación siguen funcionando normalmente.';
@@ -69,6 +72,8 @@ function settingsEditingIsActive() {
   const active = document.activeElement;
   return active instanceof HTMLElement && active.matches('.settings-workspace input, .settings-workspace select, .settings-workspace textarea, .settings-workspace [contenteditable="true"]');
 }
+function currentLocale() { return appState.experienceSettings?.locale || initialLocale || 'system'; }
+function t(key, ...args) { return translate(currentLocale(), key, ...args); }
 function downloadManagerInteractionIsActive() {
   const active = document.activeElement;
   const editing = active instanceof HTMLElement && (
@@ -152,6 +157,7 @@ async function refreshDownloadManager({ liveOnly = false, changedJobIds = null }
 }
 const AUTO_UPDATE_STORAGE_KEY = 'cacatools.desktop.auto-update.v1';
 const LAST_UPDATE_CHECK_KEY = 'cacatools.desktop.update-check.v1';
+const UPDATE_NOTIFICATION_KEY = 'clear-download-manager/update-notified-v1';
 const LEGACY_EXPERIENCE_MIGRATION_KEY = 'cacatools.experience-v1-migrated';
 function playlistMetadata(item = {}) {
   const source = item && typeof item === 'object' ? item : {};
@@ -503,6 +509,15 @@ configureSettings({
   icon,
   escapeHtml,
   invoke,
+  locale: currentLocale,
+  translate: (key, ...args) => t(key, ...args),
+  onLocaleChange: (locale) => {
+    const normalized = saveLocale(locale);
+    appState.experienceSettings = normalizeExperienceSettings({ ...(appState.experienceSettings || {}), locale: normalized });
+    void persistExperienceSettings({ locale: normalized });
+    document.documentElement.lang = resolveLocale(normalized);
+    render();
+  },
   APP_VERSION,
   THUMBNAIL_CACHE_VERSION
 });
@@ -794,6 +809,7 @@ function hydrateExperienceSettings(raw = {}) {
   });
   const needsMigration = !hasPersistedUpdatePreference || !localStorage.getItem(LEGACY_EXPERIENCE_MIGRATION_KEY);
   appState.experienceSettings = normalized;
+  document.documentElement.lang = resolveLocale(normalized.locale || initialLocale);
   appState.autoUpdateEnabled = normalized.automaticUpdateChecks;
   if (needsMigration && !previewMode) {
     try { localStorage.setItem(LEGACY_EXPERIENCE_MIGRATION_KEY, '1'); } catch {}
@@ -876,7 +892,8 @@ function newsMessages() {
       : appState.remoteNewsMessages || parseCachedNews(appState.experienceSettings, { appVersion: APP_VERSION }),
     experience: appState.experienceSettings,
     appVersion: APP_VERSION,
-    includeExtension: appState.experienceSettings?.showExtensionRecommendation !== false
+    includeExtension: appState.experienceSettings?.showExtensionRecommendation !== false,
+    locale: resolveLocale(currentLocale())
   });
 }
 
@@ -1055,6 +1072,12 @@ async function checkForAppUpdate({ silent = false } = {}) {
     appState.availableUpdate = update || null;
     appState.releaseMetadata = null;
     if (update?.version) {
+      try {
+        if (localStorage.getItem(UPDATE_NOTIFICATION_KEY) !== String(update.version)) {
+          await invoke('notify_app_update', { version: String(update.version) });
+          localStorage.setItem(UPDATE_NOTIFICATION_KEY, String(update.version));
+        }
+      } catch (error) { console.info('No se pudo mostrar la notificación de actualización.', error); }
       appState.experienceSettings = normalizeExperienceSettings({
         ...(appState.experienceSettings || {}),
         pendingUpdateVersion: String(update.version)
@@ -1086,7 +1109,7 @@ async function checkForAppUpdate({ silent = false } = {}) {
 async function installAvailableAppUpdate() {
   if (previewMode || appState.updaterInstallBusy) return;
   const activeDownloads = Array.isArray(appState.snapshot?.jobs)
-    ? appState.snapshot.jobs.some((job) => ['running', 'queued', 'paused'].includes(String(job.status || '').toLowerCase()))
+    ? appState.snapshot.jobs.some((job) => ['running', 'processing', 'finalizing', 'verifying'].includes(String(job.status || '').toLowerCase()))
     : false;
   if (activeDownloads) {
     showToast('Espera a que terminen las descargas activas antes de instalar.', 'info');
@@ -1097,7 +1120,9 @@ async function installAvailableAppUpdate() {
   requestDownloadManagerRender({ force: true });
   try {
     await invoke('install_app_update');
-    await persistExperienceSettings({ pendingUpdateVersion: '' });
+    const installedVersion = String(appState.availableUpdate?.version || '');
+    const recorded = recordInstalledUpdate(appState.experienceSettings, installedVersion, appState.availableUpdate?.notes || '');
+    await persistExperienceSettings({ ...recorded, pendingUpdateVersion: '' });
     appState.updaterMessage = 'Actualización instalada. Windows cerrará la aplicación para finalizar.';
   } catch (error) {
     appState.updaterMessage = String(error);
@@ -1197,6 +1222,16 @@ function downloadsPageMarkup() {
     experienceSettings: appState.experienceSettings,
     clipboardPrompt: appState.clipboardPrompt,
     newsMessages: newsMessages(),
+    locale: currentLocale(),
+    newsFilter: runtimeState.newsFilter,
+    translate: (key, ...args) => t(key, ...args),
+    formatDate: (value) => formatLocaleDate(value, currentLocale()),
+    onSupport: () => { void invoke('open_external_url', { url: 'https://www.paypal.com/donate/?hosted_button_id=JV9DUQKE265HY' }).catch((error) => showToast(friendlyError(error), 'error')); },
+    onDismissHistory: (id) => {
+      const ids = [...(appState.experienceSettings?.dismissedHistoryIds || []), String(id || '')].filter(Boolean).slice(-32);
+      void persistExperienceSettings({ dismissedHistoryIds: ids });
+      requestDownloadManagerRender({ force: true });
+    },
     newsHasAttention: newsAttention(newsMessages(), appState.experienceSettings),
     previewMode,
     invoke,
@@ -1597,7 +1632,15 @@ function bindEvents() {
   document.querySelectorAll('[data-experience-field]').forEach((control) => control.addEventListener('change', async (event) => {
     const key = event.currentTarget.dataset.experienceField;
     if (!key) return;
-    const value = Boolean(event.currentTarget.checked);
+    const value = event.currentTarget.tagName === 'SELECT' ? event.currentTarget.value : Boolean(event.currentTarget.checked);
+    if (key === 'locale') {
+      const normalized = saveLocale(value);
+      await persistExperienceSettings({ locale: normalized });
+      document.documentElement.lang = resolveLocale(normalized);
+      showToast('Idioma guardado', 'success');
+      render();
+      return;
+    }
     await persistExperienceSettings({ [key]: value });
     appState.autoUpdateEnabled = appState.experienceSettings.automaticUpdateChecks !== false;
     showToast('Preferencia guardada', 'success');
@@ -1716,6 +1759,16 @@ function bindEvents() {
     updaterInstallBusy: appState.updaterInstallBusy,
     experienceSettings: appState.experienceSettings,
     newsMessages: newsMessages(),
+    locale: currentLocale(),
+    newsFilter: runtimeState.newsFilter,
+    translate: (key, ...args) => t(key, ...args),
+    formatDate: (value) => formatLocaleDate(value, currentLocale()),
+    onSupport: () => { void invoke('open_external_url', { url: 'https://www.paypal.com/donate/?hosted_button_id=JV9DUQKE265HY' }).catch((error) => showToast(friendlyError(error), 'error')); },
+    onDismissHistory: (id) => {
+      const ids = [...(appState.experienceSettings?.dismissedHistoryIds || []), String(id || '')].filter(Boolean).slice(-32);
+      void persistExperienceSettings({ dismissedHistoryIds: ids });
+      requestDownloadManagerRender({ force: true });
+    },
     newsHasAttention: newsAttention(newsMessages(), appState.experienceSettings),
     invoke,
     onNewDownload: openDownloadDialog,

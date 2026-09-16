@@ -89,6 +89,21 @@ export function updateDialog(context = {}) {
   return dialogShell('update', 'Actualización disponible', body, footer);
 }
 
+export function newsDetailsDialog(context = {}) {
+  const message = context.newsMessages?.find((item) => item.id === context.newsId) || {};
+  const details = Array.isArray(message.details) ? message.details.filter(Boolean) : [];
+  const list = details.length ? `<ul class="dm-news-details-list">${details.map((entry) => `<li>${escapeHtml(entry)}</li>`).join('')}</ul>` : `<p class="dm-news-details-empty">${escapeHtml(message.body || '')}</p>`;
+  const image = message.image || message.thumbnail;
+  const media = image ? `<button class="dm-news-details-image-button" type="button" data-dm-news-action="open-news-image" data-news-image="${escapeHtml(image)}"><img src="${escapeHtml(image)}" alt="" loading="lazy" decoding="async"></button>` : '';
+  return dialogShell('news-details', escapeHtml(message.title || 'Detalles de novedades'), `<section class="dm-news-details-dialog"><p>${escapeHtml(message.summary || message.body || '')}</p>${list}${media}</section>`, `<button data-dm-modal-close>${context.t?.('close') || 'Cerrar'}</button>`);
+}
+
+export function newsImageDialog(context = {}) {
+  const image = String(context.newsImage || '').trim();
+  if (!image) return '';
+  return dialogShell('news-image', 'Vista previa', `<div class="dm-news-image-preview"><img src="${escapeHtml(image)}" alt="" decoding="async"></div>`, `<button data-dm-modal-close>Cerrar</button>`);
+}
+
 export function clipboardPreviewDialog(prompt = {}) {
   const title = String(prompt.title || 'Enlace detectado');
   const platform = String(prompt.host || 'Origen web');

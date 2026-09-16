@@ -178,6 +178,12 @@ pub(crate) struct ExperienceSettings {
     pub(crate) news_cache_fetched_at: i64,
     #[serde(default)]
     pub(crate) last_update_check_at: i64,
+    #[serde(default)]
+    pub(crate) locale: String,
+    #[serde(default)]
+    pub(crate) installed_update_history: Vec<serde_json::Value>,
+    #[serde(default)]
+    pub(crate) dismissed_history_ids: Vec<String>,
 }
 
 fn default_clipboard_auto_suggest() -> bool {
@@ -214,6 +220,9 @@ impl Default for ExperienceSettings {
             news_cache_last_modified: String::new(),
             news_cache_fetched_at: 0,
             last_update_check_at: 0,
+            locale: "system".to_string(),
+            installed_update_history: Vec::new(),
+            dismissed_history_ids: Vec::new(),
         }
     }
 }
@@ -272,6 +281,26 @@ impl ExperienceSettings {
             .collect();
         self.news_cache_fetched_at = self.news_cache_fetched_at.max(0);
         self.last_update_check_at = self.last_update_check_at.max(0);
+        if !matches!(self.locale.trim().to_ascii_lowercase().as_str(), "system" | "es" | "en") {
+            self.locale = "system".to_string();
+        } else {
+            self.locale = self.locale.trim().to_ascii_lowercase();
+        }
+        self.installed_update_history = self
+            .installed_update_history
+            .into_iter()
+            .filter(|value| value.is_object())
+            .take(32)
+            .collect();
+        self.dismissed_history_ids = self
+            .dismissed_history_ids
+            .into_iter()
+            .filter_map(|value| {
+                let value = value.trim().to_string();
+                (!value.is_empty() && value.chars().count() <= 120).then_some(value)
+            })
+            .take(32)
+            .collect();
         self
     }
 }

@@ -5830,6 +5830,7 @@ fn run_app() {
             update_manager::updater_configuration_status,
             update_manager::check_for_app_update,
             update_manager::install_app_update,
+            update_manager::notify_app_update,
             commands::news::fetch_remote_news_feed,
             commands::news::fetch_release_metadata,
             commands::system::show_main_window,

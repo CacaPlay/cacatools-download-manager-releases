@@ -1710,6 +1710,35 @@
 .dm-host .dm-news-actions button:disabled { opacity: .5; cursor: wait; }
 .dm-host .dm-news-footer { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: .45rem; padding-top: .55rem; border-top: 1px solid var(--dm-border-soft); }
 .dm-host .dm-news-footer button { display: inline-flex; align-items: center; gap: .38rem; }
+.dm-host .dm-news-filters { display:flex; flex-wrap:wrap; gap:.42rem; margin:.2rem 0 .72rem; }
+.dm-host .dm-news-filters button { min-height:2rem; padding:.34rem .68rem; border:1px solid var(--dm-border-soft); border-radius:999px; color:var(--dm-muted); background:var(--dm-surface); font-size:.7rem; font-weight:700; }
+.dm-host .dm-news-filters button.is-active { color:var(--dm-accent-ink); border-color:color-mix(in srgb,var(--dm-accent) 42%,var(--dm-border)); background:var(--dm-accent); }
+.dm-host .dm-news-item { grid-template-columns:2.25rem minmax(0,1fr); align-items:center; }
+.dm-host .dm-news-item > span { align-self:center; }
+.dm-host .dm-news-item .dm-news-meta { margin:0 0 .18rem; color:var(--dm-accent-detail); font-size:.62rem; font-weight:800; letter-spacing:.06em; }
+.dm-host .dm-news-image-button { display:grid; place-items:center; padding:0; border:0; background:transparent; color:inherit; cursor:zoom-in; }
+.dm-host .dm-news-image-button img { display:block; }
+.dm-host .dm-news-history-row { display:grid; grid-template-columns:2.25rem minmax(0,1fr) auto; align-items:center; gap:.7rem; padding:.65rem .78rem; border:1px solid var(--dm-border-soft); border-radius:.65rem; background:var(--dm-surface); }
+.dm-host .dm-news-history-row > span { display:grid; place-items:center; width:2.25rem; height:2.25rem; color:var(--dm-success); }
+.dm-host .dm-news-history-row div { min-width:0; display:grid; gap:.16rem; }
+.dm-host .dm-news-history-row strong { color:var(--dm-text); font-size:.82rem; }
+.dm-host .dm-news-history-row small { color:var(--dm-muted); font-size:.68rem; }
+.dm-host .dm-news-history-row > button { opacity:0; border:0; background:transparent; color:var(--dm-muted); font-size:1.1rem; cursor:pointer; }
+.dm-host .dm-news-history-row:hover > button, .dm-host .dm-news-history-row > button:focus-visible { opacity:1; }
+.dm-host .dm-news-support { display:grid; grid-template-columns:2.25rem minmax(0,1fr) auto; align-items:center; gap:.7rem; margin-top:.72rem; padding:.7rem .8rem; border:1px solid var(--dm-border-soft); border-radius:.72rem; background:color-mix(in srgb,var(--dm-accent) 5%,var(--dm-surface)); }
+.dm-host .dm-news-support > span { display:grid; place-items:center; color:var(--dm-accent-detail); }
+.dm-host .dm-news-support div { display:grid; gap:.16rem; }
+.dm-host .dm-news-support strong { color:var(--dm-text); font-size:.8rem; }
+.dm-host .dm-news-support small { color:var(--dm-muted); font-size:.68rem; }
+.dm-host .dm-news-support button { min-height:2rem; padding:.36rem .7rem; border:1px solid color-mix(in srgb,var(--dm-accent) 40%,var(--dm-border)); border-radius:.5rem; color:var(--dm-accent-ink); background:var(--dm-accent); font-size:.68rem; font-weight:750; }
+.dm-host .dm-news-details-dialog { display:grid; gap:.65rem; }
+.dm-host .dm-news-details-dialog > p { margin:0; color:var(--dm-muted); line-height:1.45; }
+.dm-host .dm-news-details-list { margin:0; padding-left:1.15rem; color:var(--dm-text); display:grid; gap:.35rem; line-height:1.42; }
+.dm-host .dm-news-details-image-button { max-height:16rem; overflow:hidden; padding:0; border:1px solid var(--dm-border-soft); border-radius:.55rem; background:var(--dm-surface-2); cursor:zoom-in; }
+.dm-host .dm-news-details-image-button img { display:block; width:100%; max-height:16rem; object-fit:contain; }
+.dm-host .dm-news-image-preview { display:grid; place-items:center; max-width:min(80vw,52rem); max-height:70vh; overflow:auto; }
+.dm-host .dm-news-image-preview img { display:block; max-width:100%; max-height:68vh; object-fit:contain; }
+@media (max-width:620px) { .dm-host .dm-news-support { grid-template-columns:2.25rem minmax(0,1fr); } .dm-host .dm-news-support button { grid-column:2; justify-self:start; } }
 
 /* Compact informational dialogs share the existing modal shell, controls and
    semantic surfaces. They stay content-led instead of becoming dashboards. */
