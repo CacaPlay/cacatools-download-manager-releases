@@ -1,4 +1,5 @@
 import { renderDownloadManager, bindDownloadManager, patchDownloadManagerAppearance, patchDownloadManagerLive, forceDownloadManagerAllView, clearDownloadManagerSearchState, setOptimisticJobStatus, isTransientUiOpen } from './download-manager/index.js?v=0.95.0-verify-20260911-r5';
+import { runtimeState } from './download-manager/state.js';
 import { clearFloatingLayer } from './download-manager/floating.js';
 import {
   configureAppearance, appearancePresets, defaultAppearance, APPEARANCE_REVISION, THUMBNAIL_CACHE_VERSION,
@@ -1222,7 +1223,7 @@ function downloadsPageMarkup() {
     experienceSettings: appState.experienceSettings,
     clipboardPrompt: appState.clipboardPrompt,
     newsMessages: newsMessages(),
-    locale: currentLocale(),
+    locale: currentLocale,
     newsFilter: runtimeState.newsFilter,
     translate: (key, ...args) => t(key, ...args),
     formatDate: (value) => formatLocaleDate(value, currentLocale()),
@@ -1759,7 +1760,7 @@ function bindEvents() {
     updaterInstallBusy: appState.updaterInstallBusy,
     experienceSettings: appState.experienceSettings,
     newsMessages: newsMessages(),
-    locale: currentLocale(),
+    locale: currentLocale,
     newsFilter: runtimeState.newsFilter,
     translate: (key, ...args) => t(key, ...args),
     formatDate: (value) => formatLocaleDate(value, currentLocale()),
