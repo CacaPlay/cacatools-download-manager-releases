@@ -281,7 +281,10 @@ impl ExperienceSettings {
             .collect();
         self.news_cache_fetched_at = self.news_cache_fetched_at.max(0);
         self.last_update_check_at = self.last_update_check_at.max(0);
-        if !matches!(self.locale.trim().to_ascii_lowercase().as_str(), "system" | "es" | "en") {
+        if !matches!(
+            self.locale.trim().to_ascii_lowercase().as_str(),
+            "system" | "es" | "en"
+        ) {
             self.locale = "system".to_string();
         } else {
             self.locale = self.locale.trim().to_ascii_lowercase();

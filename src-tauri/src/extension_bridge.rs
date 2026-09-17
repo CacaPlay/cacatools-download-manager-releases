@@ -5,7 +5,7 @@ use std::{
     env,
     fs::{self, File, OpenOptions},
     io::{self, Read, Write},
-    path::PathBuf,
+    path::{Path, PathBuf},
     process::Command,
     sync::{
         atomic::{AtomicU64, Ordering},
@@ -234,7 +234,7 @@ fn add_registry_manifest(registry_key: &str, manifest_path: &str) -> Result<(), 
 }
 
 #[cfg(windows)]
-fn is_windows_apps_path(path: &PathBuf) -> bool {
+fn is_windows_apps_path(path: &Path) -> bool {
     path.to_string_lossy()
         .replace('/', "\\")
         .to_ascii_lowercase()
@@ -300,7 +300,7 @@ fn valid_store_app_user_model_id(value: &str) -> bool {
 }
 
 #[cfg(windows)]
-fn write_store_launch_config(host_path: &PathBuf, app_user_model_id: &str) -> Result<(), String> {
+fn write_store_launch_config(host_path: &Path, app_user_model_id: &str) -> Result<(), String> {
     let Some(parent) = host_path.parent() else {
         return Err("No se pudo determinar la carpeta del host nativo".into());
     };

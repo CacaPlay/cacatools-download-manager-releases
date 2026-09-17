@@ -1,8 +1,8 @@
 use serde::{Deserialize, Serialize};
 use std::{fs, path::PathBuf, time::Duration};
 use tauri::{AppHandle, Manager};
-use tauri_plugin_updater::UpdaterExt;
 use tauri_plugin_notification::NotificationExt;
+use tauri_plugin_updater::UpdaterExt;
 
 const BUNDLED_CONFIG: &str = include_str!("../resources/updater/updater-config.json");
 
@@ -48,7 +48,12 @@ pub struct AppUpdateInfo {
 #[tauri::command]
 pub fn notify_app_update(app: AppHandle, version: String) -> Result<(), String> {
     let version = version.trim();
-    if version.is_empty() || version.len() > 80 || !version.chars().all(|c| c.is_ascii_alphanumeric() || matches!(c, '.' | '-' | '_')) {
+    if version.is_empty()
+        || version.len() > 80
+        || !version
+            .chars()
+            .all(|c| c.is_ascii_alphanumeric() || matches!(c, '.' | '-' | '_'))
+    {
         return Err("La versión de actualización no es válida".into());
     }
     app.notification()
