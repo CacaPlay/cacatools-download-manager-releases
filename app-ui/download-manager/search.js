@@ -1,5 +1,7 @@
 import { runtimeState, searchState, UNIFIED_SUGGESTION_CACHE_LIMIT, UNIFIED_SUGGESTION_CACHE_TTL_MS, UNIFIED_SUGGESTION_DEBOUNCE_MS, UNIFIED_SUGGESTION_TIMEOUT_MS } from './state.js';
 import { bindDownloadManagerThumbnailFallbacks } from './thumbnails.js';
+import { loadLocale, resolveLocale } from '../modules/i18n/index.js';
+import { localizeDom } from '../modules/i18n/runtime.js';
 import { unifiedDetectionMarkup, unifiedSuggestionPanelMarkup } from './view/unified.js?v=0.45.1-runtime-20260903';
 function looksLikeUnifiedSource(value = '') {
   const input = String(value || '').trim();
@@ -83,6 +85,9 @@ export function paintUnifiedSearch(context, input) {
   else if (existingPanel) existingPanel.outerHTML = panelHtml;
   else search.insertAdjacentHTML('beforeend', panelHtml);
   bindDownloadManagerThumbnailFallbacks(search);
+  // Suggestions are painted incrementally while the main surface remains
+  // mounted, so apply the same runtime locale pass used by full renders.
+  localizeDom(search, resolveLocale(loadLocale()));
 }
 
 async function invokeSuggestionSearch(context, query, requestId = 0, limit = 10, offset = 0) {
