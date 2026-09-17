@@ -48,6 +48,62 @@ const ES_TO_EN = Object.freeze({
 // and updater text are localized without changing their functional logic.
 const EXTRA_ES_TO_EN = Object.freeze({
   'Categorías de ajustes': 'Settings categories', 'Velocidad': 'Speed',
+  'Nombre': 'Name', 'Guardar en': 'Save to', 'Cambiar': 'Change', 'Comprimido': 'Compressed',
+  'Analiza': 'Analyze', 'ENLACE DETECTADO': 'LINK DETECTED', 'EXTENSIÓN DE CLEAR DOWNLOAD MANAGER': 'CLEAR DOWNLOAD MANAGER EXTENSION',
+  'MULTIMEDIA · CONTENIDO': 'MEDIA · CONTENT', 'MULTIMEDIA': 'MEDIA', 'Contenido multimedia': 'Media content',
+  'Preparando contenido multimedia': 'Preparing media content', 'Añadir torrent de forma local': 'Add torrent locally',
+  'Pega un enlace magnet o selecciona un archivo .torrent. aria2c gestionará la descarga, la pausa y la recuperación.': 'Paste a magnet link or select a .torrent file. aria2c will manage downloading, pausing, and recovery.',
+  'Elegir archivo': 'Choose file', 'Abre el selector nativo de Windows.': 'Opens the native Windows picker.',
+  'Pegar magnet': 'Paste magnet', 'Lee el portapapeles solo al pulsarlo.': 'Reads the clipboard only when clicked.',
+  'Motor privado y local': 'Private local engine', 'La fuente se entrega directamente a aria2c. CacaTools no utiliza un servidor intermediario.': 'The source is sent directly to aria2c. Clear Download Manager does not use an intermediary server.',
+  'Elige Analizar para abrir la preparación correspondiente. La descarga no comenzará desde esta sugerencia.': 'Choose Analyze to open the corresponding preparation. The download will not start from this suggestion.',
+  'No se pudo preparar este enlace': 'This link could not be prepared', 'El enlace devolvió una página web, no el archivo solicitado. Busca el botón de descarga de la página y copia el enlace directo del archivo.': 'The link returned a web page, not the requested file. Find the page download button and copy the file direct link.',
+  'Buscando coincidencias…': 'Searching for matches…', 'Busca un vídeo por su título': 'Search for a video by title',
+  'También puedes escribir artista, canal o palabras clave.': 'You can also enter an artist, channel, or keywords.',
+  'La búsqueda se realiza mediante el resolvedor local. Nada se envía a CacaTools.': 'Search uses the local resolver. Nothing is sent anywhere.',
+  'Nueva descarga torrent': 'New torrent download', 'Pega un magnet o selecciona un archivo .torrent.': 'Paste a magnet or select a .torrent file.',
+  'Cancelar y conservar': 'Cancel and keep', 'Mantiene fragmentos y temporales para recuperación manual.': 'Keeps fragments and temporary files for manual recovery.',
+  'Cancelar y limpiar': 'Cancel and clean up', 'Elimina únicamente los temporales administrados cuando el proceso termine.': 'Removes only managed temporary files when the process ends.',
+  'Validando rutas administradas…': 'Validating managed paths…', 'Archivo o carpeta final': 'Final file or folder', 'Temporales relacionados': 'Related temporary files',
+  'No existe una salida final registrada.': 'No final output is registered.', 'No hay temporales registrados.': 'No temporary files are registered.', 'Raíz administrada:': 'Managed root:',
+  'El almacenamiento está protegido': 'Storage is protected', 'Solo de CacaTools': 'Clear Download Manager only', 'CacaTools y almacenamiento': 'Clear Download Manager and storage',
+  'Borra la tarea de la cola y el historial. Conserva archivos y carpetas.': 'Removes the task from the queue and history. Keeps files and folders.',
+  'Elimina las rutas finales y parciales indicadas arriba.': 'Removes the final and partial paths shown above.', 'Confirmo la eliminación del almacenamiento': 'I confirm storage deletion',
+  'Eliminar archivo y registro': 'Delete file and record', 'Eliminar archivos y registros': 'Delete files and records',
+  'Eliminar selección': 'Delete selection', 'más': 'more', 'Actualización disponible': 'Update available',
+  'La instalación no comienza automáticamente y se mantiene bloqueada mientras haya descargas activas.': 'Installation does not start automatically and remains blocked while downloads are active.',
+  'Más tarde': 'Later', 'Instalar ahora': 'Install now', 'Vista previa': 'Preview', 'Cerrar': 'Close', 'Volver': 'Back',
+  'Envía enlaces desde tu navegador': 'Send links from your browser', 'Envía enlaces al gestor y consulta tus descargas directamente desde el navegador.': 'Send links to the manager and view your downloads directly from the browser.',
+  'La extensión no se instala automáticamente. Solo se abrirá la Chrome Web Store si eliges continuar.': 'The extension is not installed automatically. The Chrome Web Store opens only if you choose to continue.',
+  'Prepara un reporte local para abrirlo en GitHub. CacaTools no adjunta logs ni rutas privadas automáticamente.': 'Prepare a local report to open in GitHub. Clear Download Manager does not attach logs or private paths automatically.',
+  'Programa una acción local para': 'Schedule a local action for', 'Selecciona primero una descarga.': 'Select a download first.', 'La programación se vincula a un trabajo concreto para evitar tareas sin efecto.': 'Scheduling is tied to a specific job to avoid ineffective tasks.',
+  'Acción': 'Action', 'Pausar': 'Pause', 'No apareció una alternativa suficientemente fiable': 'No sufficiently reliable alternative was found', 'No es necesario buscar otro vídeo para este tipo de error': 'There is no need to search for another video for this error type',
+  'El asistente conserva el archivo parcial y propone reparar la tarea original cuando es seguro.': 'The assistant keeps the partial file and offers to repair the original task when safe.',
+  'Diagnóstico local, doble comprobación y reparación según el tipo de tarea.': 'Local diagnosis, double-check, and repair based on the task type.',
+  'Se distingue entre fallo temporal, restricción, archivo bloqueado y contenido realmente ausente.': 'Temporary failures, restrictions, blocked files, and genuinely missing content are distinguished.',
+  '¿El error es definitivo o todavía se puede corregir?': 'Is the error final or can it still be fixed?', 'Primero se verificará la fuente. Solo los vídeos realmente no disponibles activarán la búsqueda de alternativas.': 'The source will be checked first. Only videos that are truly unavailable will trigger an alternative search.',
+  'Descargando': 'Downloading', 'En pausa': 'Paused', 'Cancelada': 'Cancelled', 'Error': 'Error', 'Programada': 'Scheduled', 'Procesando…': 'Processing…', 'Procesando': 'Processing', 'Pendiente': 'Pending', 'Verificando': 'Verifying', 'Finalizando': 'Finalizing', 'Preparando': 'Preparing',
+  'Vídeo': 'Video', 'Documento': 'Document', 'Imagen': 'Image', 'Fuente': 'Font', 'Texto': 'Text', 'Código': 'Code', 'Hoja': 'Spreadsheet', 'Presentación': 'Presentation', 'Aplicación': 'Application', 'Archivo': 'File', 'Completado': 'Completed',
+  'Programar': 'Schedule', 'Programar tarea': 'Schedule task', 'Iniciar o reanudar': 'Start or resume',
+  'Diagnosticar': 'Diagnose', 'Diagnosticar y confirmar': 'Diagnose and confirm', 'Prioridad': 'Priority',
+  'Alta': 'High', 'Normal': 'Normal', 'Baja': 'Low', 'Todo seleccionado': 'All selected', 'Estado': 'Status',
+  'No volver a mostrar sugerencias del portapapeles': 'Do not show clipboard suggestions again', 'Origen web': 'Web source',
+  'Playlist de YouTube': 'YouTube playlist', 'Preparar contenido multimedia': 'Prepare media content',
+  'Formato y calidad': 'Format and quality', 'Destino y archivo': 'Destination and file', 'Formato de salida': 'Output format',
+  'Calidad / formato': 'Quality / format', 'Listo para confirmar': 'Ready to confirm', 'Opciones comunes': 'Common options',
+  'Elementos seleccionados': 'Selected items', 'Descargar seleccionados': 'Download selected', 'Sin elementos seleccionados': 'No items selected',
+  'Descarga todavía en curso': 'Download still in progress', 'No reproduce archivos .part, fragmentos incompletos ni vídeo y audio separados.': 'It does not play .part files, incomplete fragments, or separate video and audio streams.',
+  'El reproductor se habilitará cuando exista un archivo final seguro.': 'The player will be enabled when a safe final file exists.',
+  'Progreso actual:': 'Current progress:', 'Preparando enlace…': 'Preparing link…', 'Preparando playlist…': 'Preparing playlist…',
+  'Reproducción temporal sin descargar.': 'Temporary playback without downloading.', 'Archivo multimedia local.': 'Local media file.',
+  'Abrir ajustes de sesión': 'Open session settings', 'No gracias': 'No thanks', 'Tipo de reporte': 'Report type',
+  'Problema': 'Problem', 'Sugerencia': 'Suggestion', 'Comentario': 'Comment', 'Otro': 'Other', 'Título': 'Title',
+  'Descripción': 'Description', 'Resumen breve': 'Brief summary', 'Qué ocurrió y qué esperabas': 'What happened and what you expected',
+  'Pasos para reproducir': 'Steps to reproduce', 'Fecha y hora': 'Date and time', 'Repetir diariamente': 'Repeat daily',
+  'Guardar tarea': 'Save task', 'Confirmando el error antes de actuar…': 'Confirming the error before acting…',
+  'Qué conviene hacer': 'What to do', 'Alternativas encontradas': 'Alternatives found', 'Usar alternativa': 'Use alternative',
+  'Fuente disponible': 'Source available', 'Fallo confirmado': 'Failure confirmed', 'Reanudar fuente original': 'Resume original source',
+  'Reintentar conservando el parcial': 'Retry while keeping the partial file', 'Actualización disponible': 'Update available',
   'Límite máximo por descarga': 'Maximum limit per download', 'Máximo por descarga': 'Maximum per download',
   'Guardar': 'Save', 'Cambiar carpeta': 'Change folder', 'Abrir carpeta': 'Open folder',
   'Carpeta de descargas': 'Download folder', 'Comportamiento': 'Behavior', 'Reanudación': 'Resume',
@@ -147,7 +203,11 @@ const ES_PHRASES = Object.freeze([
   ['Se abrirá el navegador oficial de Spotify.', 'The official Spotify browser will open.'],
   ['No se pudieron inspeccionar las rutas.', 'The paths could not be inspected.'],
   ['La descarga ya no está disponible', 'The download is no longer available'],
-  ['La fuente se entrega directamente', 'The source is sent directly']
+  ['La fuente se entrega directamente', 'The source is sent directly'],
+  ['CacaTools no reproduce archivos .part, fragmentos incompletos ni vídeo y audio separados.', 'Clear Download Manager does not play .part files, incomplete fragments, or separate video and audio streams.'],
+  ['CacaTools continuará con el siguiente elemento reproducible.', 'Clear Download Manager will continue with the next playable item.'],
+  ['CacaTools no simulará una reproducción que la fuente no permita.', 'Clear Download Manager will not simulate playback that the source does not allow.'],
+  ['CacaTools encontró un error de interfaz', 'Clear Download Manager encountered an interface error']
 ]);
 
 const EN_TO_ES = Object.freeze(Object.fromEntries(Object.entries(FULL_ES_TO_EN).map(([es, en]) => [en, es])));
@@ -172,6 +232,11 @@ function replaceKnown(value, locale) {
     text = text.replace(/^Descargar (\d+) seleccionados$/, 'Download $1 selected');
     text = text.replace(/^Descargando (.+)$/, 'Downloading $1');
     text = text.replace(/^CacaTools (.+)$/, 'Clear Download Manager $1');
+    text = text.replace(/^Clear Download Manager no reproduce archivos \.part, fragmentos incompletos ni vídeo y audio separados\.\s*/i, 'Clear Download Manager does not play .part files, incomplete fragments, or separate video and audio streams. ');
+    text = text.replace(/^El reproductor se habilitará cuando exista un archivo final seguro\./i, 'The player will be enabled when a safe final file exists.');
+    text = text.replace(/Progreso actual:\s*(\d+)%/i, 'Current progress: $1%');
+    text = text.replace(/^([^·]+) · reproducción online$/i, '$1 · online playback');
+    text = text.replace(/^La calidad (\d+)p no está disponible en esta fuente\.?$/i, 'Quality $1p is not available from this source.');
   } else {
     const exact = EN_TO_ES[text.trim()];
     if (exact) return text.replace(text.trim(), exact);
@@ -180,6 +245,7 @@ function replaceKnown(value, locale) {
     text = text.replace(/^Cancel “(.+)”$/, 'Cancelar “$1”');
     text = text.replace(/^Delete “(.+)”$/, 'Eliminar “$1”');
     text = text.replace(/^Download (\d+) selected$/, 'Descargar $1 seleccionados');
+    text = text.replace(/^Current progress:\s*(\d+)%/i, 'Progreso actual: $1%');
   }
   return text;
 }

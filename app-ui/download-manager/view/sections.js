@@ -69,7 +69,7 @@ export function newsPanel(context = {}) {
     if (!asset) return '';
     const matrix = mode === 'blue' ? '0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 1 0 0' : '0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 2 -1 0 0';
     const id = `dm-semantic-${mode}`;
-    return `<svg class="dm-news-semantic-icon" viewBox="0 0 1254 1254" aria-hidden="true"><defs><filter id="${id}" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="${matrix}" result="accentMask"/><feFlood style="flood-color:var(--dm-accent)" result="accentColor"/><feComposite in="accentColor" in2="accentMask" operator="in"/></filter></defs><image href="${asset}" width="1254" height="1254" preserveAspectRatio="xMidYMid meet"/><image href="${asset}" width="1254" height="1254" preserveAspectRatio="xMidYMid meet" filter="url(#${id})"/></svg>`;
+    return `<svg class="dm-news-semantic-icon" viewBox="0 0 1254 1254" aria-hidden="true"><defs><filter id="${id}" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="${matrix}" result="accentMask"/><feFlood style="flood-color:var(--dm-icon-accent)" result="accentColor"/><feComposite in="accentColor" in2="accentMask" operator="in"/></filter></defs><image href="${asset}" width="1254" height="1254" preserveAspectRatio="xMidYMid meet"/><image href="${asset}" width="1254" height="1254" preserveAspectRatio="xMidYMid meet" filter="url(#${id})"/></svg>`;
   };
   const englishNews = String(context.locale?.() || context.locale || '').toLowerCase().startsWith('en');
   const actionsFor = (message) => {
