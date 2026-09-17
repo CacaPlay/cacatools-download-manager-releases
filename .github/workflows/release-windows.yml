@@ -41,6 +41,8 @@ jobs:
           }
           "RELEASES_REPO=$($cfg.repository)" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
           Write-Host "Repositorio de releases: $($cfg.repository)"
+      - name: Preparar runtimes para el gate Rust
+        run: npm run prepare:windows-binaries
       - name: Gate Rust
         shell: pwsh
         run: |
