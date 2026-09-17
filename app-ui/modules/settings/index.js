@@ -3,7 +3,7 @@ import { DEFAULT_ICON_COLOR, DEFAULT_ICON_COLOR_MODE } from '../appearance/token
 let settingsContext = {};
 let appState = {};
 let advancedOpen = false;
-let APP_VERSION = '0.95.2';
+let APP_VERSION = '0.95.1';
 let THUMBNAIL_CACHE_VERSION = 1;
 
 const contextValue = (name, fallback) => settingsContext[name] || fallback;
