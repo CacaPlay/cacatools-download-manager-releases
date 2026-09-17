@@ -40,7 +40,7 @@ export function normalizeLocale(value) {
 }
 
 export function detectSystemLocale() {
-  try { return /^es(?:[-_]|$)/i.test(navigator.language || '') ? 'es' : 'en'; } catch { return 'es'; }
+  try { return /^es(?:[-_]|$)/i.test(navigator.language || '') ? 'es' : 'en'; } catch { return 'en'; }
 }
 
 export function resolveLocale(value = 'system') {
