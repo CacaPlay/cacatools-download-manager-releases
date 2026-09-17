@@ -1,6 +1,8 @@
 import { loadStoredAppearance, storeAppearanceLocally } from '../modules/appearance/index.js?v=0.95.0-verify-20260911-r4';
 import { bindAppearanceSync } from '../modules/appearance/sync.js?v=0.95.0-verify-appearance';
 import { applyBrandIconVariant, iconVariantForColor } from '../modules/appearance/index.js?v=0.95.0-verify-20260911-r4';
+import { loadLocale, resolveLocale } from '../modules/i18n/index.js';
+import { localizeDom } from '../modules/i18n/runtime.js';
 
 const shell = document.querySelector('.player-shell');
 const video = document.querySelector('.player-video');
@@ -53,6 +55,23 @@ const compactMenu = document.querySelector('[data-player-compact-menu]');
 const compactCloseButton = document.querySelector('[data-player-compact-close]');
 const compactBackdropCanvas = document.querySelector('[data-player-backdrop-canvas]');
 const playerControls = document.querySelector('.player-controls');
+
+// The player is rendered in its own window and updates several labels after
+// startup.  Observe only this shell and run the existing runtime i18n pass so
+// dynamic quality, playlist, status and error messages follow live locale
+// changes without touching playback behavior.
+let playerLocalizationQueued = false;
+function localizePlayerDom() {
+  if (playerLocalizationQueued) return;
+  playerLocalizationQueued = true;
+  queueMicrotask(() => {
+    playerLocalizationQueued = false;
+    localizeDom(document, resolveLocale(loadLocale()));
+  });
+}
+const playerLocalizationObserver = new MutationObserver(localizePlayerDom);
+playerLocalizationObserver.observe(document.documentElement, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['title', 'aria-label', 'placeholder', 'data-tooltip'] });
+localizePlayerDom();
 const playerLifecycle = [];
 function markPlayerLifecycle(label) {
   const entry = { label, time: performance.now() };

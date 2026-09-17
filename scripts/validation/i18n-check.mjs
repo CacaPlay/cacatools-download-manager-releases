@@ -32,11 +32,17 @@ const runtimeFiles = [
   'app-ui/main.js',
   'app-ui/modules/composition/index.js',
   'app-ui/modules/settings/index.js',
+  'app-ui/modules/runtime/index.js',
+  'app-ui/modules/playlists/index.js',
+  'app-ui/download-manager/actions.js',
+  'app-ui/download-manager/events.js',
   'app-ui/download-manager/view/unified.js',
   'app-ui/download-manager/view/dialogs.js',
   'app-ui/download-manager/view/shared.js',
   'app-ui/download-manager/view/sections.js',
-  'app-ui/subwindow.js'
+  'app-ui/subwindow.js',
+  'app-ui/player/player.js',
+  'app-ui/player/index.html'
 ];
 const sourceText = runtimeFiles.map((relative) => {
   const file = path.join(root, relative);
@@ -46,6 +52,18 @@ const sourceText = runtimeFiles.map((relative) => {
 const coreTerms = ['Pegar', 'Torrent', 'Archivo o enlace', 'Playlist', 'Seleccionar', 'Analizar', 'Todas las categorías', 'Activas', 'Completadas', 'Velocidad', 'Ajustes', 'Descargas', 'Novedades', 'Apariencia', 'Integraciones', 'Más detalles', 'Ver release', 'Detalles avanzados', 'Copiar diagnóstico'];
 const uncovered = coreTerms.filter((term) => sourceText.includes(term) && !RUNTIME_TRANSLATION_TERMS.includes(term) && !Object.hasOwn(es, term));
 if (uncovered.length) errors.push(`hardcoded core UI terms lack localization coverage: ${uncovered.join(', ')}`);
+const knownUserFacingTerms = [
+  'Comprobando el archivo', 'Esperando el archivo', 'Preparar descarga HTTP', 'Preparar playlist',
+  'Reintentar análisis', 'Selecciona un formato y calidad compatibles.', 'Selecciona una calidad disponible.',
+  'Detalles avanzados', 'Abrir carpeta de descargas', 'Eliminar del historial', 'Pausar playlist',
+  'Reanudar playlist', 'Motor y diagnóstico', 'Archivos relacionados', 'Registro del trabajo',
+  'Calidad oficial de YouTube', 'No hay una pista de subtítulos seleccionable para este contenido.',
+  'El archivo no pudo reproducirse', 'Actualización instalada. Windows cerrará la aplicación para finalizar.',
+  'Comprobando la versión publicada…', 'Descargando y verificando la actualización firmada…',
+  'Espera a que terminen las descargas activas antes de instalar.'
+];
+const uncoveredKnown = knownUserFacingTerms.filter((term) => sourceText.includes(term) && !RUNTIME_TRANSLATION_TERMS.includes(term) && !Object.hasOwn(es, term));
+if (uncoveredKnown.length) errors.push(`known user-facing literals lack localization coverage: ${uncoveredKnown.join(', ')}`);
 if (!sourceText.includes('localizeDom')) errors.push('runtime localization hook is not connected');
 if (errors.length) {
   console.error(`i18n check failed (${errors.length})`);
