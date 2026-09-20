@@ -376,7 +376,7 @@ fn validate_component(
     if component.artifact.filename.is_empty()
         || component.artifact.filename.contains(['/', '\\'])
         || component.artifact.filename != component.artifact.filename.trim()
-        || component.artifact.filename != component.id.executable_name()
+        || component.artifact.filename != component.id.artifact_filename()
         || !component
             .artifact
             .filename

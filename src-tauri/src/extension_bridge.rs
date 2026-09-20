@@ -5,7 +5,7 @@ use std::{
     env,
     fs::{self, File, OpenOptions},
     io::{self, Read, Write},
-    path::{Path, PathBuf},
+    path::PathBuf,
     process::Command,
     sync::{
         atomic::{AtomicU64, Ordering},
@@ -18,6 +18,8 @@ use std::{
 use sha2::{Digest, Sha256};
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
+#[cfg(windows)]
+use std::path::Path;
 
 const BRIDGE_PROTOCOL_VERSION: u32 = 1;
 const BUNDLED_EXTENSION_CONFIG: &str = include_str!("../resources/extension/extension-config.json");

@@ -189,7 +189,7 @@ fn official_endpoint(
     if component.id != ToolId::YtDlp
         || component.source.authority != SourceAuthority::YtDlpOfficial
         || component.source.repository != policy.repository
-        || component.artifact.filename != ToolId::YtDlp.executable_name()
+        || component.artifact.filename != ToolId::YtDlp.artifact_filename()
         || component.artifact.release_tag.is_empty()
     {
         return Err(DownloadError::UnsupportedComponent);
@@ -718,7 +718,7 @@ pub(crate) fn reverify_staged_yt_dlp(
         .and_then(|name| name.to_str())
         .ok_or(DownloadError::Filesystem)?;
     if !operation_name.starts_with("op-")
-        || staged.path.file_name() != Some(std::ffi::OsStr::new(&ToolId::YtDlp.executable_name()))
+        || staged.path.file_name() != Some(std::ffi::OsStr::new(&ToolId::YtDlp.artifact_filename()))
     {
         return Err(DownloadError::Filesystem);
     }
