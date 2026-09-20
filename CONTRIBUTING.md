@@ -13,5 +13,7 @@ to a reproducible issue or an agreed feature.
   and the relevant tests.
 - Never include user databases, downloaded media, installers, logs, signing
   keys, or native runtime binaries in a source pull request.
+- To build outside the default `src-tauri/target`, set `CARGO_TARGET_DIR`
+  locally; do not commit a machine-specific `.cargo/config.toml`.
 
 Describe the user-visible effect, the tests run, and any known limitation.
