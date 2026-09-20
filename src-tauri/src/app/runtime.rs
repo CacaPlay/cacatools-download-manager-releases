@@ -60,6 +60,11 @@ impl ToolId {
             self.base_name().to_string()
         }
     }
+
+    /// Filename of the upstream Windows artifact, independent of the host OS.
+    pub(crate) fn artifact_filename(self) -> String {
+        format!("{}.exe", self.base_name())
+    }
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -584,7 +589,15 @@ mod tests {
     fn tool_ids_expose_stable_descriptors_and_ffmpeg_set_relationship() {
         assert_eq!(ToolId::YtDlp.base_name(), "yt-dlp");
         assert_eq!(ToolId::Deno.env_name(), "CACATOOLS_DENO");
-        assert_eq!(ToolId::Aria2c.executable_name(), "aria2c.exe");
+        assert_eq!(
+            ToolId::Aria2c.executable_name(),
+            if cfg!(windows) {
+                "aria2c.exe"
+            } else {
+                "aria2c"
+            }
+        );
+        assert_eq!(ToolId::Aria2c.artifact_filename(), "aria2c.exe");
         assert_eq!(ToolId::Ffmpeg.component_group(), Some("FFMPEG_SET"));
         assert_eq!(ToolId::Ffprobe.component_group(), Some("FFMPEG_SET"));
         assert_eq!(ToolId::YtDlp.component_group(), None);
@@ -638,7 +651,7 @@ mod tests {
     #[test]
     fn development_path_lookup_returns_an_absolute_expected_binary() {
         let directory = fixture_dir("path-lookup");
-        let expected = fixture_file(&directory, "ffmpeg.exe");
+        let expected = fixture_file(&directory, &ToolId::Ffmpeg.executable_name());
         let resolved = development_path_candidate_from_paths(ToolId::Ffmpeg, [directory]);
         assert_eq!(resolved, Some(expected.clone()));
         assert!(resolved.expect("absolute development path").is_absolute());
@@ -648,7 +661,7 @@ mod tests {
     #[test]
     fn authorized_development_override_resolves_only_for_expected_absolute_file() {
         let directory = fixture_dir("authorized-override");
-        let override_path = fixture_file(&directory, "ffmpeg.exe");
+        let override_path = fixture_file(&directory, &ToolId::Ffmpeg.executable_name());
         let validated = validate_development_override_path(ToolId::Ffmpeg, &override_path)
             .expect("expected executable identity should validate");
         let resolution = resolve_candidates_with_probe(
