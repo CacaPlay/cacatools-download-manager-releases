@@ -3,16 +3,29 @@
 </p>
 
 <h1 align="center">Clear Download Manager</h1>
-<p align="center"><span style="color:#8b98a9">Download and multimedia manager for Windows</span></p>
+<p align="center">Download and multimedia manager for Windows</p>
 <p align="center">Clear Download Manager (CDM) is a local Windows application for organizing HTTP/HTTPS downloads, video, audio, playlists, torrents and direct links. It is built with Tauri and Rust and includes optional Chromium browser integration.</p>
 
-<p align="center"><picture><source media="(max-width: 700px)" srcset="docs/assets/feature-pills-narrow.svg?v=visual-harmony-20260915"><img src="docs/assets/feature-pills.svg?v=visual-harmony-20260915" width="100%" alt="Downloads · Video and audio · Torrents · Direct links · Chromium integration"></picture></p>
+<p align="center">
+  <picture><source media="(prefers-color-scheme: dark)" srcset="docs/assets/feature-pills/downloads-dark.svg"><img src="docs/assets/feature-pills/downloads-light.svg" height="36" alt="Downloads"></picture>&nbsp;
+  <picture><source media="(prefers-color-scheme: dark)" srcset="docs/assets/feature-pills/video-audio-dark.svg"><img src="docs/assets/feature-pills/video-audio-light.svg" height="36" alt="Video and audio"></picture>&nbsp;
+  <picture><source media="(prefers-color-scheme: dark)" srcset="docs/assets/feature-pills/torrents-dark.svg"><img src="docs/assets/feature-pills/torrents-light.svg" height="36" alt="Torrents"></picture>&nbsp;
+  <picture><source media="(prefers-color-scheme: dark)" srcset="docs/assets/feature-pills/direct-links-dark.svg"><img src="docs/assets/feature-pills/direct-links-light.svg" height="36" alt="Direct links"></picture>&nbsp;
+  <picture><source media="(prefers-color-scheme: dark)" srcset="docs/assets/feature-pills/chromium-dark.svg"><img src="docs/assets/feature-pills/chromium-light.svg" height="36" alt="Chromium integration"></picture>
+</p>
 <p align="center"><img src="docs/assets/section-divider.svg?v=visual-harmony-20260915" width="100%" height="2" alt=""></p>
 
-<h3><big>Download</big></h3>
-<p>Choose the option that works best for you.</p>
-<p align="center"><a href="https://github.com/CacaPlay/clear-download-manager-releases/releases/download/v0.95.1-build4/Clear.Download.Manager_0.95.1_x64-setup.exe"><img src="docs/assets/download-cards/windows.svg?v=visual-harmony-20260915" width="32%" alt="Download for Windows — Windows installer"></a>&nbsp;<a href="https://apps.microsoft.com/detail/9NSTJ7JXM843"><img src="docs/assets/download-cards/microsoft-store.svg?v=visual-harmony-20260915" width="32%" alt="Microsoft Store — Get it from Microsoft Store"></a>&nbsp;<a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp"><img src="docs/assets/download-cards/chrome-web-store.svg?v=visual-harmony-20260915" width="32%" alt="Chrome Web Store — Browser extension"></a></p>
-<p align="center"><a href="https://github.com/CacaPlay/clear-download-manager-releases/releases/download/v0.95.0/Clear.Download.Manager_0.95.0_x64-setup.exe">Download for Windows</a> · <a href="https://apps.microsoft.com/detail/9NSTJ7JXM843">Microsoft Store</a> · <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp">Chrome Web Store</a></p>
+## Download
+
+Choose the option that works best for you.
+
+<p align="center">
+  <a href="https://github.com/CacaPlay/clear-download-manager-releases/releases/download/v0.95.1-build4/Clear.Download.Manager_0.95.1_x64-setup.exe"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/assets/download-buttons/windows-dark.png"><img src="docs/assets/download-buttons/windows-light.png" width="342" alt="Get the app: Windows Installer"></picture></a>&nbsp;&nbsp;
+  <a href="https://apps.microsoft.com/detail/9NSTJ7JXM843"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/assets/download-buttons/microsoft-store-dark.png"><img src="docs/assets/download-buttons/microsoft-store-light.png" width="312" alt="Official store: Microsoft Store"></picture></a>
+</p>
+<p align="center">
+  <a href="https://chromewebstore.google.com/detail/aonppfnabjnicjjeoofkfjofolfibggp"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/assets/download-buttons/chrome-web-store-dark.png"><img src="docs/assets/download-buttons/chrome-web-store-light.png" width="346" alt="Browser extension: Chrome Web Store"></picture></a>
+</p>
 
 You can also open the [complete Windows release](https://github.com/CacaPlay/clear-download-manager-releases/releases/latest) for hashes, signature and updater metadata.
 
@@ -39,11 +52,11 @@ You can also open the [complete Windows release](https://github.com/CacaPlay/cle
 The app keeps the queue, history and insertion order locally on this device.
 
 ## Verify the installer
-The CDM 0.95.0 installer is `Clear.Download.Manager_0.95.0_x64-setup.exe`.
+The CDM 0.95.1 installer is `Clear.Download.Manager_0.95.1_x64-setup.exe`.
 ```powershell
-Get-FileHash .\Clear.Download.Manager_0.95.0_x64-setup.exe -Algorithm SHA256
+Get-FileHash .\Clear.Download.Manager_0.95.1_x64-setup.exe -Algorithm SHA256
 ```
-Expected SHA-256: `6f22a95cc288f1624951614544203f1eaaed80decd183db83ad6874ae290f880`
+Expected SHA-256: `de1dc46dd89ec3404e6a091d214ea538e8a72a83fd6da95559b57f19e8645b6c`
 The [releases repository](https://github.com/CacaPlay/clear-download-manager-releases/releases/latest) contains the complete `SHA256SUMS.txt` manifest.
 
 ## Requirements
