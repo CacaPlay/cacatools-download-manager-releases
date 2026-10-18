@@ -135,7 +135,7 @@
     "check:pre2i-stabilization": "node scripts/validation/pre2i-stabilization.mjs && python scripts/validation/pre2i_player_interaction.py"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "2.11.4",
+    "@tauri-apps/cli": "2.12.3",
     "esbuild": "0.28.1"
   },
   "dependencies": {
